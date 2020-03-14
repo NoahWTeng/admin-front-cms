@@ -13,15 +13,15 @@ export const auth = (state = initialState, action = {}) => {
     case authType.REQUEST:
       return {
         ...state,
-        isFetching: true,
-        admin: action.email
+        isFetching: true
       };
     case authType.SUCCESS:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: !isEmpty(action.admin),
-        admin: action.admin
+        admin: action.admin,
+        error: ''
       };
     case authType.ERROR:
       return {

@@ -1,20 +1,22 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import { history } from '@helpers';
-import { LoginPage } from '@pages';
+import { history, renderControl } from '@helpers';
+import { LoginPage, AuthRoute, InitialStorage } from '@pages';
 
 function App() {
+  renderControl('App');
   return (
     <Router history={history}>
-      <Switch>
-        <Route path="/login" component={LoginPage} />
-        {/* <AuthRoute> */}
-        {/* <Layouts><PrimaryLayouts /></Layouts> */}
-        {/* </AuthRoute> */}
-      </Switch>
+      <InitialStorage>
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <AuthRoute>
+            <h1>Hello</h1>
+          </AuthRoute>
+        </Switch>
+      </InitialStorage>
     </Router>
   );
 }
-// const mapState = state => state;
 
 export default App;

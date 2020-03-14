@@ -5,26 +5,19 @@ import { message } from 'antd';
 
 const setAdmin = admin => ({ type: authType.SUCCESS, admin });
 
-const loginAction = (email, password) => {
+const loginAction = data => {
   return async dispatch => {
     try {
-      dispatch({ type: authType.REQUEST, email });
-      await message.loading('Login in progress..', 1.5);
+      dispatch({ type: authType.REQUEST });
+      await message.loading('Login in progress..', 1);
 
-      const {
-        data: { success, token, userRole, userID }
-      } = await authServices.post('', { email, password });
+      const assets = await authServices.post('', data);
 
-      if (success && userRole === 'SuperAdmin') {
-        storage.set('admin', { token, userID });
+      if (assets && assets.data) {
+        storage.set('admin', assets.data);
         await message.success('Login success!', 1);
 
-        return dispatch(
-          setAdmin({
-            token,
-            userID
-          })
-        );
+        return dispatch(setAdmin(assets.data));
       }
     } catch ({ response }) {
       const error = response.data.message;
@@ -43,4 +36,4 @@ const logoutAction = () => {
   };
 };
 
-export { loginAction, logoutAction };
+export { loginAction, logoutAction, setAdmin };
