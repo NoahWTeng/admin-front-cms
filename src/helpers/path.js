@@ -1,14 +1,15 @@
 import { pathToRegexp } from 'path-to-regexp';
+import { uniqBy } from 'lodash';
 
-const updatePath = location => {
+function updatePath(location) {
   const updatePath = location.pathname.split('/');
   updatePath.shift();
   const newPath = updatePath.slice(1).join('/');
 
   return newPath;
-};
+}
 
-const queryStringToJSON = pathname => {
+function queryStringToJSON(pathname) {
   const pairs = pathname.slice(1).split('&');
 
   const result = {};
@@ -18,7 +19,7 @@ const queryStringToJSON = pathname => {
   });
 
   return result;
-};
+}
 
 /**
  * Convert an array to a tree-structured array.
@@ -28,21 +29,17 @@ const queryStringToJSON = pathname => {
  * @param   {string}    children  The alias of children of the object in the array.
  * @return  {array}    Return a tree-structured array.
  */
-const arrayToTree = (
-  data,
-  id = 'id',
-  parentId = 'pid',
-  children = 'children'
-) => {
+function arrayToTree(data, id = 'id', parentId = 'pid', children = 'children') {
   const result = [];
-  const hash = {};
 
-  data.forEach((item, index) => {
-    hash[data[index][id]] = data[index];
-  });
+  const hash = data.reduce((init, item) => {
+    const included = init.hasOwnProperty(item.id);
+    return included ? { ...init } : { ...init, [item.id]: item };
+  }, {});
 
   data.forEach(item => {
     const hashParent = hash[item[parentId]];
+
     if (hashParent) {
       !hashParent[children] && (hashParent[children] = []);
       hashParent[children].push(item);
@@ -50,8 +47,13 @@ const arrayToTree = (
       result.push(item);
     }
   });
-  return result;
-};
+
+  const toBeUnique = result.map(item =>
+    item.children ? { ...item, children: uniqBy(item.children, 'id') } : item
+  );
+
+  return toBeUnique;
+}
 
 /**
  * Whether the path matches the regexp if the language prefix is ignored, https://github.com/pillarjs/path-to-regexp.
@@ -59,9 +61,9 @@ const arrayToTree = (
  * @param   {string}                  pathname   Specify the pathname to match.
  * @return  {array|null}              Return the result of the match or null.
  */
-const pathMatchRegexp = (regexp, pathname) => {
+function pathMatchRegexp(regexp, pathname) {
   return pathToRegexp(regexp).exec(pathname);
-};
+}
 
 /**
  * In an array of objects, specify an object that traverses the objects whose parent ID matches.
@@ -71,7 +73,7 @@ const pathMatchRegexp = (regexp, pathname) => {
  * @param   {string}    id        The alias of the unique ID of the object in the array.
  * @return  {array}    Return a key array.
  */
-const queryAncestors = (array, current, parentId, id = 'id') => {
+function queryAncestors(array, current, parentId, id = 'id') {
   const result = [current];
   const hashMap = new Map();
   array.forEach(item => hashMap.set(item[id], item));
@@ -86,10 +88,13 @@ const queryAncestors = (array, current, parentId, id = 'id') => {
 
   getPath(current);
   return result;
-};
+}
 
-const currentMenu = (routes, location) =>
-  routes.find(_ => _.route && pathMatchRegexp(_.route, location.pathname));
+function currentMenu(routes, location) {
+  return routes.find(
+    _ => _.route && pathMatchRegexp(_.route, location.pathname)
+  );
+}
 
 export {
   queryAncestors,

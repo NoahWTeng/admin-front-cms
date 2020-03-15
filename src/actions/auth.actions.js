@@ -30,7 +30,10 @@ const loginAction = data => {
 
 const logoutAction = () => {
   return async dispatch => {
-    storage.clear();
+    storage.remove('admin');
+    storage.remove('collapsed');
+    storage.remove('lang');
+    storage.remove('theme');
 
     dispatch(setAdmin({}));
   };

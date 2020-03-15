@@ -3,7 +3,6 @@ import { storage } from '@helpers';
 
 const setLanguage = data => {
   storage.set('lang', data);
-
   return { type: appType.SET_LANGUAGE, data };
 };
 
@@ -18,7 +17,7 @@ const setCollapsed = collapsed => {
 
 const setTheme = value => {
   const theme = value ? 'dark' : 'light';
-  storage.set('theme', theme);
+  storage.set('theme', value);
 
   return { type: appType.SET_THEME, theme };
 };

@@ -1,5 +1,6 @@
 import { appType } from '@constants';
 import en from '@locales/en/messages.json';
+
 import { RoutesList, RenderList } from '@routes';
 
 const initialState = {
@@ -15,10 +16,13 @@ const initialState = {
 export const app = (state = initialState, action = {}) => {
   switch (action.type) {
     case appType.SET_LANGUAGE:
+      const { language, catalog } = action.data;
       return {
         ...state,
-        language: action.data.language,
-        catalogs: action.data.catalog
+        language: language,
+        catalogs: { [language]: catalog },
+        routesList: RoutesList(language),
+        renderList: RenderList(language)
       };
     case appType.SET_COLLAPSED:
       return {

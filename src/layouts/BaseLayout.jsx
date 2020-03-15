@@ -2,22 +2,14 @@ import './BaseLayout.scss';
 import React, { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { withRouter } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { siteName, updatePath, queryStringToJSON } from '@helpers';
 
 // import { changePage } from '@actions';
 
-const Component = ({ children, location, history, changePage }) => {
-  const app = useSelector(state => state.app);
-
-  // useEffect(() => {
-  //   const newPath = updatePath(location);
-
-  //   history.push({
-  //     pathname: `/${language}/${newPath}`,
-  //     search: location.search
-  //   });
-  // }, [language]);
+const BaseLayout = withRouter(({ children, location, history }) => {
+  const dispatch = useDispatch();
+  const { language } = useSelector(state => state.app);
 
   // useEffect(() => {
   //   const pages = queryStringToJSON(location.search);
@@ -32,8 +24,6 @@ const Component = ({ children, location, history, changePage }) => {
       {children}
     </Fragment>
   );
-};
-
-const BaseLayout = withRouter(Component);
+});
 
 export { BaseLayout };
