@@ -1,10 +1,15 @@
 import { appType } from '@constants';
+import en from '@locales/en/messages.json';
+import { RoutesList, RenderList } from '@routes';
 
 const initialState = {
   collapsed: false,
   language: 'en',
   pathName: '',
-  theme: 'dark'
+  catalogs: { en },
+  theme: 'dark',
+  routesList: RoutesList('en'),
+  renderList: RenderList('en')
 };
 
 export const app = (state = initialState, action = {}) => {
@@ -12,7 +17,8 @@ export const app = (state = initialState, action = {}) => {
     case appType.SET_LANGUAGE:
       return {
         ...state,
-        language: action.language
+        language: action.data.language,
+        catalogs: action.data.catalog
       };
     case appType.SET_COLLAPSED:
       return {

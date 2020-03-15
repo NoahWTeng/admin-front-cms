@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { LoginForm, LoginHeader } from './components';
 import { useSelector } from 'react-redux';
 
-function LoginPage() {
+const LoginPage = () => {
   const isAuth = useSelector(state => state.auth.isAuthenticated);
   return isAuth ? (
     <Redirect to="/en/" />
@@ -18,6 +18,6 @@ function LoginPage() {
       </div>
     </div>
   );
-}
+};
 
 export { LoginPage };

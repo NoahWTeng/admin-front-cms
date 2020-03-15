@@ -1,10 +1,10 @@
 import { appType } from '@constants';
 import { storage } from '@helpers';
 
-const setLanguage = language => {
-  storage.set('lang', language);
+const setLanguage = data => {
+  storage.set('lang', data);
 
-  return { type: appType.SET_LANGUAGE, language };
+  return { type: appType.SET_LANGUAGE, data };
 };
 
 const setCollapsed = collapsed => {
@@ -16,8 +16,8 @@ const setCollapsed = collapsed => {
   };
 };
 
-const setTheme = data => {
-  const theme = data ? 'dark' : 'light';
+const setTheme = value => {
+  const theme = value ? 'dark' : 'light';
   storage.set('theme', theme);
 
   return { type: appType.SET_THEME, theme };

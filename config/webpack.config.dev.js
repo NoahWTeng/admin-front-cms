@@ -44,7 +44,8 @@ module.exports = {
       '@services': path.resolve(__dirname, '../src/services'),
       '@themes': path.resolve(__dirname, '../src/themes'),
       '@layouts': path.resolve(__dirname, '../src/layouts'),
-      '@routes': path.resolve(__dirname, '../src/routes')
+      '@routes': path.resolve(__dirname, '../src/routes'),
+      '@locales': path.resolve(__dirname, '../src/locales')
     },
     plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])]
   },
@@ -129,7 +130,7 @@ module.exports = {
       loaders: [
         'style-loader',
         {
-          loader: 'css-loader',
+          loader: 'css-loader'
           // options: {
           //   importLoaders: 1,
           //   localIdentName: '[local]--[hash:base64:5]',

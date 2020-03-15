@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import * as Redux from 'react-redux';
 
 import { store } from '@helpers';
-import App from './App';
+import { App } from './App';
 import * as serviceWorker from './registerServiceWorker';
 
 ReactDOM.render(

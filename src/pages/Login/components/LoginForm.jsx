@@ -9,7 +9,7 @@ import { storage, getStorage } from '@helpers';
 
 const loginStore = getStorage.login();
 
-function LoginForm() {
+const LoginForm = () => {
   const isFetching = useSelector(state => state.auth.isFetching);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -83,6 +83,6 @@ function LoginForm() {
       </Form.Item>
     </Form>
   );
-}
+};
 
 export { LoginForm };
