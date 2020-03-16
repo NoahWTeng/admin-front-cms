@@ -9,9 +9,9 @@ import { setLanguage } from '@actions';
 import { updatePath } from '@helpers';
 
 export const LanguageSwitch = withRouter(({ location, history, i18n }) => {
+  const dispatch = useDispatch();
   const { languages } = i18n;
   const { language } = useSelector(state => state.app);
-  const dispatch = useDispatch();
 
   const currentLanguage = useMemo(
     () => languages.find(item => item.key === language),

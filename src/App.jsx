@@ -1,8 +1,8 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { history } from '@helpers';
-import { LoginPage, AuthRoute, InitialStorage, PrimaryLayouts } from '@pages';
-import { Layouts } from '@layouts';
+import { LoginPage, AuthRoute, InitialStorage } from '@pages';
+import { Layouts, PrimaryLayouts } from '@layouts';
 
 const App = () => {
   return (
