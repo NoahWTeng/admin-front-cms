@@ -16,8 +16,8 @@ const setCollapsed = collapsed => {
 };
 
 const setTheme = value => {
-  const theme = value ? 'dark' : 'light';
   storage.set('theme', value);
+  const theme = value ? 'dark' : 'light';
 
   return { type: appType.SET_THEME, theme };
 };

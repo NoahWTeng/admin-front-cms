@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 
 const LoginPage = () => {
   const isAuth = useSelector(state => state.auth.isAuthenticated);
+  const lang = useSelector(state => state.app.language);
   return isAuth ? (
-    <Redirect to="/en/" />
+    <Redirect to={`/${lang ? lang : 'en'}/`} />
   ) : (
     <div className={'page'}>
       <div className={'page-login'}>

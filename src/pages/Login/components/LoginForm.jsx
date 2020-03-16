@@ -17,7 +17,7 @@ const LoginForm = () => {
   useEffect(() => {
     let isCurrent = true;
 
-    const storage = () => {
+    const setForm = () => {
       if (loginStore)
         form.setFieldsValue({
           email: loginStore.email,
@@ -26,7 +26,7 @@ const LoginForm = () => {
         });
     };
 
-    if (isCurrent) storage();
+    if (isCurrent) setForm();
 
     return () => (isCurrent = false);
   }, []);
@@ -78,7 +78,7 @@ const LoginForm = () => {
           htmlType="submit"
           disabled={isFetching}
         >
-          {isFetching ? <Spin>VERIFYING...</Spin> : 'LOGIN'}
+          {isFetching ? <Spin>Verifying...</Spin> : 'LOGIN'}
         </Button>
       </Form.Item>
     </Form>

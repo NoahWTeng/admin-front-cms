@@ -3,12 +3,10 @@
 .sider {
   box-shadow: fade($primary-color, 10%) 0 0 28px 0;
   z-index: 10;
-  :global {
-    .ant-layout-sider-children {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+  .ant-layout-sider-children {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
@@ -57,11 +55,8 @@
       background-color: rgba(0, 0, 0, 0.2);
     }
   }
-
-  :global {
-    .ant-menu-inline {
-      border-right: none;
-    }
+  .ant-menu-inline {
+    border-right: none;
   }
 }
 
@@ -86,20 +81,15 @@
     color: $text-color;
   }
 
-  :global {
-    .anticon {
-      min-width: 14px;
-      margin-right: 4px;
-      font-size: 14px;
-    }
+  .anticon {
+    min-width: 14px;
+    margin-right: 4px;
+    font-size: 14px;
   }
 }
 .ant-menu-item.ant-menu-item-only-child .anticon,
 .ant-menu-submenu-title.ant-menu-item-only-child .anticon {
   margin-right: 10px !important;
-}
-.anticon {
-  margin-right: 10px;
 }
 
 @keyframes fadeLeftIn {

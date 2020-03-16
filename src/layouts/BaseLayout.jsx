@@ -1,16 +1,12 @@
 import './BaseLayout.scss';
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, memo } from 'react';
 import { Helmet } from 'react-helmet';
-import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { siteName, updatePath, queryStringToJSON } from '@helpers';
 
 // import { changePage } from '@actions';
 
-const BaseLayout = withRouter(({ children, location, history }) => {
-  const dispatch = useDispatch();
-  const { language } = useSelector(state => state.app);
-
+export const BaseLayout = memo(({ children }) => {
   // useEffect(() => {
   //   const pages = queryStringToJSON(location.search);
   //   pages.page ? changePage(pages) : changePage({ page: 1, limit: 10 });
@@ -25,5 +21,3 @@ const BaseLayout = withRouter(({ children, location, history }) => {
     </Fragment>
   );
 });
-
-export { BaseLayout };

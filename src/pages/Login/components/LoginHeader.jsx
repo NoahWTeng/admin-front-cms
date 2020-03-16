@@ -1,7 +1,7 @@
 import '../index.scss';
-import React from 'react';
+import React, { memo } from 'react';
 
-const LoginHeader = () => {
+export const LoginHeader = memo(() => {
   return (
     <>
       <div className={'brand'}>
@@ -10,6 +10,4 @@ const LoginHeader = () => {
       <p>Sign in to your account</p>
     </>
   );
-};
-
-export { LoginHeader };
+});

@@ -1,11 +1,9 @@
 .bread {
   margin-bottom: 24px;
 
-  :global {
-    .ant-breadcrumb {
-      display: flex;
-      align-items: center;
-    }
+  .ant-breadcrumb {
+    display: flex;
+    align-items: center;
   }
 }
 

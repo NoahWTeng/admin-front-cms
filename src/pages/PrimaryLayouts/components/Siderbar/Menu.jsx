@@ -1,13 +1,16 @@
-import React, { Fragment, useState, useMemo, memo } from 'react';
+import React, { Fragment, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Menu } from 'antd';
 import { withRouter, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { arrayToTree, queryAncestors, currentMenu } from '@helpers';
 const { SubMenu } = Menu;
 
 const selected = (menus, hasMenu) =>
   queryAncestors(menus, hasMenu, 'menuParentId').map(({ id }) => id);
+
+const routerFilter = routes => routes.filter(_ => _.menuParentId !== '-1');
 
 const generateMenus = data => {
   return data.map(item => {
@@ -39,56 +42,55 @@ const generateMenus = data => {
   });
 };
 
-const SiderMenu = memo(
-  withRouter(({ theme, menus, location, collapsed }) => {
-    // // Generating tree-structured data for menu content.
-    const menuTree = useMemo(() => arrayToTree(menus, 'id', 'menuParentId'), [
-      menus
-    ]);
-    // // Find a menu that matches the pathname.
-    const hasMenu = useMemo(() => currentMenu(menus, location), [
-      menus,
-      location
-    ]);
-    // Find the key that should be selected according to the current menu.
-    const selectedKeys = !!hasMenu && selected(menus, hasMenu);
-    const [openKeys, setOpenKeys] = useState(
-      [hasMenu && hasMenu.menuParentId] || []
-    );
+const SiderMenu = withRouter(({ location }) => {
+  const { routesList, collapsed, theme } = useSelector(state => state.app);
 
-    const onOpenChange = keys => {
-      const rootSubmenuKeys = menus.filter(_ => !_.menuParentId).map(_ => _.id);
-      const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
-      let newOpenKeys = keys;
-      if (rootSubmenuKeys.indexOf(latestOpenKey) !== -1) {
-        newOpenKeys = latestOpenKey ? [latestOpenKey] : [];
-      }
-      setOpenKeys(keys);
-    };
+  // Check query page is exists
+  const menus = useMemo(() => routerFilter(routesList), [routesList]);
+  // // Generating tree-structured data for menu content.
+  const menuTree = useMemo(() => arrayToTree(menus, 'id', 'menuParentId'), [
+    menus
+  ]);
+  // // Find a menu that matches the pathname.
+  const hasMenu = useMemo(() => currentMenu(menus, location), [
+    menus,
+    location
+  ]);
+  // Find the key that should be selected according to the current menu.
+  const selectedKeys = !!hasMenu && selected(menus, hasMenu);
+  const [openKeys, setOpenKeys] = useState(
+    [hasMenu && hasMenu.menuParentId] || []
+  );
 
-    const menuProps = collapsed ? {} : { openKeys };
+  const onOpenChange = keys => {
+    const rootSubmenuKeys = menus.filter(_ => !_.menuParentId).map(_ => _.id);
+    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+    let newOpenKeys = keys;
+    if (rootSubmenuKeys.indexOf(latestOpenKey) !== -1) {
+      newOpenKeys = latestOpenKey ? [latestOpenKey] : [];
+    }
+    setOpenKeys(keys);
+  };
 
-    const generateTree = useMemo(() => generateMenus(menuTree), [menuTree]);
+  const menuProps = collapsed ? {} : { openKeys };
 
-    return (
-      <Menu
-        mode="inline"
-        theme={theme}
-        onOpenChange={onOpenChange}
-        defaultSelectedKeys={selectedKeys}
-        {...menuProps}
-      >
-        {generateTree}
-      </Menu>
-    );
-  })
-);
+  const generateTree = useMemo(() => generateMenus(menuTree), [menuTree]);
+
+  return (
+    <Menu
+      mode="inline"
+      theme={theme}
+      onOpenChange={onOpenChange}
+      defaultSelectedKeys={selectedKeys || []}
+      {...menuProps}
+    >
+      {generateTree}
+    </Menu>
+  );
+});
 
 SiderMenu.propTypes = {
-  menus: PropTypes.array.isRequired,
-  theme: PropTypes.string.isRequired,
-  location: PropTypes.object,
-  collapsed: PropTypes.bool.isRequired
+  location: PropTypes.object
 };
 
 export { SiderMenu };

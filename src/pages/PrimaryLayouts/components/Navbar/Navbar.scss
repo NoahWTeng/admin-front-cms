@@ -23,46 +23,42 @@
       width: calc(100% - 80px);
     }
   }
+  .ant-menu-horizontal {
+    line-height: 72px;
 
-  :global {
-    .ant-menu-submenu-title {
-      height: 72px;
+    & > .ant-menu-submenu:hover {
+      color: $primary-color;
+      background-color: $hover-color;
     }
+  }
+  .ant-menu-submenu-title {
+    height: 72px;
+  }
 
-    .ant-menu-horizontal {
-      line-height: 72px;
+  .ant-menu {
+    border-bottom: none;
+    height: 72px;
+  }
 
-      & > .ant-menu-submenu:hover {
-        color: $primary-color;
-        background-color: $hover-color;
-      }
-    }
+  .ant-menu-horizontal > .ant-menu-submenu {
+    top: 0;
+    margin-top: 0;
+  }
 
-    .ant-menu {
-      border-bottom: none;
-      height: 72px;
-    }
+  .ant-menu-horizontal > .ant-menu-item,
+  .ant-menu-horizontal > .ant-menu-submenu {
+    border-bottom: none;
+  }
 
-    .ant-menu-horizontal > .ant-menu-submenu {
-      top: 0;
-      margin-top: 0;
-    }
-
-    .ant-menu-horizontal > .ant-menu-item,
-    .ant-menu-horizontal > .ant-menu-submenu {
-      border-bottom: none;
-    }
-
-    .ant-menu-horizontal > .ant-menu-item-active,
-    .ant-menu-horizontal > .ant-menu-item-open,
-    .ant-menu-horizontal > .ant-menu-item-selected,
-    .ant-menu-horizontal > .ant-menu-item:hover,
-    .ant-menu-horizontal > .ant-menu-submenu-active,
-    .ant-menu-horizontal > .ant-menu-submenu-open,
-    .ant-menu-horizontal > .ant-menu-submenu-selected,
-    .ant-menu-horizontal > .ant-menu-submenu:hover {
-      border-bottom: none;
-    }
+  .ant-menu-horizontal > .ant-menu-item-active,
+  .ant-menu-horizontal > .ant-menu-item-open,
+  .ant-menu-horizontal > .ant-menu-item-selected,
+  .ant-menu-horizontal > .ant-menu-item:hover,
+  .ant-menu-horizontal > .ant-menu-submenu-active,
+  .ant-menu-horizontal > .ant-menu-submenu-open,
+  .ant-menu-horizontal > .ant-menu-submenu-selected,
+  .ant-menu-horizontal > .ant-menu-submenu:hover {
+    border-bottom: none;
   }
 
   .rightContainer {
@@ -131,17 +127,15 @@
 }
 
 .notificationPopover {
-  :global {
-    .ant-popover-inner-content {
-      padding: 0;
-    }
-    .ant-popover-arrow {
-      display: none;
-    }
-    .ant-list-item-content {
-      flex: 0;
-      margin-left: 16px;
-    }
+  .ant-popover-inner-content {
+    padding: 0;
+  }
+  .ant-popover-arrow {
+    display: none;
+  }
+  .ant-list-item-content {
+    flex: 0;
+    margin-left: 16px;
   }
 }
 

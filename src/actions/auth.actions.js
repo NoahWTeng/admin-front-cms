@@ -29,14 +29,11 @@ const loginAction = data => {
 };
 
 const logoutAction = () => {
-  return async dispatch => {
-    storage.remove('admin');
-    storage.remove('collapsed');
-    storage.remove('lang');
-    storage.remove('theme');
+  storage.remove('admin');
+  storage.remove('collapsed');
+  storage.remove('theme');
 
-    dispatch(setAdmin({}));
-  };
+  return setAdmin({});
 };
 
 export { loginAction, logoutAction, setAdmin };

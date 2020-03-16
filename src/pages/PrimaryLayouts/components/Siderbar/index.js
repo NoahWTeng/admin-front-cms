@@ -1,4 +1,6 @@
 import './Siderbar.scss';
+import logoLight from '@assets/images/logo-light.png';
+import logoDark from '@assets/images/logo-dark.png';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,20 +11,16 @@ import { BulbOutlined } from '@ant-design/icons';
 import { Trans } from '@lingui/react';
 
 import { ScrollBar } from '@components';
-import logoLight from '@assets/images/logo-light.png';
-import logoDark from '@assets/images/logo-dark.png';
 import { setTheme } from '@actions';
 import { SiderMenu } from './Menu';
 
-const { Sider } = Layout;
-
-const Siderbar = ({ menus }) => {
+const Siderbar = () => {
   const dispatch = useDispatch();
   const { theme, collapsed } = useSelector(state => state.app);
   const onThemeChange = value => dispatch(setTheme(value));
 
   return (
-    <Sider
+    <Layout.Sider
       width={256}
       theme={theme}
       breakpoint="lg"
@@ -44,7 +42,7 @@ const Siderbar = ({ menus }) => {
             suppressScrollX: true
           }}
         >
-          <SiderMenu menus={menus} theme={theme} collapsed={collapsed} />
+          <SiderMenu />
         </ScrollBar>
       </div>
 
@@ -62,7 +60,7 @@ const Siderbar = ({ menus }) => {
           />
         </div>
       )}
-    </Sider>
+    </Layout.Sider>
   );
 };
 
