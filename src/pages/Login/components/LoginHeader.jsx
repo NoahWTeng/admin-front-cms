@@ -1,13 +1,13 @@
 import '../index.scss';
-import React from 'react';
+import React, { memo } from 'react';
 
-function LoginHeader() {
+export const LoginHeader = memo(() => {
   return (
-    <div className={'brand'}>
-      <h2 className={'brand-text'}>Welcome!</h2>
+    <>
+      <div className={'brand'}>
+        <h2 className={'brand-text'}>Welcome!</h2>
+      </div>
       <p>Sign in to your account</p>
-    </div>
+    </>
   );
-}
-
-export { LoginHeader };
+});

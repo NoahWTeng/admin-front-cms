@@ -5,8 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Redux from 'react-redux';
 
-import { store } from '@helpers';
-import App from './App';
+import { store } from './redux';
+import { App } from './App';
 import * as serviceWorker from './registerServiceWorker';
 
 ReactDOM.render(

@@ -21,8 +21,8 @@ export const storage = {
 
 export const getStorage = {
   collapsed: () => JSON.parse(storage.get('collapsed')),
-  theme: () => JSON.parse(storage.get('theme')),
-  lang: () => storage.get('lang'),
+  isDarkTheme: () => JSON.parse(storage.get('isDarkTheme')),
+  lang: () => JSON.parse(storage.get('lang')),
   login: () => JSON.parse(storage.get('login')),
   admin: () => JSON.parse(storage.get('admin'))
 };

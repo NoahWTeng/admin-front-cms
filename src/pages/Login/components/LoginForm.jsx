@@ -1,47 +1,37 @@
 import '../index.scss';
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Form, Input, Button, Checkbox, Spin } from 'antd';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import { loginAction } from '@actions';
+import { loginAdmin } from '@actions';
 import { storage, getStorage } from '@helpers';
 
-const loginStore = getStorage.login();
+const store = getStorage.login();
 
-function LoginForm() {
-  const isFetching = useSelector(state => state.auth.isFetching);
+const LoginForm = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    let isCurrent = true;
-
-    const storage = () => {
-      if (loginStore)
-        form.setFieldsValue({
-          email: loginStore.email,
-          password: loginStore.password,
-          remember: loginStore.remember
-        });
-    };
-
-    if (isCurrent) storage();
-
-    return () => (isCurrent = false);
-  }, []);
-
   const handleSubmit = async values => {
     const { email, password, remember } = values;
-
     remember ? storage.set('login', values) : storage.remove('login'),
       form.setFieldsValue({ email: '', password: '', remember: false });
 
-    await dispatch(loginAction({ email, password }));
+    dispatch(loginAdmin({ email, password }));
   };
 
   return (
-    <Form style={{ textAlign: 'left' }} onFinish={handleSubmit} form={form}>
+    <Form
+      style={{ textAlign: 'left' }}
+      onFinish={handleSubmit}
+      form={form}
+      initialValues={{
+        email: (store && store.email) || null,
+        password: (store && store.password) || null,
+        remember: (store && store.remember) || null
+      }}
+    >
       <Form.Item
         name="email"
         rules={[
@@ -72,17 +62,12 @@ function LoginForm() {
       </Form.Item>
 
       <Form.Item>
-        <Button
-          className="btn-login"
-          type="primary"
-          htmlType="submit"
-          disabled={isFetching}
-        >
-          {isFetching ? <Spin>VERIFYING...</Spin> : 'LOGIN'}
+        <Button className="btn-login" type="primary" htmlType="submit">
+          LOGIN
         </Button>
       </Form.Item>
     </Form>
   );
-}
+};
 
 export { LoginForm };

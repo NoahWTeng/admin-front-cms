@@ -34,17 +34,19 @@ module.exports = {
     ),
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      '@actions': path.resolve(__dirname, '../src/actions'),
+      '@actions': path.resolve(__dirname, '../src/redux/actions'),
       '@assets': path.resolve(__dirname, '../src/assets'),
       '@components': path.resolve(__dirname, '../src/components'),
-      '@constants': path.resolve(__dirname, '../src/constants'),
+      '@constants': path.resolve(__dirname, '../src/redux/constants'),
       '@helpers': path.resolve(__dirname, '../src/helpers'),
       '@pages': path.resolve(__dirname, '../src/pages'),
-      '@reducers': path.resolve(__dirname, '../src/reducers'),
+      '@reducers': path.resolve(__dirname, '../src/redux/reducers'),
+      '@middleware': path.resolve(__dirname, '../src/redux/middleware'),
       '@services': path.resolve(__dirname, '../src/services'),
       '@themes': path.resolve(__dirname, '../src/themes'),
       '@layouts': path.resolve(__dirname, '../src/layouts'),
-      '@routes': path.resolve(__dirname, '../src/routes')
+      '@routes': path.resolve(__dirname, '../src/routes'),
+      '@locales': path.resolve(__dirname, '../src/locales')
     },
     plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])]
   },
@@ -129,7 +131,7 @@ module.exports = {
       loaders: [
         'style-loader',
         {
-          loader: 'css-loader',
+          loader: 'css-loader'
           // options: {
           //   importLoaders: 1,
           //   localIdentName: '[local]--[hash:base64:5]',
