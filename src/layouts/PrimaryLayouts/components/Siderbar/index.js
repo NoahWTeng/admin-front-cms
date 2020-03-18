@@ -5,7 +5,7 @@ import logoDark from '@assets/images/logo-dark.png';
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Layout, Switch } from 'antd';
-import { BulbOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { BulbOutlined, BulbFilled } from '@ant-design/icons';
 import { Trans } from '@lingui/react';
 
 import { ScrollBar } from '@components';
@@ -62,8 +62,8 @@ export const Siderbar = memo(() => {
           <Switch
             onChange={onThemeChange}
             defaultChecked={isDarkTheme}
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
+            checkedChildren={<BulbOutlined />}
+            unCheckedChildren={<BulbFilled />}
           />
         </div>
       )}
