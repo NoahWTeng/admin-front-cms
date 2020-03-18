@@ -2,36 +2,34 @@ import './Siderbar.scss';
 import logoLight from '@assets/images/logo-light.png';
 import logoDark from '@assets/images/logo-dark.png';
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { Layout, Switch } from 'antd';
-import { BulbOutlined } from '@ant-design/icons';
+import { BulbOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Trans } from '@lingui/react';
 
 import { ScrollBar } from '@components';
-import { setTheme } from '@actions';
+import { switchThemesSibebar } from '@actions';
 import { SiderMenu } from './Menu';
 
-const Siderbar = () => {
+export const Siderbar = memo(() => {
   const dispatch = useDispatch();
-  const { theme, collapsed } = useSelector(state => state.app);
-  const onThemeChange = value => dispatch(setTheme(value));
+  const { isCollapsed, isDarkTheme } = useSelector(state => state.ui);
+  const onThemeChange = value => dispatch(switchThemesSibebar(value));
 
   return (
     <Layout.Sider
       width={256}
-      theme={theme}
+      theme={isDarkTheme ? 'dark' : 'light'}
       breakpoint="lg"
       trigger={null}
       collapsible
-      collapsed={collapsed}
+      collapsed={isCollapsed}
       className={'sider'}
     >
       <div className={'brand'}>
         <div className={'logo'}>
-          <img src={theme === 'dark' ? logoLight : logoDark} alt="logo" />
+          <img src={isDarkTheme ? logoLight : logoDark} alt="logo" />
         </div>
       </div>
 
@@ -46,26 +44,29 @@ const Siderbar = () => {
         </ScrollBar>
       </div>
 
-      {!collapsed && (
+      {!isCollapsed ? (
         <div className={'switchTheme'}>
-          <span className={theme === 'dark' ? 'dark' : 'light'}>
+          <span className={isDarkTheme ? 'dark' : 'light'}>
             <BulbOutlined />
             <Trans>Switch Theme</Trans>
           </span>
           <Switch
             onChange={onThemeChange}
-            defaultChecked={theme === 'dark'}
+            defaultChecked={isDarkTheme}
             checkedChildren={<Trans>Dark</Trans>}
             unCheckedChildren={<Trans>Light</Trans>}
+          />
+        </div>
+      ) : (
+        <div className={'switchTheme'}>
+          <Switch
+            onChange={onThemeChange}
+            defaultChecked={isDarkTheme}
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
           />
         </div>
       )}
     </Layout.Sider>
   );
-};
-
-Siderbar.prototypes = {
-  menus: PropTypes.array.isRequired
-};
-
-export { Siderbar };
+});

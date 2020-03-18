@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { auth } from './auth.reducer';
-import { app } from './app.reducer';
+import { admin } from './admin.reducer';
+import { ui } from './ui.reducer';
+import { language } from './language.reducer';
 
-export const rootReducer = combineReducers({ app, auth });
+export const rootReducer = combineReducers({ admin, ui, language });

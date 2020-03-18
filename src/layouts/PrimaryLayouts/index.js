@@ -1,14 +1,11 @@
 import './index.scss';
-import React, { Fragment, Suspense, useMemo, useCallback, memo } from 'react';
-import { Route, withRouter } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { Layout, BackTop } from 'antd';
+import React, { Fragment, memo } from 'react';
+import { Layout } from 'antd';
 
-import { copyright, fixedHeader, currentMenu } from '@helpers';
-import { setLanguage, setCollapsed, setTheme, logoutAction } from '@actions';
+import { fixedHeader } from '@helpers';
 import { Siderbar, Navbar } from './components';
 
-export const PrimaryLayouts = memo(props => {
+export const PrimaryLayouts = memo(() => {
   return (
     <Fragment>
       <Layout>

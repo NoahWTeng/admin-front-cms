@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 import { PoweroffOutlined } from '@ant-design/icons';
 import { Menu, Avatar } from 'antd';
 import { Trans } from '@lingui/react';
-import { logoutAction } from '@actions';
+import { logoutAdmin } from '@actions';
 
 export const Logout = memo(() => {
   const dispatch = useDispatch();
-  const handleLogout = () => dispatch(logoutAction());
+  const handleLogout = () => dispatch(logoutAdmin());
 
   return (
     <Menu key="user" mode="horizontal">

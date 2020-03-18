@@ -2,7 +2,7 @@ import './Loader.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Icon } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export const Loader = ({ spinning = false, fullScreen }) => {
   return (
@@ -13,7 +13,7 @@ export const Loader = ({ spinning = false, fullScreen }) => {
       })}
     >
       <div className={'warpper'}>
-        <Icon type="loading" style={{ fontSize: 24 }} spin />
+        <LoadingOutlined style={{ fontSize: 24 }} />
         <div className={'text'}>LOADING</div>
       </div>
     </div>

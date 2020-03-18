@@ -1,6 +1,4 @@
-export * from './app.actions';
-export * from './auth.actions';
-
-import { globalType } from '@constants';
-
-export const authError = error => ({ type: globalType.ERROR, error });
+export * from './admin.actions';
+export * from './api.actions';
+export * from './ui.actions';
+export * from './language.actions';

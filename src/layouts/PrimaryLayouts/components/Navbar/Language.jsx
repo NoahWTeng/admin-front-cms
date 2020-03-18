@@ -4,30 +4,23 @@ import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Menu, Avatar } from 'antd';
-
-import { setLanguage } from '@actions';
 import { updatePath } from '@helpers';
+
+import { changeLanguageProcess } from '@actions';
 
 export const LanguageSwitch = withRouter(({ location, history, i18n }) => {
   const dispatch = useDispatch();
+  const { language } = useSelector(state => state.language);
   const { languages } = i18n;
-  const { language } = useSelector(state => state.app);
 
   const currentLanguage = useMemo(
     () => languages.find(item => item.key === language),
     [language]
   );
-
   const toggleLanguage = data => {
-    const loadCatalog = async language => {
-      const catalog = await import(
-        /* webpackMode: "lazy", webpackChunkName: "i18n-[index]" */
-        `@lingui/loader!../../../../../src/locales/${language}/messages.json`
-      );
-      dispatch(setLanguage({ language, catalog }));
-    };
-    loadCatalog(data.key);
+    dispatch(changeLanguageProcess(data.key));
     const newPath = updatePath(location);
+
     history.push({
       pathname: `/${data.key}/${newPath}`,
       search: location.search

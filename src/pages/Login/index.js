@@ -3,12 +3,17 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { LoginForm, LoginHeader } from './components';
 import { useSelector } from 'react-redux';
+import { Loader } from '@components';
 
-const LoginPage = () => {
-  const isAuth = useSelector(state => state.auth.isAuthenticated);
-  const lang = useSelector(state => state.app.language);
+export const LoginPage = () => {
+  const isAuth = useSelector(state => state.admin.isAuthenticated);
+  const isLoading = useSelector(state => state.ui.isLoading);
+  const lang = useSelector(state => state.language.language);
+
+  if (isLoading) return <Loader spinning />;
+
   return isAuth ? (
-    <Redirect to={`/${lang ? lang : 'en'}/`} />
+    <Redirect to={`/${lang || 'en'}/`} />
   ) : (
     <div className={'page'}>
       <div className={'page-login'}>
@@ -20,5 +25,3 @@ const LoginPage = () => {
     </div>
   );
 };
-
-export { LoginPage };

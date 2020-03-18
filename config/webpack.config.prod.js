@@ -48,6 +48,7 @@ module.exports = {
       '@helpers': path.resolve(__dirname, '../src/helpers'),
       '@pages': path.resolve(__dirname, '../src/pages'),
       '@reducers': path.resolve(__dirname, '../src/reducers'),
+      '@middleware': path.resolve(__dirname, '../src/redux/middleware'),
       '@services': path.resolve(__dirname, '../src/services'),
       '@themes': path.resolve(__dirname, '../src/themes'),
       '@layouts': path.resolve(__dirname, '../src/layouts'),

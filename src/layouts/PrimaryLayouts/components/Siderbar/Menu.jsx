@@ -1,11 +1,9 @@
 import React, { Fragment, useState, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Menu } from 'antd';
 import { withRouter, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { arrayToTree, queryAncestors, currentMenu } from '@helpers';
-const { SubMenu } = Menu;
 
 const selected = (menus, hasMenu) =>
   queryAncestors(menus, hasMenu, 'menuParentId').map(({ id }) => id);
@@ -16,7 +14,7 @@ const generateMenus = data => {
   return data.map(item => {
     if (item.children) {
       return (
-        <SubMenu
+        <Menu.SubMenu
           key={item.id}
           title={
             <Fragment>
@@ -27,7 +25,7 @@ const generateMenus = data => {
           }
         >
           {generateMenus(item.children)}
-        </SubMenu>
+        </Menu.SubMenu>
       );
     }
     return (
@@ -42,8 +40,9 @@ const generateMenus = data => {
   });
 };
 
-const SiderMenu = withRouter(({ location }) => {
-  const { routesList, collapsed, theme } = useSelector(state => state.app);
+export const SiderMenu = withRouter(({ location }) => {
+  const routesList = useSelector(state => state.language.routesList);
+  const { isCollapsed, isDarkTheme } = useSelector(state => state.ui);
 
   // Check query page is exists
   const menus = useMemo(() => routerFilter(routesList), [routesList]);
@@ -67,19 +66,19 @@ const SiderMenu = withRouter(({ location }) => {
     const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
     let newOpenKeys = keys;
     if (rootSubmenuKeys.indexOf(latestOpenKey) !== -1) {
-      newOpenKeys = latestOpenKey ? [latestOpenKey] : [];
+      newOpenKeys = [latestOpenKey] || [];
     }
     setOpenKeys(keys);
   };
 
-  const menuProps = collapsed ? {} : { openKeys };
+  const menuProps = isCollapsed ? {} : { openKeys };
 
   const generateTree = useMemo(() => generateMenus(menuTree), [menuTree]);
 
   return (
     <Menu
       mode="inline"
-      theme={theme}
+      theme={isDarkTheme ? 'dark' : 'light'}
       onOpenChange={onOpenChange}
       defaultSelectedKeys={selectedKeys || []}
       {...menuProps}
@@ -88,9 +87,3 @@ const SiderMenu = withRouter(({ location }) => {
     </Menu>
   );
 });
-
-SiderMenu.propTypes = {
-  location: PropTypes.object
-};
-
-export { SiderMenu };

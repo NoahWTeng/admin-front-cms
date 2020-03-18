@@ -1,21 +1,29 @@
+import { useDispatch } from 'react-redux';
+import { isBoolean } from 'lodash';
+
 import { getStorage } from '@helpers';
-import { useSelector, useDispatch } from 'react-redux';
-import { setAdmin, setLanguage, setTheme, setCollapsed } from '@actions';
-import { isEmpty } from 'lodash';
+import {
+  updateAdmin,
+  changeLanguageSucess,
+  toggleSidebarCollapsed,
+  switchThemesSibebar
+} from '@actions';
 
 const collapsed = getStorage.collapsed();
-const theme = getStorage.theme();
+const sidebarTheme = getStorage.isDarkTheme();
 const lang = getStorage.lang();
 const admin = getStorage.admin();
 
 const InitialStorage = ({ children }) => {
   const dispatch = useDispatch();
 
-  if (admin && admin.token) dispatch(setAdmin(admin));
+  if (admin && admin.token) dispatch(updateAdmin(admin));
+  if (collapsed) dispatch(toggleSidebarCollapsed(collapsed));
+  if (isBoolean(sidebarTheme)) dispatch(switchThemesSibebar(sidebarTheme));
   if (lang)
-    dispatch(setLanguage({ language: lang.language, catalog: lang.catalog }));
-  if (isEmpty(theme)) dispatch(setTheme(theme));
-  if (collapsed) dispatch(setCollapsed(collapsed));
+    dispatch(
+      changeLanguageSucess({ language: lang.language, catalog: lang.catalog })
+    );
 
   return children;
 };
