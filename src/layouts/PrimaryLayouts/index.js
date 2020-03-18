@@ -1,11 +1,36 @@
 import './index.scss';
-import React, { Fragment, memo } from 'react';
-import { Layout } from 'antd';
+import React, { Fragment, Suspense, useMemo } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 
-import { fixedHeader } from '@helpers';
+import { Layout, BackTop } from 'antd';
+import { fixedHeader, pathMatchRegexp, copyright } from '@helpers';
+import { Bread, Loader, Page404 } from '@components';
+
 import { Siderbar, Navbar } from './components';
+import { useSelector } from 'react-redux';
 
-export const PrimaryLayouts = memo(() => {
+const renders = list =>
+  list.map((r, key) => {
+    return (
+      <Route
+        component={r.component}
+        exact={true}
+        key={r.path + key}
+        path={r.path}
+      />
+    );
+  });
+
+export const PrimaryLayouts = withRouter(({ location }) => {
+  const { routesList, renderList } = useSelector(state => state.language);
+
+  // Find a route that matches the pathname.
+  const matchPath = !!routesList.find(
+    ({ route }) => route && pathMatchRegexp(route, location.pathname)
+  );
+
+  const rendersComponent = useMemo(() => renders(renderList), [renderList]);
+
   return (
     <Fragment>
       <Layout>
@@ -16,7 +41,19 @@ export const PrimaryLayouts = memo(() => {
           id="primaryLayout"
         >
           <Navbar />
-          <h1>Hello </h1>
+          <Layout.Content className={'content'}>
+            <Bread />
+            <Suspense fallback={<Loader />}>
+              {matchPath ? rendersComponent : <Page404 />}
+            </Suspense>
+          </Layout.Content>
+          <BackTop
+            className={'backTop'}
+            target={() => document.querySelector('#primaryLayout')}
+          />
+          <Layout.Footer className={'footer'} copyright={copyright}>
+            {copyright}
+          </Layout.Footer>
         </div>
       </Layout>
     </Fragment>

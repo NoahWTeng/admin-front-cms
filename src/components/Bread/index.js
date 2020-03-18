@@ -1,25 +1,20 @@
 import './Bread.scss';
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Breadcrumb, Icon } from 'antd';
+import { Breadcrumb } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import { withI18n } from '@lingui/react';
 import { pathMatchRegexp, queryAncestors } from '@helpers';
 
-const Component = ({ routeList, location, i18n }) => {
+const Component = ({ i18n }) => {
+  const routesList = useSelector(state => state.language.routesList);
+
   const generateBreadcrumbs = paths => {
     return paths.map((item, key) => {
       const content = item && (
         <Fragment>
-          {item.icon && (
-            <Icon
-              type={item.icon}
-              style={{
-                marginRight: 4
-              }}
-            />
-          )}
-          {item.name}
+          {item.icon} {item.name}
         </Fragment>
       );
       return (
@@ -36,26 +31,24 @@ const Component = ({ routeList, location, i18n }) => {
     });
   };
   // Find a route that matches the pathname.
-  const currentRoute = routeList.find(
-    _ => _.route && pathMatchRegexp(_.route, location.pathname)
+  const currentRoute = routesList.find(
+    ({ route }) => route && pathMatchRegexp(route, location.pathname)
   );
+
   //   Find the breadcrumb navigation of the current route match and all its ancestors.
   const paths = currentRoute
-    ? queryAncestors(routeList, currentRoute, 'breadcrumbParentId').reverse()
+    ? queryAncestors(routesList, currentRoute, 'breadcrumbParentId').reverse()
     : [
-        routeList[0],
+        routesList[0],
         {
           id: 404,
           name: i18n.t`Not Found`
         }
       ];
+
   return (
     <Breadcrumb className={'bread'}>{generateBreadcrumbs(paths)}</Breadcrumb>
   );
-};
-
-Component.propTypes = {
-  routeList: PropTypes.array
 };
 
 export const Bread = withRouter(withI18n()(Component));
