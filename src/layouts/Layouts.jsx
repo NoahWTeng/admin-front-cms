@@ -6,7 +6,7 @@ import { ConfigProvider } from 'antd';
 import { BaseLayout } from './BaseLayout';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import en_US from 'antd/lib/locale-provider/en_US';
-import es_ES from 'antd/lib/locale-provider/pt_BR';
+import es_ES from 'antd/lib/locale-provider/es_ES';
 import { Loader } from '@components';
 
 const languages = {

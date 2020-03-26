@@ -1,15 +1,16 @@
 import './Loader.scss';
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { LoadingOutlined } from '@ant-design/icons';
 
-export const Loader = ({ spinning = false, fullScreen }) => {
+export const Loader = memo(({ spinning = false, fullScreen, opacity }) => {
   return (
     <div
       className={classNames('loader', {
         ['hidden']: !spinning,
-        ['fullScreen']: fullScreen
+        ['fullScreen']: fullScreen,
+        ['opacity']: opacity
       })}
     >
       <div className={'warpper'}>
@@ -18,7 +19,7 @@ export const Loader = ({ spinning = false, fullScreen }) => {
       </div>
     </div>
   );
-};
+});
 
 Loader.propTypes = {
   spinning: PropTypes.bool,

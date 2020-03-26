@@ -1,5 +1,6 @@
 import { pathToRegexp } from 'path-to-regexp';
 import { uniqBy } from 'lodash';
+import { stringify } from 'qs';
 
 function updatePath(location) {
   const updatePath = location.pathname.split('/');
@@ -90,11 +91,24 @@ function queryAncestors(array, current, parentId, id = 'id') {
   return result;
 }
 
-function currentMenu(routes, location) {
+function currentMenu(routes) {
   return routes.find(
-    _ => _.route && pathMatchRegexp(_.route, location.pathname)
+    _ => _.route && pathMatchRegexp(_.route, window.location.pathname)
   );
 }
+
+const handleRefresh = (newQuery, location, history) => {
+  const { pathname } = location;
+  history.push({
+    pathname,
+    search: stringify(
+      {
+        ...newQuery
+      },
+      { arrayFormat: 'repeat' }
+    )
+  });
+};
 
 export {
   queryAncestors,
@@ -102,5 +116,6 @@ export {
   arrayToTree,
   updatePath,
   queryStringToJSON,
-  currentMenu
+  currentMenu,
+  handleRefresh
 };

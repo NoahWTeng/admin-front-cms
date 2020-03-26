@@ -57,6 +57,7 @@
 
   "Total {total} Items": "Total {total} Items",
   "This field is required!": "This field is required!",
+  "This field must be numeric!": "This field must be numeric!",
   "Selected {selected} items": "Selected {selected} items",
   "Are you sure to delete this user?": "Are you sure to delete this user?",
   "Are you sure to delete these items?": "Are you sure to delete these items?",

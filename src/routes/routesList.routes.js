@@ -16,7 +16,7 @@ export const RoutesList = language => {
       id: '1',
       icon: <DashboardOutlined />,
       name: <Trans>{'Dashboard'}</Trans>,
-      route: `/${language}/`
+      route: `/`
     },
     {
       id: '2',

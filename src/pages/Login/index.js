@@ -8,12 +8,11 @@ import { Loader } from '@components';
 export const LoginPage = () => {
   const isAuth = useSelector(state => state.admin.isAuthenticated);
   const isLoading = useSelector(state => state.ui.isLoading);
-  const lang = useSelector(state => state.language.language);
 
   if (isLoading) return <Loader spinning />;
 
   return isAuth ? (
-    <Redirect to={`/${lang || 'en'}/`} />
+    <Redirect to={`/`} />
   ) : (
     <div className={'page'}>
       <div className={'page-login'}>

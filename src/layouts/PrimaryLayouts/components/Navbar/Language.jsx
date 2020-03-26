@@ -2,14 +2,13 @@ import './Navbar.scss';
 
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Menu, Avatar } from 'antd';
-import { updatePath } from '@helpers';
 
 import { changeLanguageProcess } from '@actions';
 
-export const LanguageSwitch = withRouter(({ location, history, i18n }) => {
+export const LanguageSwitch = ({ i18n }) => {
   const dispatch = useDispatch();
+
   const { language } = useSelector(state => state.language);
   const { languages } = i18n;
 
@@ -17,15 +16,8 @@ export const LanguageSwitch = withRouter(({ location, history, i18n }) => {
     () => languages.find(item => item.key === language),
     [language]
   );
-  const toggleLanguage = data => {
-    dispatch(changeLanguageProcess(data.key));
-    const newPath = updatePath(location);
+  const toggleLanguage = data => dispatch(changeLanguageProcess(data.key));
 
-    history.push({
-      pathname: `/${data.key}/${newPath}`,
-      search: location.search
-    });
-  };
   return (
     <Menu
       key="language"
@@ -49,4 +41,4 @@ export const LanguageSwitch = withRouter(({ location, history, i18n }) => {
       </Menu.SubMenu>
     </Menu>
   );
-});
+};

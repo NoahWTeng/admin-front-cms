@@ -57,6 +57,7 @@
 
   "Total {total} Items": "Total {total} registro/s",
   "This field is required!": "¡Este campo es requerido!",
+  "This field must be numeric!": "¡Este campo debe ser numérico!",
   "Selected {selected} items": "Seleccionada {selected} artículo/s",
   "Are you sure to delete this user?": "¿Estás seguro de eliminar a este usuario?",
   "Are you sure to delete these items?": "¿Estás seguro de eliminar estos elementos?",

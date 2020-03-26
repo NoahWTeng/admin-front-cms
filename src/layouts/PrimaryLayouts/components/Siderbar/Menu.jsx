@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useMemo } from 'react';
+import React, { Fragment, useState, useMemo, memo } from 'react';
 import { Menu } from 'antd';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { arrayToTree, queryAncestors, currentMenu } from '@helpers';
@@ -40,7 +40,7 @@ const generateMenus = data => {
   });
 };
 
-export const SiderMenu = withRouter(({ location }) => {
+export const SiderMenu = memo(() => {
   const routesList = useSelector(state => state.language.routesList);
   const { isCollapsed, isDarkTheme } = useSelector(state => state.ui);
 
@@ -50,11 +50,9 @@ export const SiderMenu = withRouter(({ location }) => {
   const menuTree = useMemo(() => arrayToTree(menus, 'id', 'menuParentId'), [
     menus
   ]);
+
   // // Find a menu that matches the pathname.
-  const hasMenu = useMemo(() => currentMenu(menus, location), [
-    menus,
-    location
-  ]);
+  const hasMenu = useMemo(() => currentMenu(menus), [menus]);
   // Find the key that should be selected according to the current menu.
   const selectedKeys = !!hasMenu && selected(menus, hasMenu);
   const [openKeys, setOpenKeys] = useState(

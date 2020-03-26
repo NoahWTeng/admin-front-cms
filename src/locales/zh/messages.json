@@ -57,6 +57,7 @@
 
   "Total {total} Items": "合计 {total} 记录",
   "This field is required!": "这是必填栏！",
+  "This field must be numeric!": "此字段必须为数字！",
   "Selected {selected} items": "已选 {selected} 品目",
   "Are you sure to delete this user?": "您确定要删除该用户吗？",
   "Are you sure to delete these items?": "您确定要删除这些项目吗？",

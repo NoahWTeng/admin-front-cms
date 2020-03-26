@@ -9,9 +9,10 @@ export const apiMdl = ({ dispatch }) => next => action => {
       method,
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: action.token || ''
       },
-      body: JSON.stringify(action.payload)
+      body: action.payload && JSON.stringify(action.payload)
     })
       .then(res => {
         if (res.status === 200) {
