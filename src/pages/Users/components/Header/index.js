@@ -1,7 +1,7 @@
 import './heades.scss';
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Row, Col, Popconfirm } from 'antd';
+import { Button, Row, Col, Popconfirm, Divider } from 'antd';
 import { Trans, withI18n } from '@lingui/react';
 import { isEmpty } from 'lodash';
 import { deleteUsersProcess, openModal } from '@actions';
@@ -18,26 +18,35 @@ export const Header = withI18n()(
     const toggleModalCreate = () => dispatch(openModal('Create'));
 
     return (
-      <Row justify="end">
-        {!isEmpty(selected) ? (
-          <Col>
-            {i18n.t`Selected ${selected.length} items`}
-            <Popconfirm
-              title={i18n.t`Are you sure to delete these items?`}
-              placement="left"
-              onConfirm={deleteSeletedUsers}
-            >
-              <Button type="danger" style={{ marginLeft: 8 }}>
-                <Trans>Remove</Trans>
-              </Button>
-            </Popconfirm>
-          </Col>
-        ) : (
-          <Button type="primary" ghost onClick={toggleModalCreate}>
-            <Trans>Create</Trans>
-          </Button>
-        )}
-      </Row>
+      <>
+        <h2>
+          <Trans>Users list</Trans>
+        </h2>
+        <p>
+          <Trans>Users section description</Trans>
+        </p>
+        <Divider style={{ marginTop: '24px', marginBottom: '24px' }} />
+        <Row justify="end">
+          {!isEmpty(selected) ? (
+            <Col>
+              {i18n.t`Selected ${selected.length} items`}
+              <Popconfirm
+                title={i18n.t`Are you sure to delete these items?`}
+                placement="left"
+                onConfirm={deleteSeletedUsers}
+              >
+                <Button type="danger" style={{ marginLeft: 8 }}>
+                  <Trans>Remove</Trans>
+                </Button>
+              </Popconfirm>
+            </Col>
+          ) : (
+            <Button type="primary" ghost onClick={toggleModalCreate}>
+              <Trans>Create</Trans>
+            </Button>
+          )}
+        </Row>
+      </>
     );
   })
 );

@@ -4,10 +4,8 @@ import {
   DashboardOutlined,
   TeamOutlined,
   UserOutlined,
-  BarChartOutlined,
-  DotChartOutlined,
-  LineChartOutlined,
-  RadarChartOutlined
+  TagsOutlined,
+  TagOutlined
 } from '@ant-design/icons';
 
 export const RoutesList = language => {
@@ -36,33 +34,56 @@ export const RoutesList = language => {
     {
       id: '5',
       breadcrumbParentId: '1',
-      name: 'Charts',
-      icon: <DotChartOutlined />
+      name: <Trans>{'Categories'}</Trans>,
+      icon: <TagsOutlined />
     },
     {
       id: '51',
       breadcrumbParentId: '5',
       menuParentId: '5',
-      name: 'Echart',
-      icon: <LineChartOutlined />,
-      route: `/${language}/chart/ECharts`
+      name: <Trans>{'Category 1'}</Trans>,
+      icon: <TagOutlined />,
+      route: `/${language}/categories/first`
     },
     {
       id: '52',
       breadcrumbParentId: '5',
       menuParentId: '5',
-      name: 'HighCharts',
-
-      icon: <BarChartOutlined />,
-      route: `/${language}/chart/highCharts`
-    },
-    {
-      id: '53',
-      breadcrumbParentId: '5',
-      menuParentId: '5',
-      name: 'Rechartst',
-      icon: <RadarChartOutlined />,
-      route: `/${language}/chart/Recharts`
+      name: <Trans>{'Category 2'}</Trans>,
+      icon: <TagOutlined />,
+      route: `/${language}/categories/second`
     }
+
+    // {
+    //   id: '51',
+    //   breadcrumbParentId: '5',
+    //   menuParentId: '5',
+    //   name: 'Echart',
+    //   icon: <LineChartOutlined />,
+    //   route: `/${language}/chart/ECharts`
+    // },
+    // {
+    //   id: '52',
+    //   breadcrumbParentId: '5',
+    //   menuParentId: '5',
+    //   name: 'HighCharts',
+
+    //   icon: <BarChartOutlined />,
+    //   route: `/${language}/chart/highCharts`
+    // },
+    // {
+    //   id: '53',
+    //   breadcrumbParentId: '5',
+    //   menuParentId: '5',
+    //   name: 'Rechartst',
+    //   icon: <RadarChartOutlined />,
+    //   route: `/${language}/chart/Recharts`
+    // },
+    // {
+    //   id: '5',
+    //   breadcrumbParentId: '1',
+    //   name: 'Charts',
+    //   icon: <DotChartOutlined />
+    // },
   ];
 };

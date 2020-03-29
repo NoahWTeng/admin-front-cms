@@ -4,8 +4,8 @@
   "User detail": "用户资料",
   "Products": "产品",
   "Categories": "类别",
-  "Category 1": "类别 1",
-  "Category 2": "类别 2",
+  "Category 1": "一级分类",
+  "Category 2": "二级分类",
   "Orders": "订单",
   "Dispatched": "已分派",
   "Refunding": "退款",
@@ -64,5 +64,9 @@
   "The input is not a valid E-mail!": "输入的不是有效的电子邮件！",
   "Select a option": "选择一个选项",
 
-  "Id": "Id"
+  "Id": "Id",
+  "Users list": "用户列表",
+  "Users section description": "显示用户信息时，可以修改用户个人信息，删除用户.",
+  "First category list": "一级商品分类",
+  "First category description": "一级商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作."
 }

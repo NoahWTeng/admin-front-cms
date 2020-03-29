@@ -63,5 +63,9 @@
   "Are you sure to delete these items?": "Are you sure to delete these items?",
   "The input is not a valid E-mail!": "The input is not a valid E-mail!",
   "Select a option": "Select a option",
-  "Id": "Id"
+  "Id": "Id",
+  "Users list": "Users List",
+  "Users section description": "The user's information displays, you can modify user personal information, delete users.",
+  "First category list": "First-Level Product Classification",
+  "First category description": "First-level product classification displayed, you can add new product classification, modify product classification and delete product classification."
 }

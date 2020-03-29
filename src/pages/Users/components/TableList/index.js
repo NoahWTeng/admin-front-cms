@@ -1,4 +1,4 @@
-import './List.scss';
+import './list.scss';
 import React, { useState, memo, useMemo } from 'react';
 import { Table, Modal } from 'antd';
 import { Link, useLocation, useHistory } from 'react-router-dom';
