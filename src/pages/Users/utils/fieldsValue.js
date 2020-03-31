@@ -5,9 +5,7 @@ export const fieldsValue = (i18n, modalType) => {
       title: [i18n.t`Update`, i18n.t`UpdateShipp`],
       label: i18n.t`Id`,
       name: 'id',
-      disable: true,
-      placeholder: null,
-      rules: null
+      disable: true
     },
     {
       id: '2',
@@ -173,8 +171,7 @@ export const fieldsValue = (i18n, modalType) => {
           pattern: /^([0-9])/
         }
       ],
-      placeholder: i18n.t`Phone`,
-      inputNumber: true
+      placeholder: i18n.t`Phone`
     },
     {
       id: '15',
@@ -202,8 +199,7 @@ export const fieldsValue = (i18n, modalType) => {
           message: i18n.t`This field must be numeric!`
         }
       ],
-      placeholder: i18n.t`Phone`,
-      inputNumber: true
+      placeholder: i18n.t`Phone`
     },
     {
       id: '17',

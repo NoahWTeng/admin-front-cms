@@ -1,14 +1,17 @@
 import {
+  FETCH_USERS_PROCESS,
   FETCH_USERS_SUCCESS,
   DELETE_USERS_SUCCESS,
   SELECT_USERS,
   CURRENT_USER,
-  CHANGE_PAGINATION,
-  FETCH_USER_ID_ERROR
+  CHANGE_PAGINATION_USERS,
+  FETCH_USER_ID_ERROR,
+  CLEAR_ALL_STATE
 } from '@constants';
 import moment from 'moment';
 
 const initialState = {
+  isFetching: false,
   allUsers: [],
   currentUser: {},
   selected: [],
@@ -18,6 +21,11 @@ const initialState = {
 
 export const users = (state = initialState, action = {}) => {
   switch (action.type) {
+    case FETCH_USERS_PROCESS:
+      return {
+        ...state,
+        isFetching: !state.isFetching
+      };
     case FETCH_USERS_SUCCESS:
       return {
         ...state,
@@ -34,6 +42,7 @@ export const users = (state = initialState, action = {}) => {
           showSizeChanger: true,
           showQuickJumper: false
         },
+        isFetching: !state.isFetching,
         error: null
       };
     case DELETE_USERS_SUCCESS:
@@ -43,7 +52,6 @@ export const users = (state = initialState, action = {}) => {
         allUsers: state.allUsers.filter(user => !nodeData.includes(user._id)),
         selected: []
       };
-
     case SELECT_USERS:
       return {
         ...state,
@@ -54,7 +62,7 @@ export const users = (state = initialState, action = {}) => {
         ...state,
         currentUser: action.payload
       };
-    case CHANGE_PAGINATION:
+    case CHANGE_PAGINATION_USERS:
       return {
         ...state,
         pagination: {
@@ -67,6 +75,15 @@ export const users = (state = initialState, action = {}) => {
       return {
         ...state,
         error: action.payload
+      };
+    case CLEAR_ALL_STATE:
+      return {
+        isFetching: false,
+        allUsers: [],
+        currentUser: {},
+        selected: [],
+        pagination: {},
+        error: null
       };
     default:
       return state;

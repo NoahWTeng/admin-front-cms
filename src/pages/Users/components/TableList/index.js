@@ -39,9 +39,6 @@ export const TableList = withI18n()(
     });
 
     const getColumnSearchProps = dataIndex => ({
-      align: 'left',
-      ellipsis: true,
-      textWrap: 'word-break',
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -132,22 +129,23 @@ export const TableList = withI18n()(
     };
 
     return (
-      <Table
-        rowKey={record => record._id}
-        dataSource={allUsers}
-        rowSelection={rowSelection}
-        pagination={{
-          ...pagination,
-          showTotal: total => i18n.t`Total ${total} Items`
-        }}
-        onChange={handleChangePage}
-        className={'table'}
-        bordered
-        simple
-        align="left"
-        scroll={{ x: true }}
-        columns={columns(i18n, getColumnSearchProps, handleOperation)}
-      />
+      <>
+        <Table
+          rowKey={record => record._id}
+          dataSource={allUsers}
+          rowSelection={rowSelection}
+          pagination={{
+            ...pagination,
+            showTotal: total => i18n.t`Total ${total} Items`
+          }}
+          onChange={handleChangePage}
+          className={'table'}
+          bordered
+          simple
+          scroll={{ x: true }}
+          columns={columns(i18n, getColumnSearchProps, handleOperation)}
+        />
+      </>
     );
   })
 );

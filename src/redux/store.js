@@ -1,5 +1,12 @@
 import { createStore, applyMiddleware } from 'redux';
-import { authMdl, apiMdl, uiMdl, languageMdl, usersMdl } from '@middleware';
+import {
+  authMdl,
+  apiMdl,
+  uiMdl,
+  languageMdl,
+  usersMdl,
+  categoriesMdl
+} from '@middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { rootReducer } from '@reducers';
@@ -14,6 +21,13 @@ const composeEnhancers = composeWithDevTools({
 export const store = createStore(
   rootReducer,
   composeEnhancers(
-    applyMiddleware(...authMdl, ...uiMdl, ...languageMdl, ...usersMdl, apiMdl)
+    applyMiddleware(
+      ...authMdl,
+      ...uiMdl,
+      ...languageMdl,
+      ...usersMdl,
+      ...categoriesMdl,
+      apiMdl
+    )
   )
 );

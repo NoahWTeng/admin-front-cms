@@ -1,7 +1,7 @@
-import React, { useEffect, memo, useMemo, useState } from 'react';
+import React, { useEffect, memo, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withI18n } from '@lingui/react';
-import { isEmpty, equals } from 'ramda';
+import { isEmpty } from 'ramda';
 
 import { Header, TableList } from './components';
 import { Page, Loader, CustomModal } from '@components';
@@ -10,7 +10,8 @@ import {
   closeModal,
   createNewUser,
   updateUser,
-  setCurrentUser
+  setCurrentUser,
+  clearUpState
 } from '@actions';
 import { fieldsValue } from './utils/fieldsValue';
 import { dataSchema } from './utils/dataSchema';
@@ -19,7 +20,9 @@ import { setInitialValue } from './utils/modalInitialValue';
 const Users = withI18n()(
   memo(({ i18n }) => {
     const dispatch = useDispatch();
-    const { currentUser, allUsers } = useSelector(state => state.users);
+    const { currentUser, allUsers, isFetching } = useSelector(
+      state => state.users
+    );
     const { modalType, isModal } = useSelector(state => state.modal);
 
     useEffect(() => {
@@ -29,7 +32,10 @@ const Users = withI18n()(
       };
       if (isCurrent) getUsers();
 
-      return () => (isCurrent = false);
+      return () => {
+        dispatch(clearUpState());
+        isCurrent = false;
+      };
     }, []);
 
     const modalSetting = useMemo(
@@ -41,6 +47,7 @@ const Users = withI18n()(
         modalInitialValues: setInitialValue(currentUser),
         onOk: data => {
           const changeDataSchema = dataSchema(data, modalType);
+
           if (data.id) {
             return dispatch(
               updateUser({ body: changeDataSchema, paramsId: data.id })
@@ -57,8 +64,8 @@ const Users = withI18n()(
     );
     return (
       <Page inner>
-        {isEmpty(allUsers) && <Loader spinning opacity />}
-        {!isEmpty(allUsers) && (
+        {isFetching && <Loader spinning />}
+        {!isEmpty(allUsers) && !isFetching && (
           <>
             <Header />
             <TableList />

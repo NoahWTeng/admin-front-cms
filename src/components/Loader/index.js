@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { LoadingOutlined } from '@ant-design/icons';
 
-export const Loader = memo(({ spinning = false, fullScreen, opacity }) => {
+export const Loader = memo(({ spinning = false, fullScreen }) => {
   return (
     <div
       className={classNames('loader', {
         ['hidden']: !spinning,
-        ['fullScreen']: fullScreen,
-        ['opacity']: opacity
+        ['fullScreen']: fullScreen
       })}
     >
       <div className={'warpper'}>

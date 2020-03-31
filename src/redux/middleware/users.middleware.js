@@ -5,13 +5,13 @@ import {
   DELETE_USERS_PROCESS,
   DELETE_USERS_SUCCESS,
   DELETE_USERS_ERROR,
-  USER_CREATE_SUCCESS,
-  USER_CREATE_ERROR,
-  USER_CREATE_PROCESS,
-  USER_UPDATE_PROCESS,
-  USER_UPDATE_SUCCESS,
-  USER_UPDATE_ERROR,
-  CHANGE_PAGINATION,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_ERROR,
+  CREATE_USER_PROCESS,
+  UPDATE_USER_PROCESS,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  CHANGE_PAGINATION_USERS,
   FETCH_USER_ID_PROCCESS,
   FETCH_USER_ID_ERROR,
   FETCH_USER_ID_SUCCESS
@@ -56,26 +56,26 @@ export const usersProcess = ({ dispatch }) => next => action => {
         )
       );
       break;
-    case USER_CREATE_PROCESS:
+    case CREATE_USER_PROCESS:
       dispatch(
         apiRequest(
           'POST',
           URL,
           action.payload,
-          USER_CREATE_SUCCESS,
-          USER_CREATE_ERROR,
+          CREATE_USER_SUCCESS,
+          CREATE_USER_ERROR,
           getStorage.admin().token
         )
       );
       break;
-    case USER_UPDATE_PROCESS:
+    case UPDATE_USER_PROCESS:
       dispatch(
         apiRequest(
           'PUT',
           `${URL}${action.payload.paramsId}`,
           action.payload.body,
-          USER_UPDATE_SUCCESS,
-          USER_UPDATE_ERROR,
+          UPDATE_USER_SUCCESS,
+          UPDATE_USER_ERROR,
           getStorage.admin().token
         )
       );
@@ -126,7 +126,7 @@ export const deleteUsersError = ({ dispatch }) => next => action => {
 
 export const createdUserSuccess = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === USER_CREATE_SUCCESS) {
+  if (action.type === CREATE_USER_SUCCESS) {
     dispatch(getUsersListProcess());
     dispatch(closeModal());
   }
@@ -134,14 +134,14 @@ export const createdUserSuccess = ({ dispatch }) => next => action => {
 
 export const createdUserError = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === USER_CREATE_ERROR) {
+  if (action.type === CREATE_USER_ERROR) {
     console.log('action.payload create', action.payload);
   }
 };
 
 export const updatedUserSuccess = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === USER_UPDATE_SUCCESS) {
+  if (action.type === UPDATE_USER_SUCCESS) {
     dispatch(getUsersListProcess());
     dispatch(getUserById(action.payload.docs._id));
 
@@ -151,14 +151,14 @@ export const updatedUserSuccess = ({ dispatch }) => next => action => {
 
 export const updatedUserError = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === USER_UPDATE_ERROR) {
+  if (action.type === UPDATE_USER_ERROR) {
     console.log('action.payload UPDATE', action.payload);
   }
 };
 
 export const changePaginationProcess = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === CHANGE_PAGINATION) {
+  if (action.type === CHANGE_PAGINATION_USERS) {
     handleRefresh(
       {
         page: action.payload.current,

@@ -4,11 +4,13 @@ import { ui } from './ui.reducer';
 import { language } from './language.reducer';
 import { users } from './users.reducer';
 import { modal } from './modal.reducer';
+import { categories } from './categories.reducer';
 
 export const rootReducer = combineReducers({
   admin,
   ui,
   language,
   users,
-  modal
+  modal,
+  categories
 });

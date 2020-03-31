@@ -1,6 +1,16 @@
 import React, { memo } from 'react';
-import { Input, Modal, Form, Select } from 'antd';
+import {
+  Input,
+  Modal,
+  Form,
+  Select,
+  Switch,
+  InputNumber,
+  Upload,
+  Button
+} from 'antd';
 import { withI18n } from '@lingui/react';
+import { UploadOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -53,6 +63,35 @@ export const CustomModal = withI18n()(
             initialValues={modalInitialValues}
           >
             {modalFields.map(item => {
+              if (item.switch) {
+                return (
+                  <Form.Item
+                    name={item.name}
+                    label={item.label}
+                    {...formItemLayout}
+                    key={item.id}
+                    valuePropName="checked"
+                  >
+                    <Switch />
+                  </Form.Item>
+                );
+              }
+              if (item.upload) {
+                return (
+                  <Form.Item
+                    name={item.name}
+                    label={item.label}
+                    {...formItemLayout}
+                    key={item.id}
+                  >
+                    <Upload fileList={[]}>
+                      <Button>
+                        <UploadOutlined /> Upload
+                      </Button>
+                    </Upload>
+                  </Form.Item>
+                );
+              }
               return (
                 <Form.Item
                   name={item.name}
@@ -69,6 +108,10 @@ export const CustomModal = withI18n()(
                         </Option>
                       ))}
                     </Select>
+                  ) : item.textArea ? (
+                    <Input.TextArea autoSize={true} />
+                  ) : item.inputNumber ? (
+                    <InputNumber disabled />
                   ) : (
                     <Input
                       disabled={item.disable}

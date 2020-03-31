@@ -1,49 +1,49 @@
 import './list.scss';
-import React, { useState, memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import { Table, Modal } from 'antd';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { withI18n } from '@lingui/react';
-import Highlighter from 'react-highlight-words';
 import { useSelector, useDispatch } from 'react-redux';
-import { SearchOutlined } from '@ant-design/icons';
 
 import { columns } from './columns';
 import {
-  selectUsers,
-  deleteUsersProcess,
   openModal,
-  setCurrentUser,
-  toggleChangePagination
+  setCurrentCategory,
+  deleteCategory,
+  toggleCategoryPagination
 } from '@actions';
 import { handleRefresh } from '@helpers';
 
 export const TableList = withI18n()(
   memo(({ i18n }) => {
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
+    const { category1, pagination } = useSelector(state => state.categories);
+
     const getColumnProps = () => ({
-      align: 'left',
-      ellipsis: true,
-      textWrap: 'word-break',
       render: (text, record) => text
     });
 
     const handleOperation = (record, e) => {
       if (e.key === 'Update') {
         dispatch(openModal(e.key));
-        dispatch(setCurrentUser(record));
+        dispatch(setCurrentCategory(record));
       }
 
       if (e.key === 'Remove') {
         Modal.confirm({
           title: i18n.t`Are you sure to delete this user?`,
           onOk: () => {
-            dispatch(deleteUsersProcess([record._id]));
+            dispatch(deleteCategory({ ids: [record._id] }));
             handleRefresh(
               {
                 page:
-                  allUsers.length === 1 && pagination.current > 1
+                  category1.length === 1 && pagination.current > 1
                     ? pagination.current - 1
                     : pagination.current,
-                limit: pagination.pageSize
+                limit: pagination.pageSize,
+                querySearch: { level: { $in: 1 } }
               },
               location,
               history
@@ -53,23 +53,20 @@ export const TableList = withI18n()(
       }
     };
 
-    // const handleChangePage = page => {
-    //   dispatch(toggleChangePagination(page));
-    // };
+    const handleChangePage = page => dispatch(toggleCategoryPagination(page));
 
     return (
       <Table
-        // rowKey={record => record._id}
-        // dataSource={allUsers}
-        // pagination={{
-        //   ...pagination,
-        //   showTotal: total => i18n.t`Total ${total} Items`
-        // }}
-        // onChange={handleChangePage}
+        rowKey={record => record._id}
+        dataSource={category1}
+        pagination={{
+          ...pagination,
+          showTotal: total => i18n.t`Total ${total} Items`
+        }}
+        onChange={handleChangePage}
         className={'table'}
         bordered
         simple
-        align="left"
         scroll={{ x: true }}
         columns={columns(i18n, getColumnProps, handleOperation)}
       />
