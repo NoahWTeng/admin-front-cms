@@ -39,6 +39,7 @@ export const TableList = memo(({ i18n, allUsers, pagination }) => {
           clearFilters={clearFilters}
           dataIndex={dataIndex}
           setSearch={setSearch}
+          i18n={i18n}
         />
       ),
     filterIcon: useMemo(

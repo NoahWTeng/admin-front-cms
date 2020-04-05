@@ -41,6 +41,7 @@ const UserDetail = withI18n()(
         })
       );
     };
+
     if (error) return <Page404 />;
 
     return (
