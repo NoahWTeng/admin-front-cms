@@ -1,6 +1,6 @@
 import React, { useEffect, memo, useMemo } from 'react';
 import { withI18n } from '@lingui/react';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'ramda';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Page, Loader, CustomModal } from '@components';
@@ -10,7 +10,7 @@ import {
   createNewCategory,
   updateCategory,
   setCurrentCategory,
-  clearUpState
+  clearUpState,
 } from '@actions';
 
 import { Header } from './components/Header';
@@ -23,18 +23,18 @@ const FirstCategory = withI18n()(
   memo(({ i18n }) => {
     const dispatch = useDispatch();
     const { category1, currentCategory, isFetching } = useSelector(
-      state => state.categories
+      (state) => state.categories
     );
-    const { modalType, isModal } = useSelector(state => state.modal);
+    const { modalType, isModal } = useSelector((state) => state.modal);
 
     useEffect(() => {
-      let isCurrent = true;
+      let isMounted = true;
 
-      if (isCurrent) dispatch(getCategoriesListProcess(1));
+      if (isMounted) dispatch(getCategoriesListProcess(1));
 
       return () => {
         dispatch(clearUpState());
-        isCurrent = false;
+        isMounted = false;
       };
     }, []);
 
@@ -45,13 +45,13 @@ const FirstCategory = withI18n()(
         visible: isModal,
         modalFields: fieldsValue(i18n, `${i18n._(modalType)}`),
         modalInitialValues: setInitialValue(currentCategory),
-        onOk: data => {
+        onOk: (data) => {
           if (data.id) {
             const { title, description, isActive, level } = data;
             return dispatch(
               updateCategory({
                 body: { title, description, isActive, level },
-                paramsId: data.id
+                paramsId: data.id,
               })
             );
           }
@@ -61,7 +61,7 @@ const FirstCategory = withI18n()(
         onCancel: () => {
           dispatch(closeModal());
           dispatch(setCurrentCategory({}));
-        }
+        },
       }),
       [modalType]
     );

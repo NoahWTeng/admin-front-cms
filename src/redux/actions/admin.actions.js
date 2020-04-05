@@ -1,21 +1,21 @@
 import {
   ADMIN_LOGIN_PROCESS,
   ADMIN_LOGOUT,
-  FETCH_ADMIN_SUCCESS
+  GET_ADMIN_FROM_STORAGE,
 } from '@constants';
 
-const loginAdmin = data => ({
+const loginAdmin = (data) => ({
   type: ADMIN_LOGIN_PROCESS,
-  payload: data
+  payload: data,
 });
 
 const logoutAdmin = () => ({
-  type: ADMIN_LOGOUT
+  type: ADMIN_LOGOUT,
 });
 
-const updateAdmin = data => ({
-  type: FETCH_ADMIN_SUCCESS,
-  payload: data
+const getAdminFromStorage = (data) => ({
+  type: GET_ADMIN_FROM_STORAGE,
+  payload: data,
 });
 
-export { loginAdmin, logoutAdmin, updateAdmin };
+export { loginAdmin, logoutAdmin, getAdminFromStorage };

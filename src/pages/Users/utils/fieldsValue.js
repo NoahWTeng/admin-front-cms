@@ -2,10 +2,10 @@ export const fieldsValue = (i18n, modalType) => {
   const col = [
     {
       id: '1',
-      title: [i18n.t`Update`, i18n.t`UpdateShipp`],
+      title: [i18n.t`${modalType}`, i18n.t`UpdateShipp`],
       label: i18n.t`Id`,
       name: 'id',
-      disable: true
+      disable: true,
     },
     {
       id: '2',
@@ -15,10 +15,10 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      options: ['particular', 'professional']
+      options: ['particular', 'professional'],
     },
     {
       id: '3',
@@ -28,10 +28,10 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`First name`
+      placeholder: i18n.t`First name`,
     },
     {
       id: '4',
@@ -41,10 +41,10 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`Surname`
+      placeholder: i18n.t`Surname`,
     },
     {
       id: '5',
@@ -52,7 +52,7 @@ export const fieldsValue = (i18n, modalType) => {
       label: i18n.t`Second surname`,
       name: 'lastName2',
       rules: null,
-      placeholder: i18n.t`Second surname`
+      placeholder: i18n.t`Second surname`,
     },
     {
       id: '6',
@@ -62,10 +62,10 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`Company`
+      placeholder: i18n.t`Company`,
     },
     {
       id: '7',
@@ -75,10 +75,10 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      options: ['N.I.E', 'N.I.F', 'C.I.F']
+      options: ['N.I.E', 'N.I.F', 'C.I.F'],
     },
     {
       id: '8',
@@ -88,23 +88,23 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`TaxNumber`
+      placeholder: i18n.t`TaxNumber`,
     },
     {
       id: '9',
       title: [i18n.t`Update`, i18n.t`Create`],
       label: i18n.t`BillAddress`,
-      name: 'address',
+      name: 'street',
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`BillAddress`
+      placeholder: i18n.t`BillAddress`,
     },
     {
       id: '10',
@@ -115,10 +115,10 @@ export const fieldsValue = (i18n, modalType) => {
         {
           required: true,
           message: i18n.t`This field must be numeric!`,
-          pattern: /^([0-9])/
-        }
+          pattern: /^([0-9])/,
+        },
       ],
-      placeholder: i18n.t`PostalCode`
+      placeholder: i18n.t`PostalCode`,
     },
     {
       id: '11',
@@ -128,10 +128,10 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`Town`
+      placeholder: i18n.t`Town`,
     },
     {
       id: '12',
@@ -141,10 +141,10 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`Province`
+      placeholder: i18n.t`Province`,
     },
     {
       id: '13',
@@ -154,24 +154,24 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`Country`
+      placeholder: i18n.t`Country`,
     },
     {
       id: '14',
-      title: [i18n.t`Update`, i18n.t`Create`],
+      title: [i18n.t`Update`, i18n.t`Create`, i18n.t`UpdateShipp`],
       label: i18n.t`Phone`,
       name: 'phone',
       rules: [
         {
           required: true,
           message: i18n.t`This field must be numeric!`,
-          pattern: /^([0-9])/
-        }
+          pattern: /^([0-9])/,
+        },
       ],
-      placeholder: i18n.t`Phone`
+      placeholder: i18n.t`Phone`,
     },
     {
       id: '15',
@@ -182,38 +182,24 @@ export const fieldsValue = (i18n, modalType) => {
         {
           required: true,
           pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
-          message: i18n.t`The input is not a valid E-mail!`
-        }
+          message: i18n.t`The input is not a valid E-mail!`,
+        },
       ],
-      placeholder: i18n.t`Email`
+      placeholder: i18n.t`Email`,
     },
     {
       id: '16',
       title: [i18n.t`UpdateShipp`],
-      label: i18n.t`Phone`,
-      name: 'phone2',
-      rules: [
-        {
-          required: true,
-          pattern: /^([0-9])/,
-          message: i18n.t`This field must be numeric!`
-        }
-      ],
-      placeholder: i18n.t`Phone`
-    },
-    {
-      id: '17',
-      title: [i18n.t`UpdateShipp`],
       label: i18n.t`ShippAddress`,
-      name: 'address',
+      name: 'street',
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
+          message: i18n.t`This field is required!`,
+        },
       ],
-      placeholder: i18n.t`ShippAddress`
-    }
+      placeholder: i18n.t`ShippAddress`,
+    },
   ];
 
   return col.filter(({ title }) => title.includes(modalType));

@@ -1,6 +1,6 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'ramda';
 
-export const setInitialValue = item => {
+export const setInitialValue = (item) => {
   const check = isEmpty(item);
 
   return {
@@ -8,6 +8,6 @@ export const setInitialValue = item => {
     title: check ? '' : item.title,
     description: check ? '' : item.description,
     isActive: check ? false : item.isActive,
-    level: 1
+    level: 1,
   };
 };

@@ -2,7 +2,7 @@ import {
   FETCH_ADMIN_SUCCESS,
   FETCH_ADMIN_ERROR,
   ADMIN_LOGIN_PROCESS,
-  ADMIN_LOGOUT
+  ADMIN_LOGOUT,
 } from '@constants';
 import { apiRequest, showMessageLoading, hideMessage } from '@actions';
 import { storage } from '@helpers';
@@ -11,7 +11,7 @@ import { message } from 'antd';
 
 const URL = 'http://localhost:3000/api/v1/admin/auth/login';
 
-export const loginProcess = ({ dispatch }) => next => action => {
+export const loginProcess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === ADMIN_LOGIN_PROCESS) {
     dispatch(
@@ -27,7 +27,7 @@ export const loginProcess = ({ dispatch }) => next => action => {
   }
 };
 
-export const loginSucess = ({ dispatch }) => next => action => {
+export const loginSucess = ({ dispatch }) => (next) => (action) => {
   next(action);
 
   if (action.type === FETCH_ADMIN_SUCCESS) {
@@ -37,7 +37,7 @@ export const loginSucess = ({ dispatch }) => next => action => {
   }
 };
 
-export const loginReject = ({ dispatch }) => next => action => {
+export const loginReject = ({ dispatch }) => (next) => (action) => {
   next(action);
 
   if (action.type === FETCH_ADMIN_ERROR) {
@@ -46,7 +46,7 @@ export const loginReject = ({ dispatch }) => next => action => {
   }
 };
 
-export const logoutSuccess = ({ dispatch }) => next => action => {
+export const logoutSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
 
   if (action.type === ADMIN_LOGOUT) {

@@ -1,12 +1,13 @@
-import { useDispatch } from 'react-redux';
-import { isBoolean } from 'lodash';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { isNil } from 'ramda';
 
 import { getStorage } from '@helpers';
 import {
-  updateAdmin,
+  getAdminFromStorage,
   changeLanguageSucess,
   toggleSidebarCollapsed,
-  switchThemesSibebar
+  switchThemesSibebar,
 } from '@actions';
 
 const collapsed = getStorage.collapsed();
@@ -14,18 +15,32 @@ const sidebarTheme = getStorage.isDarkTheme();
 const lang = getStorage.lang();
 const admin = getStorage.admin();
 
-const InitialStorage = ({ children }) => {
+export const InitialStorage = ({ children }) => {
   const dispatch = useDispatch();
+  const { isFetching } = useSelector((state) => state.admin);
 
-  if (admin && admin.token) dispatch(updateAdmin(admin));
-  if (collapsed) dispatch(toggleSidebarCollapsed(collapsed));
-  if (isBoolean(sidebarTheme)) dispatch(switchThemesSibebar(sidebarTheme));
-  if (lang)
-    dispatch(
-      changeLanguageSucess({ language: lang.language, catalog: lang.catalog })
-    );
+  useEffect(() => {
+    let isMounted = true;
 
-  return children;
+    if (isMounted) {
+      isNil(admin)
+        ? dispatch(getAdminFromStorage({}))
+        : dispatch(getAdminFromStorage(admin));
+      if (collapsed) dispatch(toggleSidebarCollapsed(collapsed));
+      if (!isNil(sidebarTheme)) dispatch(switchThemesSibebar(sidebarTheme));
+      if (lang)
+        dispatch(
+          changeLanguageSucess({
+            language: lang.language,
+            catalog: lang.catalog,
+          })
+        );
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return !isFetching && children;
 };
-
-export { InitialStorage };

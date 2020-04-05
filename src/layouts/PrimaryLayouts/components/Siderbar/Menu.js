@@ -8,19 +8,18 @@ import { arrayToTree, queryAncestors, currentMenu } from '@helpers';
 const selected = (menus, hasMenu) =>
   queryAncestors(menus, hasMenu, 'menuParentId').map(({ id }) => id);
 
-const routerFilter = routes => routes.filter(_ => _.menuParentId !== '-1');
+const routerFilter = (routes) => routes.filter((_) => _.menuParentId !== '-1');
 
-const generateMenus = data => {
-  return data.map(item => {
+const generateMenus = (data) => {
+  return data.map((item) => {
     if (item.children) {
       return (
         <Menu.SubMenu
           key={item.id}
           title={
             <Fragment>
-              <span>
-                {item.icon} {item.name}
-              </span>
+              {item.icon}
+              <span>{item.name}</span>
             </Fragment>
           }
         >
@@ -31,9 +30,8 @@ const generateMenus = data => {
     return (
       <Menu.Item key={item.id}>
         <Link to={item.route}>
-          <span>
-            {item.icon} {item.name}
-          </span>
+          {item.icon}
+          <span>{item.name}</span>
         </Link>
       </Menu.Item>
     );
@@ -41,14 +39,14 @@ const generateMenus = data => {
 };
 
 export const SiderMenu = memo(() => {
-  const routesList = useSelector(state => state.language.routesList);
-  const { isCollapsed, isDarkTheme } = useSelector(state => state.ui);
+  const routesList = useSelector((state) => state.language.routesList);
+  const { isCollapsed, isDarkTheme } = useSelector((state) => state.ui);
 
   // Check query page is exists
   const menus = useMemo(() => routerFilter(routesList), [routesList]);
   // // Generating tree-structured data for menu content.
   const menuTree = useMemo(() => arrayToTree(menus, 'id', 'menuParentId'), [
-    menus
+    menus,
   ]);
 
   // // Find a menu that matches the pathname.
@@ -59,9 +57,11 @@ export const SiderMenu = memo(() => {
     [hasMenu && hasMenu.menuParentId] || []
   );
 
-  const onOpenChange = keys => {
-    const rootSubmenuKeys = menus.filter(_ => !_.menuParentId).map(_ => _.id);
-    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+  const onOpenChange = (keys) => {
+    const rootSubmenuKeys = menus
+      .filter((_) => !_.menuParentId)
+      .map((_) => _.id);
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     let newOpenKeys = keys;
     if (rootSubmenuKeys.indexOf(latestOpenKey) !== -1) {
       newOpenKeys = [latestOpenKey] || [];

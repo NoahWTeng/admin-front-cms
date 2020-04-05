@@ -63,3 +63,7 @@ node_modules.rar
 react.rar
 
 /build
+
+.env
+
+yarn.lock

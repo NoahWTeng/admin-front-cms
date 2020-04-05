@@ -14,25 +14,26 @@ import {
   CHANGE_PAGINATION_USERS,
   FETCH_USER_ID_PROCCESS,
   FETCH_USER_ID_ERROR,
-  FETCH_USER_ID_SUCCESS
+  FETCH_USER_ID_SUCCESS,
 } from '@constants';
 import {
   apiRequest,
   closeModal,
   getUsersListProcess,
   setCurrentUser,
-  getUserById
+  getUserById,
 } from '@actions';
 import { getStorage, handleRefresh, history } from '@helpers';
 
 const URL = 'http://localhost:3000/api/v1/customer/';
 
-export const usersProcess = ({ dispatch }) => next => action => {
+export const usersProcess = ({ dispatch }) => (next) => (action) => {
   next(action);
 
   switch (action.type) {
     case FETCH_USERS_PROCESS:
       const { search } = window.location;
+
       dispatch(
         apiRequest(
           'GET',
@@ -45,15 +46,28 @@ export const usersProcess = ({ dispatch }) => next => action => {
       );
       break;
     case DELETE_USERS_PROCESS:
+      const { allUsers, pagination, ids } = action.payload;
+
       dispatch(
         apiRequest(
           'DELETE',
           URL,
-          { ids: action.payload },
+          ids,
           DELETE_USERS_SUCCESS,
           DELETE_USERS_ERROR,
           getStorage.admin().token
         )
+      );
+      handleRefresh(
+        {
+          page:
+            allUsers.length === ids.length && pagination.current > 1
+              ? pagination.current - 1
+              : pagination.current,
+          limit: pagination.pageSize,
+        },
+        window.location,
+        history
       );
       break;
     case CREATE_USER_PROCESS:
@@ -97,34 +111,34 @@ export const usersProcess = ({ dispatch }) => next => action => {
   }
 };
 
-export const getUsersSuccess = ({ dispatch }) => next => action => {
+export const getUsersSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USERS_SUCCESS) {
   }
 };
 
-export const getUsersError = ({ dispatch }) => next => action => {
+export const getUsersError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USERS_ERROR) {
     console.log('action.payload getusers', action.payload);
   }
 };
 
-export const deleteUsersSuccess = ({ dispatch }) => next => action => {
+export const deleteUsersSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_USERS_SUCCESS) {
     dispatch(getUsersListProcess());
   }
 };
 
-export const deleteUsersError = ({ dispatch }) => next => action => {
+export const deleteUsersError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_USERS_ERROR) {
     console.log('action.payload delete', action.payload);
   }
 };
 
-export const createdUserSuccess = ({ dispatch }) => next => action => {
+export const createdUserSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_USER_SUCCESS) {
     dispatch(getUsersListProcess());
@@ -132,14 +146,14 @@ export const createdUserSuccess = ({ dispatch }) => next => action => {
   }
 };
 
-export const createdUserError = ({ dispatch }) => next => action => {
+export const createdUserError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_USER_ERROR) {
     console.log('action.payload create', action.payload);
   }
 };
 
-export const updatedUserSuccess = ({ dispatch }) => next => action => {
+export const updatedUserSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_USER_SUCCESS) {
     dispatch(getUsersListProcess());
@@ -149,20 +163,20 @@ export const updatedUserSuccess = ({ dispatch }) => next => action => {
   }
 };
 
-export const updatedUserError = ({ dispatch }) => next => action => {
+export const updatedUserError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_USER_ERROR) {
     console.log('action.payload UPDATE', action.payload);
   }
 };
 
-export const changePaginationProcess = ({ dispatch }) => next => action => {
+export const changePaginationProcess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CHANGE_PAGINATION_USERS) {
     handleRefresh(
       {
         page: action.payload.current,
-        limit: action.payload.pageSize
+        limit: action.payload.pageSize,
       },
       window.location,
       history
@@ -171,14 +185,14 @@ export const changePaginationProcess = ({ dispatch }) => next => action => {
   }
 };
 
-export const getUserByIdSuccess = ({ dispatch }) => next => action => {
+export const getUserByIdSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USER_ID_SUCCESS) {
     dispatch(setCurrentUser(action.payload));
   }
 };
 
-export const getUserByIdError = ({ dispatch }) => next => action => {
+export const getUserByIdError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USER_ID_ERROR) {
     console.log('action.payload ERROR', action.payload);
@@ -196,5 +210,5 @@ export const usersMdl = [
   updatedUserError,
   changePaginationProcess,
   getUserByIdSuccess,
-  getUserByIdError
+  getUserByIdError,
 ];

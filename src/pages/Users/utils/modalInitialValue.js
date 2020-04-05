@@ -1,69 +1,38 @@
-import { isEmpty } from 'lodash';
-
 export const setInitialValue = (item, type) => {
-  const { billAddress, shippAddress } = item;
-  const check = isEmpty(item);
+  const check = type === 'Create';
+
+  if (type === 'UpdateShipp') {
+    const { shipping } = item;
+    return {
+      phone: shipping.phone,
+      id: item._id,
+      firstName: shipping.firstName,
+      lastName1: shipping.lastName1,
+      lastName2: shipping.lastName2,
+      company: shipping.company,
+      street: shipping.street,
+      postCode: shipping.postCode,
+      town: shipping.town,
+      city: shipping.city,
+      country: shipping.country,
+    };
+  }
 
   return {
     email: check ? '' : item.email,
     range: check ? '' : item.range,
     phone: check ? '' : item.phone,
     id: check ? '' : item._id,
-    firstName: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.firstName
-      : billAddress.firstName,
-    lastName1: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.lastName1
-      : billAddress.lastName1,
-    lastName2: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.lastName2
-      : billAddress.lastName2,
-    company: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.company
-      : billAddress.company,
-    taxType: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.taxType
-      : billAddress.taxType,
-    taxNumber: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.taxNumber
-      : billAddress.taxNumber,
-    address: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.street
-      : billAddress.street,
-    postCode: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.postCode
-      : billAddress.postCode,
-    town: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.town
-      : billAddress.town,
-    city: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.city
-      : billAddress.city,
-    country: check
-      ? ''
-      : type === 'UpdateShipp'
-      ? shippAddress.country
-      : billAddress.country,
-    phone2: check ? '' : shippAddress.phone2
+    firstName: check ? '' : item.firstName,
+    lastName1: check ? '' : item.lastName1,
+    lastName2: check ? '' : item.lastName2,
+    company: check ? '' : item.company,
+    taxType: check ? '' : item.taxType,
+    taxNumber: check ? '' : item.taxNumber,
+    street: check ? '' : item.street,
+    postCode: check ? '' : item.postCode,
+    town: check ? '' : item.town,
+    city: check ? '' : item.city,
+    country: check ? '' : item.country,
   };
 };

@@ -7,50 +7,50 @@ import {
   CURRENT_USER,
   CHANGE_PAGINATION_USERS,
   FETCH_USER_ID_PROCCESS,
-  CLEAR_ALL_STATE
+  CLEAR_ALL_STATE,
 } from '@constants';
 
 const getUsersListProcess = () => ({
-  type: FETCH_USERS_PROCESS
+  type: FETCH_USERS_PROCESS,
 });
 
-const deleteUsersProcess = data => ({
+const deleteUsersProcess = (data) => ({
   type: DELETE_USERS_PROCESS,
-  payload: data
+  payload: data,
 });
 
-const selectUsers = data => ({
+const selectUsers = (data) => ({
   type: SELECT_USERS,
-  payload: data
+  payload: data,
 });
 
-const createNewUser = data => ({
+const createNewUser = (data) => ({
   type: CREATE_USER_PROCESS,
-  payload: data
+  payload: data,
 });
 
-const updateUser = data => ({
+const updateUser = (data) => ({
   type: UPDATE_USER_PROCESS,
-  payload: data
+  payload: data,
 });
 
-const setCurrentUser = data => ({
+const setCurrentUser = (data) => ({
   type: CURRENT_USER,
-  payload: data
+  payload: data,
 });
 
-const toggleChangePagination = data => ({
+const toggleChangePagination = (data) => ({
   type: CHANGE_PAGINATION_USERS,
-  payload: data
+  payload: data,
 });
 
-const getUserById = data => ({
+const getUserById = (data) => ({
   type: FETCH_USER_ID_PROCCESS,
-  payload: data
+  payload: data,
 });
 
 const clearUpState = () => ({
-  type: CLEAR_ALL_STATE
+  type: CLEAR_ALL_STATE,
 });
 
 export {
@@ -62,5 +62,5 @@ export {
   setCurrentUser,
   toggleChangePagination,
   getUserById,
-  clearUpState
+  clearUpState,
 };

@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import { Loader } from '@components';
 
 export const LoginPage = () => {
-  const isAuth = useSelector(state => state.admin.isAuthenticated);
-  const isLoading = useSelector(state => state.ui.isLoading);
+  const isAuth = useSelector((state) => state.admin.isAuthenticated);
+  const isLoading = useSelector((state) => state.ui.isLoading);
 
   if (isLoading) return <Loader spinning />;
 
