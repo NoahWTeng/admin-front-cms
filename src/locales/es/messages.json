@@ -4,13 +4,17 @@
   "User detail": "Detalles usuario",
   "Products": "Productos",
   "Categories": "Categorias",
-  "Category 1": "Categoria 1",
-  "Category 2": "Categoria 2",
+  "Category 1": "Categoría 1",
+  "Category 2": "Categoría 2",
+  "Category name": "Nombre categoría",
   "Orders": "Pedidos",
   "Dispatched": "Enviado",
   "Refunding": "Reembolso",
   "Ads Management": "Gestión de anuncios",
   "Administration": "Administración",
+  "Description": "Descripción",
+  "Imagen": "Imagen",
+  "Active": "Activo",
 
   "Switch Theme": "Cambiar Tema",
   "Create": "Crear",
@@ -25,7 +29,7 @@
   "Light": "Blanco",
   "Dark": "Oscuro",
 
-  "Name": "Nombre y apellidos",
+  "UserName": "Nombre y apellidos",
   "Company": "Empresa",
   "TaxNumber": "Número fiscal",
   "TaxType": "Tipo fiscal",
@@ -57,11 +61,15 @@
 
   "Total {total} Items": "Total {total} registro/s",
   "This field is required!": "¡Este campo es requerido!",
+  "This field must be numeric!": "¡Este campo debe ser numérico!",
   "Selected {selected} items": "Seleccionada {selected} artículo/s",
   "Are you sure to delete this user?": "¿Estás seguro de eliminar a este usuario?",
   "Are you sure to delete these items?": "¿Estás seguro de eliminar estos elementos?",
   "The input is not a valid E-mail!": "¡La entrada no es un correo electrónico válido!",
   "Select a option": "Selecciona una opción",
-
-  "Id": "Id"
+  "Id": "Id",
+  "Users list": "Lista de Usuarios",
+  "Users section description": "Tablero con la información de los usuarios, puede modificar la información del usuario o eliminarlo.",
+  "First category list": "Clasificación de Categoria Primer Nivel",
+  "First category description": "Tablero de clasificación de la categoria primer nivel, puede agregar una nueva clasificación de productos, modificarla y eliminarla."
 }

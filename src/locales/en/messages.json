@@ -6,11 +6,15 @@
   "Categories": "Categories",
   "Category 1": "Category 1",
   "Category 2": "Category 2",
+  "Category name": "Category name",
   "Orders": "Orders",
   "Dispatched": "Dispatched",
   "Refunding": "Refunding",
   "Ads Management": "Ads Management",
   "Administration": "Administration",
+  "Description": "Description",
+  "Imagen": "Imagen",
+  "Active": "Active",
 
   "Switch Theme": "Switch Theme",
   "Create": "Create",
@@ -25,7 +29,7 @@
   "Light": "Light",
   "Dark": "Dark",
 
-  "Name": "Name and surname",
+  "UserName": "Name and surname",
   "Company": "Company",
   "TaxNumber": "Tax number",
   "TaxType": "Tax type",
@@ -57,10 +61,15 @@
 
   "Total {total} Items": "Total {total} Items",
   "This field is required!": "This field is required!",
+  "This field must be numeric!": "This field must be numeric!",
   "Selected {selected} items": "Selected {selected} items",
   "Are you sure to delete this user?": "Are you sure to delete this user?",
   "Are you sure to delete these items?": "Are you sure to delete these items?",
   "The input is not a valid E-mail!": "The input is not a valid E-mail!",
   "Select a option": "Select a option",
-  "Id": "Id"
+  "Id": "Id",
+  "Users list": "Users List",
+  "Users section description": "The user's information displays, you can modify user personal information, delete users.",
+  "First category list": "First-Level Product Classification",
+  "First category description": "First-level product classification displayed, you can add new product classification, modify product classification and delete product classification."
 }

@@ -4,12 +4,14 @@ import {
   hideMessage,
   changeLanguageSucess
 } from '@actions';
-import { storage } from '@helpers';
+
+import { storage, history, updatePath } from '@helpers';
 
 export const languageProcess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === LANGUAGE_PROCESS) {
     const language = action.payload;
+    const newPath = updatePath(window.location);
 
     (async function loadCatalog() {
       const catalog = await import(
@@ -18,6 +20,11 @@ export const languageProcess = ({ dispatch }) => next => action => {
       );
       dispatch(changeLanguageSucess({ language, catalog }));
     })();
+
+    history.push({
+      pathname: newPath ? `/${language}/${newPath}` : '/',
+      search: window.location.search
+    });
 
     dispatch(showMessageLoading());
   }

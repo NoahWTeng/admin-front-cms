@@ -8,8 +8,6 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
-const HappyPack = require('happypack');
-const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const publicPath = paths.servedPath;
 const publicUrl = publicPath.slice(0, -1);
@@ -28,12 +26,14 @@ module.exports = {
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
     publicPath: publicPath,
-    devtoolModuleFilenameTemplate: info =>
-      path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
+    devtoolModuleFilenameTemplate: (info) =>
+      path
+        .relative(paths.appSrc, info.absoluteResourcePath)
+        .replace(/\\/g, '/'),
   },
   externals: {
     react: 'React',
-    'react-dom': 'ReactDOM'
+    'react-dom': 'ReactDOM',
   },
   resolve: {
     modules: ['node_modules', paths.appNodeModules].concat(
@@ -41,20 +41,20 @@ module.exports = {
     ),
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      '@actions': path.resolve(__dirname, '../src/actions'),
+      '@actions': path.resolve(__dirname, '../src/redux/actions'),
       '@assets': path.resolve(__dirname, '../src/assets'),
       '@components': path.resolve(__dirname, '../src/components'),
-      '@constants': path.resolve(__dirname, '../src/constants'),
+      '@constants': path.resolve(__dirname, '../src/redux/constants'),
       '@helpers': path.resolve(__dirname, '../src/helpers'),
       '@pages': path.resolve(__dirname, '../src/pages'),
-      '@reducers': path.resolve(__dirname, '../src/reducers'),
+      '@reducers': path.resolve(__dirname, '../src/redux/reducers'),
       '@middleware': path.resolve(__dirname, '../src/redux/middleware'),
       '@services': path.resolve(__dirname, '../src/services'),
       '@themes': path.resolve(__dirname, '../src/themes'),
       '@layouts': path.resolve(__dirname, '../src/layouts'),
-      '@routes': path.resolve(__dirname, '../src/routes')
+      '@routes': path.resolve(__dirname, '../src/routes'),
     },
-    plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])]
+    plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])],
   },
   module: {
     strictExportPresence: true,
@@ -62,7 +62,7 @@ module.exports = {
       {
         test: /\.json$/,
         loader: '@lingui/loader',
-        type: 'javascript/auto'
+        type: 'javascript/auto',
       },
       {
         oneOf: [
@@ -71,24 +71,36 @@ module.exports = {
             loader: require.resolve('url-loader'),
             options: {
               limit: 1000,
-              name: 'static/images/[name].[hash:8].[ext]'
-            }
+              name: 'static/images/[name].[hash:8].[ext]',
+            },
           },
           {
             test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
-            loader: 'happypack/loader?id=1',
+            loader: 'babel-loader',
             options: {
-              compact: true
-            }
+              compact: true,
+            },
           },
           {
             test: /\.(css)$/,
-            loader: [MiniCssExtractPlugin.loader, 'happypack/loader?id=2']
+            loader: [
+              MiniCssExtractPlugin.loader,
+              [
+                {
+                  loader: 'css-loader',
+                  options: {
+                    importLoaders: 1,
+                    localIdentName: '[local]--[hash:base64:5]',
+                  },
+                },
+                'postcss-loader',
+              ],
+            ],
           },
           {
             test: /\.(less)$/,
-            loader: [MiniCssExtractPlugin.loader, 'happypack/loader?id=3']
+            loader: [MiniCssExtractPlugin.loader],
           },
           {
             test: /\.s[ac]ss$/i,
@@ -98,19 +110,19 @@ module.exports = {
               // Translates CSS into CommonJS
               'css-loader',
               // Compiles Sass to CSS
-              'sass-loader'
-            ]
+              'sass-loader',
+            ],
           },
           {
             loader: require.resolve('file-loader'),
             exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
             options: {
-              name: 'static/css/[name].[hash:8].[ext]'
-            }
-          }
-        ]
-      }
-    ]
+              name: 'static/css/[name].[hash:8].[ext]',
+            },
+          },
+        ],
+      },
+    ],
   },
   optimization: {
     splitChunks: {
@@ -125,15 +137,15 @@ module.exports = {
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -10
+          priority: -10,
         },
         default: {
           minChunks: 2,
           priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    }
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -150,37 +162,16 @@ module.exports = {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     new MiniCssExtractPlugin({
-      filename: 'static/css/[contenthash].css'
-    }),
-    new HappyPack({
-      id: '1',
-      threadPool: happyThreadPool,
-      use: ['babel-loader'],
-      threads: 4
-    }),
-    new HappyPack({
-      id: '2',
-      threadPool: happyThreadPool,
-      threads: 4,
-      loaders: [
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            localIdentName: '[local]--[hash:base64:5]'
-          }
-        },
-        'postcss-loader'
-      ]
+      filename: 'static/css/[contenthash].css',
     }),
     new ProgressBarPlugin(),
     new webpack.DefinePlugin(env.stringified),
     new ManifestPlugin({
-      fileName: 'asset-manifest.json'
+      fileName: 'asset-manifest.json',
     }),
     new SWPrecacheWebpackPlugin({
       dontCacheBustUrlsMatching: /\.\w{8}\./,
@@ -197,16 +188,16 @@ module.exports = {
       minify: true,
       navigateFallback: publicUrl + '/index.html',
       navigateFallbackWhitelist: [/^(?!\/__).*/],
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new BundleAnalyzerPlugin({ analyzerMode: 'static' })
+    new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
   ],
   node: {
     dgram: 'empty',
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty'
-  }
+    child_process: 'empty',
+  },
 };

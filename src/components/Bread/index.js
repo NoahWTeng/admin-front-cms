@@ -1,14 +1,15 @@
 import './Bread.scss';
 import React, { Fragment } from 'react';
 import { Breadcrumb } from 'antd';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { withI18n } from '@lingui/react';
 import { pathMatchRegexp, queryAncestors } from '@helpers';
 
-const Component = ({ i18n }) => {
+export const Bread = withI18n()(({ i18n }) => {
   const routesList = useSelector(state => state.language.routesList);
+  const location = useLocation();
 
   const generateBreadcrumbs = paths => {
     return paths.map((item, key) => {
@@ -34,7 +35,6 @@ const Component = ({ i18n }) => {
   const currentRoute = routesList.find(
     ({ route }) => route && pathMatchRegexp(route, location.pathname)
   );
-
   //   Find the breadcrumb navigation of the current route match and all its ancestors.
   const paths = currentRoute
     ? queryAncestors(routesList, currentRoute, 'breadcrumbParentId').reverse()
@@ -49,6 +49,4 @@ const Component = ({ i18n }) => {
   return (
     <Breadcrumb className={'bread'}>{generateBreadcrumbs(paths)}</Breadcrumb>
   );
-};
-
-export const Bread = withRouter(withI18n()(Component));
+});

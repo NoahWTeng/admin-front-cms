@@ -1,36 +1,21 @@
 import './index.scss';
-import React, { Fragment, Suspense, useMemo } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import React, { Fragment, Suspense, memo, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { Layout, BackTop } from 'antd';
-import { fixedHeader, pathMatchRegexp, copyright } from '@helpers';
+import { fixedHeader, pathMatchRegexp } from '@helpers';
 import { Bread, Loader, Page404 } from '@components';
 
-import { Siderbar, Navbar } from './components';
+import { Siderbar, Navbar, Footer, Renders } from './components';
 import { useSelector } from 'react-redux';
 
-const renders = list =>
-  list.map((r, key) => {
-    return (
-      <Route
-        component={r.component}
-        exact={true}
-        key={r.path + key}
-        path={r.path}
-      />
-    );
-  });
-
-export const PrimaryLayouts = withRouter(({ location }) => {
+export const PrimaryLayouts = () => {
   const { routesList, renderList } = useSelector(state => state.language);
-
+  const location = useLocation();
   // Find a route that matches the pathname.
-  const matchPath = !!routesList.find(
+  const matchPath = routesList.some(
     ({ route }) => route && pathMatchRegexp(route, location.pathname)
   );
-
-  const rendersComponent = useMemo(() => renders(renderList), [renderList]);
-
   return (
     <Fragment>
       <Layout>
@@ -44,18 +29,16 @@ export const PrimaryLayouts = withRouter(({ location }) => {
           <Layout.Content className={'content'}>
             <Bread />
             <Suspense fallback={<Loader />}>
-              {matchPath ? rendersComponent : <Page404 />}
+              {matchPath ? <Renders list={renderList} /> : <Page404 />}
             </Suspense>
           </Layout.Content>
           <BackTop
             className={'backTop'}
             target={() => document.querySelector('#primaryLayout')}
           />
-          <Layout.Footer className={'footer'} copyright={copyright}>
-            {copyright}
-          </Layout.Footer>
+          <Footer />
         </div>
       </Layout>
     </Fragment>
   );
-});
+};

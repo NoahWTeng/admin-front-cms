@@ -1,5 +1,6 @@
 import { pathToRegexp } from 'path-to-regexp';
-import { uniqBy } from 'lodash';
+import { uniqBy, prop } from 'ramda';
+import { stringify } from 'qs';
 
 function updatePath(location) {
   const updatePath = location.pathname.split('/');
@@ -13,7 +14,7 @@ function queryStringToJSON(pathname) {
   const pairs = pathname.slice(1).split('&');
 
   const result = {};
-  pairs.forEach(function(pair) {
+  pairs.forEach(function (pair) {
     pair = pair.split('=');
     result[pair[0]] = Number(decodeURIComponent(pair[1] || ''));
   });
@@ -37,7 +38,7 @@ function arrayToTree(data, id = 'id', parentId = 'pid', children = 'children') {
     return included ? { ...init } : { ...init, [item.id]: item };
   }, {});
 
-  data.forEach(item => {
+  data.forEach((item) => {
     const hashParent = hash[item[parentId]];
 
     if (hashParent) {
@@ -48,8 +49,10 @@ function arrayToTree(data, id = 'id', parentId = 'pid', children = 'children') {
     }
   });
 
-  const toBeUnique = result.map(item =>
-    item.children ? { ...item, children: uniqBy(item.children, 'id') } : item
+  const toBeUnique = result.map((item) =>
+    item.children
+      ? { ...item, children: uniqBy(prop(id), item.children) }
+      : item
   );
 
   return toBeUnique;
@@ -76,9 +79,9 @@ function pathMatchRegexp(regexp, pathname) {
 function queryAncestors(array, current, parentId, id = 'id') {
   const result = [current];
   const hashMap = new Map();
-  array.forEach(item => hashMap.set(item[id], item));
+  array.forEach((item) => hashMap.set(item[id], item));
 
-  const getPath = current => {
+  const getPath = (current) => {
     const currentParentId = hashMap.get(current[id])[parentId];
     if (currentParentId) {
       result.push(hashMap.get(currentParentId));
@@ -90,11 +93,24 @@ function queryAncestors(array, current, parentId, id = 'id') {
   return result;
 }
 
-function currentMenu(routes, location) {
+function currentMenu(routes) {
   return routes.find(
-    _ => _.route && pathMatchRegexp(_.route, location.pathname)
+    (_) => _.route && pathMatchRegexp(_.route, window.location.pathname)
   );
 }
+
+const handleRefresh = (newQuery, location, history) => {
+  const { pathname } = location;
+  history.push({
+    pathname,
+    search: stringify(
+      {
+        ...newQuery,
+      },
+      { arrayFormat: 'repeat' }
+    ),
+  });
+};
 
 export {
   queryAncestors,
@@ -102,5 +118,6 @@ export {
   arrayToTree,
   updatePath,
   queryStringToJSON,
-  currentMenu
+  currentMenu,
+  handleRefresh,
 };
