@@ -3,15 +3,17 @@ import {
   CURRENT_CATEGORY,
   CHANGE_PAGINATION_CATEGORY,
   FETCH_CATEGORIES_PROCESS,
-  CLEAR_ALL_STATE
+  CLEAR_ALL_STATE,
+  FETCH_CATEGORIES_2_SUCCESS,
 } from '@constants';
 import moment from 'moment';
 
 const initialState = {
   isFetching: false,
   category1: [],
+  category2: [],
   currentCategory: {},
-  pagination: {}
+  pagination: {},
 };
 
 export const categories = (state = initialState, action = {}) => {
@@ -19,14 +21,14 @@ export const categories = (state = initialState, action = {}) => {
     case FETCH_CATEGORIES_PROCESS:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
-        category1: action.payload.docs.map(cat => ({
+        category1: action.payload.docs.map((cat) => ({
           ...cat,
-          createdAt: moment(cat.createdAt).format('LL')
+          createdAt: moment(cat.createdAt).format('LL'),
         })),
         pagination: {
           total: action.payload.total,
@@ -34,9 +36,26 @@ export const categories = (state = initialState, action = {}) => {
           current: action.payload.page,
           pages: action.payload.pages,
           showSizeChanger: true,
-          showQuickJumper: false
+          showQuickJumper: false,
         },
-        isFetching: false
+        isFetching: false,
+      };
+    case FETCH_CATEGORIES_2_SUCCESS:
+      return {
+        ...state,
+        category2: action.payload.docs.map((cat) => ({
+          ...cat,
+          createdAt: moment(cat.createdAt).format('LL'),
+        })),
+        pagination: {
+          total: action.payload.total,
+          pageSize: action.payload.limit,
+          current: action.payload.page,
+          pages: action.payload.pages,
+          showSizeChanger: true,
+          showQuickJumper: false,
+        },
+        isFetching: false,
       };
     case CHANGE_PAGINATION_CATEGORY:
       return {
@@ -44,20 +63,20 @@ export const categories = (state = initialState, action = {}) => {
         pagination: {
           ...state.pagination,
           pageSize: action.payload.pageSize,
-          current: action.payload.current
-        }
+          current: action.payload.current,
+        },
       };
     case CURRENT_CATEGORY:
       return {
         ...state,
-        currentCategory: action.payload
+        currentCategory: action.payload,
       };
     case CLEAR_ALL_STATE:
       return {
         isFetching: false,
         category1: [],
         currentCategory: {},
-        pagination: {}
+        pagination: {},
       };
     default:
       return state;

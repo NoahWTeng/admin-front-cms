@@ -5,7 +5,7 @@ export const fieldsValue = (i18n, modalType) => {
       title: [i18n.t`Update`],
       label: i18n.t`Id`,
       name: 'id',
-      disable: true
+      disable: true,
     },
     {
       id: '2',
@@ -15,39 +15,31 @@ export const fieldsValue = (i18n, modalType) => {
       rules: [
         {
           required: true,
-          message: i18n.t`This field is required!`
-        }
-      ]
+          message: i18n.t`This field is required!`,
+        },
+      ],
     },
     {
       id: '3',
       title: [i18n.t`Update`, i18n.t`Create`],
       label: i18n.t`Description`,
       name: 'description',
-      textArea: true
+      textArea: true,
     },
     {
       id: '4',
       title: [i18n.t`Update`, i18n.t`Create`],
       label: i18n.t`Active`,
       switch: true,
-      name: 'isActive'
+      name: 'isActive',
     },
     {
       id: '5',
       title: [i18n.t`Update`, i18n.t`Create`],
-      label: i18n.t`Level`,
-      name: 'level',
-      inputNumber: true,
-      number: 1
-    },
-    {
-      id: '6',
-      title: [i18n.t`Update`, i18n.t`Create`],
       label: i18n.t`Imagen`,
       name: 'imageUrl',
-      upload: true
-    }
+      upload: true,
+    },
   ];
 
   return col.filter(({ title }) => title.includes(modalType));
