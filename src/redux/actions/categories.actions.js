@@ -4,37 +4,41 @@ import {
   CREATE_CATEGORY_PROCESS,
   CHANGE_PAGINATION_CATEGORY,
   UPDATE_CATEGORY_PROCESS,
-  CURRENT_CATEGORY
+  CURRENT_CATEGORY,
+  FETCH_CATEGORIES_2_PROCESS,
 } from '@constants';
 
-const getCategoriesListProcess = data => ({
+const getCategoriesListProcess = () => ({
   type: FETCH_CATEGORIES_PROCESS,
-  payload: data
 });
 
-const createNewCategory = data => ({
+const getCategories2ListProcess = () => ({
+  type: FETCH_CATEGORIES_2_PROCESS,
+});
+
+const createNewCategory = (data) => ({
   type: CREATE_CATEGORY_PROCESS,
-  payload: data
+  payload: data,
 });
 
-const deleteCategory = data => ({
+const deleteCategory = (data) => ({
   type: DELETE_CATEGORY_PROCESS,
-  payload: data
+  payload: data,
 });
 
-const setCurrentCategory = data => ({
+const setCurrentCategory = (data) => ({
   type: CURRENT_CATEGORY,
-  payload: data
+  payload: data,
 });
 
-const updateCategory = data => ({
+const updateCategory = (data) => ({
   type: UPDATE_CATEGORY_PROCESS,
-  payload: data
+  payload: data,
 });
 
-const toggleCategoryPagination = data => ({
+const toggleCategoryPagination = (data) => ({
   type: CHANGE_PAGINATION_CATEGORY,
-  payload: data
+  payload: data,
 });
 
 export {
@@ -43,5 +47,6 @@ export {
   deleteCategory,
   setCurrentCategory,
   updateCategory,
-  toggleCategoryPagination
+  toggleCategoryPagination,
+  getCategories2ListProcess,
 };

@@ -6,10 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Page, Loader, CustomModal } from '@components';
 import {
   getCategoriesListProcess,
-  closeModal,
   createNewCategory,
   updateCategory,
-  setCurrentCategory,
   clearUpState,
 } from '@actions';
 
@@ -30,7 +28,7 @@ const FirstCategory = withI18n()(
     useEffect(() => {
       let isMounted = true;
 
-      if (isMounted) dispatch(getCategoriesListProcess(1));
+      if (isMounted) dispatch(getCategoriesListProcess());
 
       return () => {
         dispatch(clearUpState());
@@ -38,33 +36,19 @@ const FirstCategory = withI18n()(
       };
     }, []);
 
-    const modalSetting = useMemo(
-      () => ({
-        item: modalType === 'Create' ? {} : currentCategory,
-        title: `${i18n._(modalType)}`,
-        visible: isModal,
-        modalFields: fieldsValue(i18n, `${i18n._(modalType)}`),
-        modalInitialValues: setInitialValue(currentCategory),
-        onOk: (data) => {
-          if (data.id) {
-            const { title, description, isActive, level } = data;
-            return dispatch(
-              updateCategory({
-                body: { title, description, isActive, level },
-                paramsId: data.id,
-              })
-            );
-          }
+    const handleOnOk = (data) => {
+      if (data.id) {
+        const { title, description, isActive } = data;
+        return dispatch(
+          updateCategory({
+            body: { title, description, isActive },
+            paramsId: data.id,
+          })
+        );
+      }
 
-          dispatch(createNewCategory(data));
-        },
-        onCancel: () => {
-          dispatch(closeModal());
-          dispatch(setCurrentCategory({}));
-        },
-      }),
-      [modalType]
-    );
+      dispatch(createNewCategory(data));
+    };
 
     return (
       <Page inner>
@@ -72,10 +56,18 @@ const FirstCategory = withI18n()(
         {!isEmpty(category1) && !isFetching && (
           <>
             <Header />
-            <TableList />
+            <TableList i18n={i18n} />
           </>
         )}
-        {isModal && <CustomModal {...modalSetting} />}
+        {isModal && (
+          <CustomModal
+            i18n={i18n}
+            onOk={handleOnOk}
+            item={currentCategory}
+            modalInitialValues={setInitialValue(currentCategory, modalType)}
+            modalFields={fieldsValue(i18n, `${i18n._(modalType)}`)}
+          />
+        )}
       </Page>
     );
   })
