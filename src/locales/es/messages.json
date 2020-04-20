@@ -71,5 +71,9 @@
   "Users list": "Lista de Usuarios",
   "Users section description": "Tablero con la información de los usuarios, puede modificar la información del usuario o eliminarlo.",
   "First category list": "Clasificación de Categoria Primer Nivel",
-  "First category description": "Tablero de clasificación de la categoria primer nivel, puede agregar una nueva clasificación de productos, modificarla y eliminarla."
+  "First category description": "Tablero de clasificación de la categoria primer nivel, puede agregar una nueva clasificación de productos, modificarla y eliminarla.",
+  "Second category list": "Clasificación de Categoria Segundo Nivel",
+  "Second category description": "Tablero de clasificación de la categoria segundo nivel, puede agregar una nueva clasificación de productos, modificarla y eliminarla.",
+  "Parent": "Nombre padre",
+  "ParentId": "Id padre"
 }
