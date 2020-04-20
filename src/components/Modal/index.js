@@ -12,6 +12,7 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 import { closeModal } from '@actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { type } from 'ramda';
 const { Option } = Select;
 
 const formItemLayout = {
@@ -105,11 +106,14 @@ export const CustomModal = memo(
               >
                 {item.options ? (
                   <Select placeholder={i18n.t`Select a option`}>
-                    {item.options.map((option, i) => (
-                      <Option key={i} value={option}>
-                        {option}
-                      </Option>
-                    ))}
+                    {item.options.map((option, i) => {
+                      const isObj = type(option) === 'Object';
+                      return (
+                        <Option key={i} value={isObj ? option._id : option}>
+                          {isObj ? option.title : option}
+                        </Option>
+                      );
+                    })}
                   </Select>
                 ) : item.textArea ? (
                   <Input.TextArea autoSize={true} />

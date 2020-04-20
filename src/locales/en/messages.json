@@ -71,5 +71,9 @@
   "Users list": "Users List",
   "Users section description": "The user's information displays, you can modify user personal information, delete users.",
   "First category list": "First-Level Product Classification",
-  "First category description": "First-level product classification displayed, you can add new product classification, modify product classification and delete product classification."
+  "First category description": "First-level product classification displayed, you can add new product classification, modify product classification and delete product classification.",
+  "Second category list": "Second-Level Product Classification",
+  "Second category description": "Second-level product classification displayed, you can add new product classification, modify product classification and delete product classification.",
+  "Parent": "Parent name",
+  "ParentId": "Id parent"
 }

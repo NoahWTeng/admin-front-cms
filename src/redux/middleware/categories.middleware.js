@@ -16,7 +16,12 @@ import {
   UPDATE_CATEGORY_SUCCESS,
   UPDATE_CATEGORY_ERROR,
 } from '@constants';
-import { apiRequest, getCategoriesListProcess, closeModal } from '@actions';
+import {
+  apiRequest,
+  getCategoriesListProcess,
+  closeModal,
+  getCategories2ListProcess,
+} from '@actions';
 import { getStorage, history, handleRefresh } from '@helpers';
 import { stringify } from 'qs';
 import { isEmpty } from 'ramda';
@@ -48,6 +53,7 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       const search2 = window.location.search;
       const query2 = stringify({
         querySearch: { breadcrumbParentId: { $exists: true } },
+        populate: ['breadcrumbParentId', 'menuParentId'],
       });
 
       dispatch(
@@ -55,8 +61,8 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
           'GET',
           isEmpty(search2) ? `${URL}?${query2}` : `${URL}${search2}&${query2}`,
           null,
-          FETCH_CATEGORIES_SUCCESS,
-          FETCH_CATEGORIES_ERROR,
+          FETCH_CATEGORIES_2_SUCCESS,
+          FETCH_CATEGORIES_2_ERROR,
           getStorage.admin().token
         )
       );
@@ -140,8 +146,7 @@ export const createCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_CATEGORY_SUCCESS) {
     dispatch(getCategoriesListProcess());
-
-    console.log('action.payload create categories SUCCESS', action.payload);
+    dispatch(getCategories2ListProcess());
   }
 };
 
@@ -172,8 +177,7 @@ export const updateCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_CATEGORY_SUCCESS) {
     dispatch(getCategoriesListProcess());
-
-    console.log('action.payload update categories SUCCESS', action.payload);
+    dispatch(getCategories2ListProcess());
   }
 };
 

@@ -72,5 +72,9 @@
   "Users list": "用户列表",
   "Users section description": "显示用户信息时，可以修改用户个人信息，删除用户.",
   "First category list": "一级商品分类",
-  "First category description": "一级商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作."
+  "First category description": "一级商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作.",
+  "Second category list": "二级商品分类",
+  "Second category description": "二级商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作.",
+  "Parent": "一级商品名称",
+  "ParentId": "一级ID"
 }

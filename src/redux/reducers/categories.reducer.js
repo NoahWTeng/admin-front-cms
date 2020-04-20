@@ -75,6 +75,7 @@ export const categories = (state = initialState, action = {}) => {
       return {
         isFetching: false,
         category1: [],
+        category2: [],
         currentCategory: {},
         pagination: {},
       };

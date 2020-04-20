@@ -3,24 +3,29 @@ const Dashboard = lazy(() => import('../pages/Dashboard'));
 const Users = lazy(() => import('../pages/Users'));
 const UserDetail = lazy(() => import('../pages/Users/components/UserDetails'));
 const FirstCategory = lazy(() => import('../pages/Categories/First'));
+const SecondCategory = lazy(() => import('../pages/Categories/Second'));
 
-export const RenderList = language => {
+export const RenderList = (language) => {
   return [
     {
       path: `/`,
-      component: Dashboard
+      component: Dashboard,
     },
     {
       path: `/${language}/user`,
-      component: Users
+      component: Users,
     },
     {
       path: `/${language}/user/:id`,
-      component: UserDetail
+      component: UserDetail,
     },
     {
       path: `/${language}/categories/first`,
-      component: FirstCategory
-    }
+      component: FirstCategory,
+    },
+    {
+      path: `/${language}/categories/second`,
+      component: SecondCategory,
+    },
   ];
 };
