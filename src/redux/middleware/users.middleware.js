@@ -24,6 +24,7 @@ import {
   getUserById,
 } from '@actions';
 import { getStorage, handleRefresh, history } from '@helpers';
+import { logoutAdmin } from '@actions';
 
 const URL = 'http://localhost:3000/api/v1/customer/';
 
@@ -120,6 +121,7 @@ export const getUsersSuccess = ({ dispatch }) => (next) => (action) => {
 export const getUsersError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USERS_ERROR) {
+    dispatch(logoutAdmin());
     console.log('action.payload getusers', action.payload);
   }
 };

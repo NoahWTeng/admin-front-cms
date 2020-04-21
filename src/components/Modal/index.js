@@ -14,6 +14,7 @@ import { closeModal } from '@actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { type } from 'ramda';
 const { Option } = Select;
+const uploadURL = 'http://localhost:3000/api/v1/upload';
 
 const formItemLayout = {
   labelCol: {
@@ -39,6 +40,10 @@ export const CustomModal = memo(
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const { modalType, isModal } = useSelector((state) => state.modal);
+
+    const fileOnChange = (file) => {
+      console.log(file);
+    };
 
     return (
       <Modal
@@ -88,7 +93,12 @@ export const CustomModal = memo(
                   {...formItemLayout}
                   key={item.id}
                 >
-                  <Upload fileList={[]}>
+                  <Upload
+                    fileList={false}
+                    multiple={false}
+                    action={uploadURL}
+                    onChange={fileOnChange}
+                  >
                     <Button>
                       <UploadOutlined /> Upload
                     </Button>

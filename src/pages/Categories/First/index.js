@@ -37,17 +37,18 @@ const FirstCategory = withI18n()(
     }, []);
 
     const handleOnOk = (data) => {
-      if (data.id) {
-        const { title, description, isActive } = data;
-        return dispatch(
-          updateCategory({
-            body: { title, description, isActive },
-            paramsId: data.id,
-          })
-        );
-      }
+      console.log(data);
+      // if (data.id) {
+      //   const { title, description, isActive } = data;
+      //   return dispatch(
+      //     updateCategory({
+      //       body: { title, description, isActive },
+      //       paramsId: data.id,
+      //     })
+      //   );
+      // }
 
-      dispatch(createNewCategory(data));
+      // dispatch(createNewCategory(data));
     };
 
     return (
