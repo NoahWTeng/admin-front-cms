@@ -1,7 +1,6 @@
 import './list.scss';
 import React, { memo } from 'react';
 import { Table, Modal } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
 
 import { columns } from './columns';
 import {
@@ -11,10 +10,7 @@ import {
   toggleCategoryPagination,
 } from '@actions';
 
-export const TableList = memo(({ i18n }) => {
-  const dispatch = useDispatch();
-  const { category1, pagination } = useSelector((state) => state.categories);
-
+export const TableList = memo(({ i18n, category1, pagination, dispatch }) => {
   const getColumnProps = () => ({
     render: (text, record) => text,
   });

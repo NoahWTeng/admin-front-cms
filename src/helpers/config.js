@@ -21,19 +21,22 @@ module.exports = {
       {
         key: 'es',
         title: 'Español',
-        flag: esFlag
+        flag: esFlag,
       },
       {
         key: 'en',
         title: 'English',
-        flag: usFlag
+        flag: usFlag,
       },
       {
         key: 'zh',
         title: '中文',
-        flag: zhFlag
-      }
+        flag: zhFlag,
+      },
     ],
-    defaultLanguage: 'en'
-  }
+    defaultLanguage: 'en',
+  },
+  services: {
+    api_upload: 'http://localhost:3000/api/v1/upload/',
+  },
 };

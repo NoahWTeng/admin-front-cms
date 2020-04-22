@@ -43,7 +43,9 @@ export const columns = (i18n, getColumnSearchProps, handleOperation) => {
       dataIndex: 'imagenUrl',
       key: 'imagenUrl',
       width: 200,
-      ...styles,
+      render: (_, record) => (
+        <img alt={record.imageUrl} src={record.imageUrl} width="100%" />
+      ),
     },
     {
       title: <Trans>Active</Trans>,

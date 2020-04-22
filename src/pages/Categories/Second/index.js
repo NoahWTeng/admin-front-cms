@@ -1,7 +1,7 @@
-import React, { useEffect, memo, useMemo } from 'react';
+import React, { useEffect, memo } from 'react';
 import { withI18n } from '@lingui/react';
-import { isEmpty } from 'ramda';
 import { useDispatch, useSelector } from 'react-redux';
+import { type } from 'ramda';
 
 import { Page, Loader, CustomModal } from '@components';
 import {
@@ -11,19 +11,22 @@ import {
   updateCategory,
   clearUpState,
 } from '@actions';
-
+import { services } from '@helpers';
 import { Header } from './components/Header';
 import { TableList } from './components/TableList';
-
 import { fieldsValue } from './utils/fieldsValue';
 import { setInitialValue } from './utils/modalInitialValue';
 
 const FirstCategory = withI18n()(
   memo(({ i18n }) => {
     const dispatch = useDispatch();
-    const { category1, category2, currentCategory, isFetching } = useSelector(
-      (state) => state.categories
-    );
+    const {
+      category1,
+      category2,
+      currentCategory,
+      isFetching,
+      pagination,
+    } = useSelector((state) => state.categories);
     const { modalType, isModal } = useSelector((state) => state.modal);
 
     useEffect(() => {
@@ -48,7 +51,9 @@ const FirstCategory = withI18n()(
           isActive,
           breadcrumbParentId,
           menuParentId,
+          imageUrl,
         } = data;
+
         return dispatch(
           updateCategory({
             body: {
@@ -57,21 +62,36 @@ const FirstCategory = withI18n()(
               isActive,
               breadcrumbParentId,
               menuParentId,
+              imageUrl:
+                type(imageUrl) === 'Object'
+                  ? `${services.api_upload}${imageUrl.file.name}`
+                  : imageUrl,
             },
             paramsId: data.id,
           })
         );
       }
-      dispatch(createNewCategory(data));
+      dispatch(
+        createNewCategory({
+          ...data,
+          imageUrl: `${services.api_upload}${data.imageUrl.file.name}`,
+        })
+      );
     };
 
     return (
       <Page inner>
         {isFetching && <Loader spinning />}
-        {!isEmpty(category2) && !isFetching && (
+        {!isFetching && (
           <>
             <Header />
-            <TableList i18n={i18n} />
+            <TableList
+              i18n={i18n}
+              dispatch={dispatch}
+              category2={category2}
+              pagination={pagination}
+              isFetching={isFetching}
+            />
           </>
         )}
         {isModal && (

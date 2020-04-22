@@ -2,14 +2,13 @@ import {
   FETCH_CATEGORIES_SUCCESS,
   CURRENT_CATEGORY,
   CHANGE_PAGINATION_CATEGORY,
-  FETCH_CATEGORIES_PROCESS,
   CLEAR_ALL_STATE,
   FETCH_CATEGORIES_2_SUCCESS,
 } from '@constants';
 import moment from 'moment';
 
 const initialState = {
-  isFetching: false,
+  isFetching: true,
   category1: [],
   category2: [],
   currentCategory: {},
@@ -18,11 +17,6 @@ const initialState = {
 
 export const categories = (state = initialState, action = {}) => {
   switch (action.type) {
-    case FETCH_CATEGORIES_PROCESS:
-      return {
-        ...state,
-        isFetching: true,
-      };
     case FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,

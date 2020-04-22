@@ -5,7 +5,7 @@ import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 
 const styles = {
   align: 'left',
-  ellipsis: true
+  ellipsis: true,
 };
 
 const fontCircleSize = { fontSize: '22px' };
@@ -17,27 +17,29 @@ export const columns = (i18n, getColumnSearchProps, handleOperation) => {
       dataIndex: `_id`,
       key: 'id',
       ...styles,
-      ...getColumnSearchProps('_id')
+      ...getColumnSearchProps('_id'),
     },
     {
       title: <Trans>Category name</Trans>,
       dataIndex: `title`,
       key: 'title',
       ...styles,
-      ...getColumnSearchProps('title')
+      ...getColumnSearchProps('title'),
     },
     {
       title: <Trans>Description</Trans>,
       dataIndex: 'description',
       key: 'description',
-      ...styles
+      ...styles,
     },
     {
       title: <Trans>Imagen</Trans>,
       dataIndex: 'imagenUrl',
       key: 'imagenUrl',
       width: 200,
-      ...styles
+      render: (_, record) => (
+        <img alt={record.imageUrl} src={record.imageUrl} width="100%" />
+      ),
     },
     {
       title: <Trans>Active</Trans>,
@@ -48,13 +50,13 @@ export const columns = (i18n, getColumnSearchProps, handleOperation) => {
           <CheckCircleTwoTone twoToneColor="#52c41a" style={fontCircleSize} />
         ) : (
           <CloseCircleTwoTone twoToneColor="#eb2f96" style={fontCircleSize} />
-        )
+        ),
     },
     {
       title: <Trans>CreateTime</Trans>,
       dataIndex: 'createdAt',
       key: 'createdAt',
-      ...styles
+      ...styles,
     },
     {
       title: <Trans>Operation</Trans>,
@@ -63,17 +65,17 @@ export const columns = (i18n, getColumnSearchProps, handleOperation) => {
       render: (text, record) => {
         return (
           <DropMenuDown
-            onMenuClick={e => handleOperation(record, e)}
+            onMenuClick={(e) => handleOperation(record, e)}
             menuOptions={[
               {
                 key: 'Update',
-                name: i18n.t`Update`
+                name: i18n.t`Update`,
               },
-              { key: 'Remove', name: i18n.t`Remove` }
+              { key: 'Remove', name: i18n.t`Remove` },
             ]}
           />
         );
-      }
-    }
+      },
+    },
   ];
 };
