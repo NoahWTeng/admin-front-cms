@@ -37,7 +37,7 @@ export const fieldsValue = (i18n, modalType) => {
       id: '5',
       title: [i18n.t`Update`, i18n.t`Create`],
       label: i18n.t`Imagen`,
-      name: 'imageFile',
+      name: 'imageUrl',
       upload: true,
     },
   ];

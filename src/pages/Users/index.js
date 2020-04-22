@@ -1,7 +1,7 @@
 import React, { useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withI18n } from '@lingui/react';
-import { pickBy, isEmpty } from 'ramda';
+import { pickBy } from 'ramda';
 
 import { Header, TableList } from './components';
 import { Page, Loader, CustomModal } from '@components';
@@ -51,7 +51,7 @@ const Users = withI18n()(
       <>
         <Page inner>
           {isFetching && <Loader spinning />}
-          {!isEmpty(allUsers) && !isFetching && (
+          {!isFetching && (
             <>
               <Header
                 i18n={i18n}

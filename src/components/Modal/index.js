@@ -1,4 +1,6 @@
 import React, { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { type } from 'ramda';
 import {
   Input,
   Modal,
@@ -11,10 +13,9 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { closeModal } from '@actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { type } from 'ramda';
+import { services } from '@helpers';
+
 const { Option } = Select;
-const uploadURL = 'http://localhost:3000/api/v1/upload';
 
 const formItemLayout = {
   labelCol: {
@@ -40,10 +41,6 @@ export const CustomModal = memo(
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const { modalType, isModal } = useSelector((state) => state.modal);
-
-    const fileOnChange = (file) => {
-      console.log(file);
-    };
 
     return (
       <Modal
@@ -96,8 +93,7 @@ export const CustomModal = memo(
                   <Upload
                     fileList={false}
                     multiple={false}
-                    action={uploadURL}
-                    onChange={fileOnChange}
+                    action={services.api_upload}
                   >
                     <Button>
                       <UploadOutlined /> Upload
