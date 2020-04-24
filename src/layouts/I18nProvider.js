@@ -12,19 +12,23 @@ import { Loader } from '@components';
 const languages = {
   zh: zh_CN,
   en: en_US,
-  es: es_ES
+  es: es_ES,
 };
+const Context = React.createContext();
 
-export const Layouts = ({ children }) => {
-  const { language, catalogs } = useSelector(state => state.language);
-  const isLoading = useSelector(state => state.ui.isLoading);
+const I18nProviderLayout = ({ children }) => {
+  const { language, catalogs } = useSelector((state) => state.language);
+  const isLoading = useSelector((state) => state.ui.isLoading);
 
   if (isLoading) return <Loader spinning />;
   return (
     <ConfigProvider locale={languages[language]}>
       <I18nProvider language={language} catalogs={catalogs}>
-        <BaseLayout language={language}>{children}</BaseLayout>
+        <Context.Provider value={{ language, catalogs }}>
+          <BaseLayout>{children}</BaseLayout>
+        </Context.Provider>
       </I18nProvider>
     </ConfigProvider>
   );
 };
+export { I18nProviderLayout, Context as I18nContext };

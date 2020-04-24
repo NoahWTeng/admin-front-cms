@@ -4,15 +4,23 @@ import {
   CHANGE_PAGINATION_CATEGORY,
   CLEAR_ALL_STATE,
   FETCH_CATEGORIES_2_SUCCESS,
+  CREATE_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_ERROR,
+  DELETE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_ERROR,
+  UPDATE_CATEGORY_SUCCESS,
+  UPDATE_CATEGORY_ERROR,
 } from '@constants';
 import moment from 'moment';
 
 const initialState = {
-  isFetching: true,
   category1: [],
   category2: [],
   currentCategory: {},
   pagination: {},
+  created: null,
+  deleted: null,
+  updated: null,
 };
 
 export const categories = (state = initialState, action = {}) => {
@@ -32,7 +40,6 @@ export const categories = (state = initialState, action = {}) => {
           showSizeChanger: true,
           showQuickJumper: false,
         },
-        isFetching: false,
       };
     case FETCH_CATEGORIES_2_SUCCESS:
       return {
@@ -49,7 +56,6 @@ export const categories = (state = initialState, action = {}) => {
           showSizeChanger: true,
           showQuickJumper: false,
         },
-        isFetching: false,
       };
     case CHANGE_PAGINATION_CATEGORY:
       return {
@@ -65,13 +71,57 @@ export const categories = (state = initialState, action = {}) => {
         ...state,
         currentCategory: action.payload,
       };
+    case CREATE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        created: 'success',
+        deleted: '',
+        updated: '',
+      };
+    case CREATE_CATEGORY_ERROR:
+      return {
+        ...state,
+        created: 'error',
+        deleted: '',
+        updated: '',
+      };
+    case DELETE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        created: '',
+        deleted: 'success',
+        updated: '',
+      };
+    case DELETE_CATEGORY_ERROR:
+      return {
+        ...state,
+        created: '',
+        deleted: 'error',
+        updated: '',
+      };
+    case UPDATE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        created: '',
+        deleted: '',
+        updated: 'success',
+      };
+    case UPDATE_CATEGORY_ERROR:
+      return {
+        ...state,
+        created: '',
+        deleted: '',
+        updated: 'error',
+      };
     case CLEAR_ALL_STATE:
       return {
-        isFetching: false,
         category1: [],
         category2: [],
         currentCategory: {},
         pagination: {},
+        created: null,
+        deleted: null,
+        updated: null,
       };
     default:
       return state;

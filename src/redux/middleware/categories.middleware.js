@@ -21,6 +21,8 @@ import {
   getCategoriesListProcess,
   closeModal,
   getCategories2ListProcess,
+  isFetchingData,
+  isNotFetchingData,
 } from '@actions';
 import { getStorage, history, handleRefresh } from '@helpers';
 import { stringify } from 'qs';
@@ -37,6 +39,7 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       const query = stringify({
         querySearch: { breadcrumbParentId: { $exists: false } },
       });
+      dispatch(isFetchingData());
 
       dispatch(
         apiRequest(
@@ -48,6 +51,8 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
           getStorage.admin().token
         )
       );
+      dispatch(getCategories2ListProcess());
+
       break;
     case FETCH_CATEGORIES_2_PROCESS:
       const search2 = window.location.search;
@@ -80,8 +85,8 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case DELETE_CATEGORY_PROCESS:
-      const { category1, pagination, ids } = action.payload;
-
+      const { category1, category2, pagination, ids } = action.payload;
+      const size = category1 ? category1.length : category2.length;
       dispatch(
         apiRequest(
           'DELETE',
@@ -95,7 +100,7 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       handleRefresh(
         {
           page:
-            category1.length === 1 && pagination.current > 1
+            size === 1 && pagination.current > 1
               ? pagination.current - 1
               : pagination.current,
           limit: pagination.pageSize,
@@ -124,21 +129,11 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
 export const getCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_CATEGORIES_SUCCESS) {
-    dispatch(closeModal());
   }
 
   if (action.type === FETCH_CATEGORIES_2_SUCCESS) {
     dispatch(closeModal());
-  }
-};
-
-export const getCategoriesError = ({ dispatch }) => (next) => (action) => {
-  next(action);
-  if (action.type === FETCH_CATEGORIES_ERROR) {
-    console.log('action.payload get categories ERROR', action.payload);
-  }
-  if (action.type === FETCH_CATEGORIES_2_ERROR) {
-    console.log('action.payload get categories 2 ERROR', action.payload);
+    dispatch(isNotFetchingData());
   }
 };
 
@@ -146,14 +141,13 @@ export const createCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_CATEGORY_SUCCESS) {
     dispatch(getCategoriesListProcess());
-    dispatch(getCategories2ListProcess());
   }
 };
 
 export const createCategoriesError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_CATEGORY_ERROR) {
-    console.log('action.payload create categories ERROR', action.payload);
+    dispatch(closeModal());
   }
 };
 
@@ -161,15 +155,13 @@ export const deleteCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_CATEGORY_SUCCESS) {
     dispatch(getCategoriesListProcess());
-
-    console.log('action.payload delete categories SUCCESS', action.payload);
   }
 };
 
 export const deleteCategoriesError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_CATEGORY_ERROR) {
-    console.log('action.payload delete categories ERROR', action.payload);
+    dispatch(closeModal());
   }
 };
 
@@ -177,14 +169,13 @@ export const updateCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_CATEGORY_SUCCESS) {
     dispatch(getCategoriesListProcess());
-    dispatch(getCategories2ListProcess());
   }
 };
 
 export const updateCategoriesError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_CATEGORY_ERROR) {
-    console.log('action.payload update categories ERROR', action.payload);
+    dispatch(closeModal());
   }
 };
 
@@ -206,7 +197,6 @@ export const changePaginationProcess = ({ dispatch }) => (next) => (action) => {
 export const categoriesMdl = [
   categoriesProcess,
   getCategoriesSuccess,
-  getCategoriesError,
   createCategoriesSuccess,
   createCategoriesError,
   deleteCategoriesSuccess,

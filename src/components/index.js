@@ -5,3 +5,4 @@ export * from './ScrollBar';
 export * from './Bread';
 export * from './Page404';
 export * from './Modal';
+export * from './Notification';

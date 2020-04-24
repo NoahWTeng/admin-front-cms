@@ -122,7 +122,6 @@ export const getUsersError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USERS_ERROR) {
     dispatch(logoutAdmin());
-    console.log('action.payload getusers', action.payload);
   }
 };
 
@@ -136,7 +135,7 @@ export const deleteUsersSuccess = ({ dispatch }) => (next) => (action) => {
 export const deleteUsersError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_USERS_ERROR) {
-    console.log('action.payload delete', action.payload);
+    dispatch(closeModal());
   }
 };
 
@@ -151,7 +150,7 @@ export const createdUserSuccess = ({ dispatch }) => (next) => (action) => {
 export const createdUserError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_USER_ERROR) {
-    console.log('action.payload create', action.payload);
+    dispatch(closeModal());
   }
 };
 
@@ -168,7 +167,7 @@ export const updatedUserSuccess = ({ dispatch }) => (next) => (action) => {
 export const updatedUserError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_USER_ERROR) {
-    console.log('action.payload UPDATE', action.payload);
+    dispatch(closeModal());
   }
 };
 

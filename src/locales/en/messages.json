@@ -75,5 +75,13 @@
   "Second category list": "Second-Level Product Classification",
   "Second category description": "Second-level product classification displayed, you can add new product classification, modify product classification and delete product classification.",
   "Parent": "Parent name",
-  "ParentId": "Id parent"
+  "ParentId": "Id parent",
+  "success": "Success!",
+  "error": "Error",
+  "ErrorCreated": "Something went wrong, so we could not create the new data!",
+  "SuccessCreated": "The new data was created correctly!",
+  "ErrorDeleted": "Something went wrong, so we could not delete data!",
+  "SuccessDeleted": "The data was deleted correctly!",
+  "ErrorUpdated": "Something went wrong, so we could not update the data!",
+  "SuccessUpdated": "The data was updated correctly!"
 }

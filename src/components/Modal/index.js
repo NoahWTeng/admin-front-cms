@@ -59,7 +59,7 @@ export const CustomModal = memo(
               onOk(values);
             })
             .catch((info) => {
-              console.log('Validate Failed:', info);
+              console.error('Validate Failed:', info);
             });
         }}
       >

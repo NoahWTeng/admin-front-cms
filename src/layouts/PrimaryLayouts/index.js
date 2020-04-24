@@ -1,5 +1,5 @@
 import './index.scss';
-import React, { Fragment, Suspense, memo, useMemo } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { Layout, BackTop } from 'antd';
@@ -10,7 +10,7 @@ import { Siderbar, Navbar, Footer, Renders } from './components';
 import { useSelector } from 'react-redux';
 
 export const PrimaryLayouts = () => {
-  const { routesList, renderList } = useSelector(state => state.language);
+  const { routesList, renderList } = useSelector((state) => state.language);
   const location = useLocation();
   // Find a route that matches the pathname.
   const matchPath = routesList.some(

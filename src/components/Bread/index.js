@@ -1,4 +1,3 @@
-import './Bread.scss';
 import React, { Fragment } from 'react';
 import { Breadcrumb } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,12 +5,13 @@ import { useSelector } from 'react-redux';
 
 import { withI18n } from '@lingui/react';
 import { pathMatchRegexp, queryAncestors } from '@helpers';
+import './Bread.scss';
 
 export const Bread = withI18n()(({ i18n }) => {
-  const routesList = useSelector(state => state.language.routesList);
+  const routesList = useSelector((state) => state.language.routesList);
   const location = useLocation();
 
-  const generateBreadcrumbs = paths => {
+  const generateBreadcrumbs = (paths) => {
     return paths.map((item, key) => {
       const content = item && (
         <Fragment>
@@ -42,8 +42,8 @@ export const Bread = withI18n()(({ i18n }) => {
         routesList[0],
         {
           id: 404,
-          name: i18n.t`Not Found`
-        }
+          name: i18n.t`Not Found`,
+        },
       ];
 
   return (

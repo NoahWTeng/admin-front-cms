@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { history } from '@helpers';
 import { LoginPage, AuthRoute, InitialStorage } from '@pages';
-import { Layouts, PrimaryLayouts } from '@layouts';
+import { I18nProviderLayout, PrimaryLayouts } from '@layouts';
 
 const App = () => {
   return (
@@ -11,9 +11,9 @@ const App = () => {
         <Switch>
           <Route path="/login" component={LoginPage} />
           <AuthRoute>
-            <Layouts>
+            <I18nProviderLayout>
               <PrimaryLayouts />
-            </Layouts>
+            </I18nProviderLayout>
           </AuthRoute>
         </Switch>
       </InitialStorage>

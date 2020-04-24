@@ -1,2 +1,2 @@
-export * from './Layouts';
+export * from './I18nProvider';
 export * from './PrimaryLayouts';

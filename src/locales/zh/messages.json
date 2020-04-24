@@ -76,5 +76,13 @@
   "Second category list": "二级商品分类",
   "Second category description": "二级商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作.",
   "Parent": "一级商品名称",
-  "ParentId": "一级ID"
+  "ParentId": "一级ID",
+  "success": "成功!",
+  "error": "错误!",
+  "ErrorCreated": "发生问题，因此我们无法创建新数据！",
+  "SuccessCreated": "新数据已正确创建！",
+  "ErrorDeleted": "发生问题，因此我们无法删除数据！",
+  "SuccessDeleted": "数据已正确删除！",
+  "ErrorUpdated": "发生问题，因此我们无法更新数据！",
+  "SuccessUpdated": "数据已正确更新！"
 }

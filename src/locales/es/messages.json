@@ -75,5 +75,13 @@
   "Second category list": "Clasificación de Categoria Segundo Nivel",
   "Second category description": "Tablero de clasificación de la categoria segundo nivel, puede agregar una nueva clasificación de productos, modificarla y eliminarla.",
   "Parent": "Nombre padre",
-  "ParentId": "Id padre"
+  "ParentId": "Id padre",
+  "success": "¡Correcto!",
+  "error": "¡Error!",
+  "ErrorCreated": "Algo salió mal, así que no pudimos crear el nuevo dato.",
+  "SuccessCreated": "¡El nuevo dato fue creado correctamente!",
+  "ErrorDeleted": "Algo salió mal, ¡así que no pudimos eliminar el dato!",
+  "SuccessDeleted": "¡El dato se eliminó correctamente!",
+  "ErrorUpdated": "Algo salió mal, así que no pudimos actualizar el dato.",
+  "SuccessUpdated": "¡El dato se actualizó correctamente!"
 }
