@@ -50,7 +50,6 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-localstorage": "^0.4.1",
     "redux-react-hook": "^4.0.1",
-    "redux-thunk": "2.3.0",
     "resolve": "1.15.1",
     "serve": "^11.3.0",
     "sw-precache-webpack-plugin": "1.0.0",
