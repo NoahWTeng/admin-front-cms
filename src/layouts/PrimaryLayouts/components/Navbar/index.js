@@ -12,7 +12,7 @@ import { fixedHeader } from '@helpers';
 import { RightContent } from './RightContent';
 
 export const Navbar = memo(() => {
-  const isCollapsed = useSelector(state => state.ui.isCollapsed);
+  const isCollapsed = useSelector((state) => state.ui.isCollapsed);
   const dispatch = useDispatch();
   const toggleCollapse = () => dispatch(toggleSidebarCollapsed(!isCollapsed));
 
@@ -20,7 +20,7 @@ export const Navbar = memo(() => {
     <Layout.Header
       className={classnames('header', {
         ['fixed']: fixedHeader,
-        ['collapsed']: isCollapsed
+        ['collapsed']: isCollapsed,
       })}
       id="layoutHeader"
     >

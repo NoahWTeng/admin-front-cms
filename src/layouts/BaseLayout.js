@@ -1,9 +1,9 @@
 import './BaseLayout.scss';
-import React, { Fragment, memo } from 'react';
+import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet';
 import { siteName } from '@helpers';
 
-export const BaseLayout = memo(({ children }) => {
+export const BaseLayout = ({ children }) => {
   return (
     <Fragment>
       <Helmet>
@@ -12,4 +12,4 @@ export const BaseLayout = memo(({ children }) => {
       {children}
     </Fragment>
   );
-});
+};
