@@ -1,7 +1,7 @@
 import React, { useEffect, memo, useState } from 'react';
 import { withI18n } from '@lingui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { type } from 'ramda';
+import { type, isEmpty } from 'ramda';
 
 import { Page, Loader, CustomModal, useNotification } from '@components';
 
@@ -36,7 +36,7 @@ const Catalog = withI18n()(
 
     useEffect(() => {
       let isMounted = true;
-      if (isMounted) {
+      if ((isMounted && isEmpty(category1)) || isEmpty(category2)) {
         dispatch(getCategoriesListProcess());
       }
 
@@ -123,14 +123,16 @@ const Catalog = withI18n()(
       <Page inner>
         {isFetching && <Loader spinning />}
         <Header pathname={pathname} />
-        <TableList
-          i18n={i18n}
-          category1={category1}
-          category2={category2}
-          pagination={pagination}
-          dispatch={dispatch}
-          pathname={pathname}
-        />
+        {!isFetching && (
+          <TableList
+            i18n={i18n}
+            category1={category1}
+            category2={category2}
+            pagination={pagination}
+            dispatch={dispatch}
+            pathname={pathname}
+          />
+        )}
         {isModal && (
           <CustomModal
             i18n={i18n}
