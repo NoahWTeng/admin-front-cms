@@ -2,7 +2,6 @@ import {
   FETCH_CATEGORIES_SUCCESS,
   CURRENT_CATEGORY,
   CHANGE_PAGINATION_CATEGORY,
-  CLEAR_ALL_STATE,
   FETCH_CATEGORIES_2_SUCCESS,
   CREATE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_ERROR,
@@ -10,6 +9,7 @@ import {
   DELETE_CATEGORY_ERROR,
   UPDATE_CATEGORY_SUCCESS,
   UPDATE_CATEGORY_ERROR,
+  REMOVE_MESSAGE_STATE,
 } from '@constants';
 import moment from 'moment';
 
@@ -113,15 +113,12 @@ export const categories = (state = initialState, action = {}) => {
         deleted: '',
         updated: 'error',
       };
-    case CLEAR_ALL_STATE:
+    case REMOVE_MESSAGE_STATE:
       return {
-        category1: [],
-        category2: [],
-        currentCategory: {},
-        pagination: {},
-        created: null,
-        deleted: null,
-        updated: null,
+        ...state,
+        created: '',
+        deleted: '',
+        updated: '',
       };
     default:
       return state;

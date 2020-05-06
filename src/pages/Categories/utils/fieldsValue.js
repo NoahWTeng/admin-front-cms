@@ -1,7 +1,8 @@
-export const fieldsValue = (i18n, modalType, parents) => {
-  const parentsOpt = parents.map(({ title, _id }) => ({ title, _id }));
+const filterCol = (col, modalType) =>
+  col.filter(({ title }) => title.includes(modalType));
 
-  const col = [
+export const fieldsValue = (i18n, modalType, parents, pathname) => {
+  const first = [
     {
       id: '1',
       title: [i18n.t`Update`],
@@ -42,6 +43,15 @@ export const fieldsValue = (i18n, modalType, parents) => {
       name: 'imageUrl',
       upload: true,
     },
+  ];
+  if (pathname) {
+    return filterCol(first, modalType);
+  }
+
+  const parentsOpt = parents.map(({ title, _id }) => ({ title, _id }));
+
+  const second = [
+    ...first,
     {
       id: '6',
       title: [i18n.t`Update`, i18n.t`Create`],
@@ -58,5 +68,5 @@ export const fieldsValue = (i18n, modalType, parents) => {
     },
   ];
 
-  return col.filter(({ title }) => title.includes(modalType));
+  return filterCol(second, modalType);
 };

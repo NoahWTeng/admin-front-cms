@@ -10,8 +10,13 @@ const styles = {
 
 const fontCircleSize = { fontSize: '22px' };
 
-export const columns = (i18n, getColumnSearchProps, handleOperation) => {
-  return [
+export const columns = (
+  i18n,
+  getColumnSearchProps,
+  handleOperation,
+  pathname
+) => {
+  const dataId = [
     {
       title: <Trans>Id</Trans>,
       dataIndex: `_id`,
@@ -19,6 +24,8 @@ export const columns = (i18n, getColumnSearchProps, handleOperation) => {
       ...styles,
       ...getColumnSearchProps('_id'),
     },
+  ];
+  const first = [
     {
       title: <Trans>Category name</Trans>,
       dataIndex: `title`,
@@ -78,4 +85,22 @@ export const columns = (i18n, getColumnSearchProps, handleOperation) => {
       },
     },
   ];
+  if (pathname) return [...first, ...dataId];
+  const second = [
+    {
+      title: <Trans>Parent</Trans>,
+      dataIndex: ['breadcrumbParentId', 'title'],
+      key: 'breadcrumbParentId',
+      ...styles,
+    },
+    {
+      title: <Trans>ParentId</Trans>,
+      dataIndex: ['breadcrumbParentId', '_id'],
+      key: 'breadcrumbParentId',
+      ...styles,
+      ...getColumnSearchProps('breadcrumbParentId'),
+    },
+  ];
+
+  return [...second, ...first];
 };

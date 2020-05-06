@@ -18,9 +18,9 @@ import {
 } from '@constants';
 import {
   apiRequest,
+  getCategories2ListProcess,
   getCategoriesListProcess,
   closeModal,
-  getCategories2ListProcess,
   isFetchingData,
   isNotFetchingData,
 } from '@actions';
@@ -40,7 +40,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
         querySearch: { breadcrumbParentId: { $exists: false } },
       });
       dispatch(isFetchingData());
-
       dispatch(
         apiRequest(
           'GET',
@@ -52,7 +51,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
         )
       );
       dispatch(getCategories2ListProcess());
-
       break;
     case FETCH_CATEGORIES_2_PROCESS:
       const search2 = window.location.search;
@@ -85,8 +83,7 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case DELETE_CATEGORY_PROCESS:
-      const { category1, category2, pagination, ids } = action.payload;
-      const size = category1 ? category1.length : category2.length;
+      const { category, pagination, ids } = action.payload;
       dispatch(
         apiRequest(
           'DELETE',
@@ -100,7 +97,7 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       handleRefresh(
         {
           page:
-            size === 1 && pagination.current > 1
+            category.length === 1 && pagination.current > 1
               ? pagination.current - 1
               : pagination.current,
           limit: pagination.pageSize,

@@ -5,7 +5,7 @@ import { Button, Row, Divider } from 'antd';
 import { Trans } from '@lingui/react';
 import { openModal } from '@actions';
 
-export const Header = memo(() => {
+export const Header = memo(({ pathname }) => {
   const dispatch = useDispatch();
 
   const toggleModalCreate = () => dispatch(openModal('Create'));
@@ -13,10 +13,18 @@ export const Header = memo(() => {
   return (
     <>
       <h2>
-        <Trans>Second category list</Trans>
+        {pathname ? (
+          <Trans>First category list</Trans>
+        ) : (
+          <Trans>Second category list</Trans>
+        )}
       </h2>
       <p>
-        <Trans>Second category description</Trans>
+        {pathname ? (
+          <Trans>First category description</Trans>
+        ) : (
+          <Trans>Second category description</Trans>
+        )}
       </p>
       <Divider style={{ marginTop: '24px', marginBottom: '24px' }} />
       <Row justify="end">

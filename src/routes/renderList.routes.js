@@ -2,8 +2,7 @@ import { lazy } from 'react';
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const Users = lazy(() => import('../pages/Users'));
 const UserDetail = lazy(() => import('../pages/Users/components/UserDetails'));
-const FirstCategory = lazy(() => import('../pages/Categories/First'));
-const SecondCategory = lazy(() => import('../pages/Categories/Second'));
+const Catalog = lazy(() => import('../pages/Categories'));
 
 export const RenderList = (language) => {
   return [
@@ -21,11 +20,11 @@ export const RenderList = (language) => {
     },
     {
       path: `/${language}/categories/first`,
-      component: FirstCategory,
+      component: Catalog,
     },
     {
       path: `/${language}/categories/second`,
-      component: SecondCategory,
+      component: Catalog,
     },
   ];
 };

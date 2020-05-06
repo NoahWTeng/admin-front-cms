@@ -25,6 +25,8 @@ const CLEAR_ALL_STATE = '[categories] Process Clear State';
 const FETCH_CATEGORIES_2_PROCESS = '[categories] Process Get Categories 2 List';
 const FETCH_CATEGORIES_2_ERROR = '[categories] Error Get Categories 2 List';
 const FETCH_CATEGORIES_2_SUCCESS = '[categories] Success Get Categories 2 List';
+const REMOVE_MESSAGE_STATE = '[categories] Reset Message Status';
+
 export {
   FETCH_CATEGORIES_PROCESS,
   FETCH_CATEGORIES_ERROR,
@@ -44,4 +46,5 @@ export {
   FETCH_CATEGORIES_2_SUCCESS,
   FETCH_CATEGORIES_2_PROCESS,
   FETCH_CATEGORIES_2_ERROR,
+  REMOVE_MESSAGE_STATE,
 };

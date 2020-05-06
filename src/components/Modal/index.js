@@ -40,7 +40,6 @@ export const CustomModal = ({
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const { modalType, isModal } = useSelector((state) => state.modal);
-  console.log('entro');
   return (
     <Modal
       {...modalProps}
