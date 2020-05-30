@@ -23,6 +23,13 @@ import {
   closeModal,
   isFetchingData,
   isNotFetchingData,
+  successCreateNotification,
+  errorCreateNotification,
+  successUpdateNotification,
+  errorUpdateNotification,
+  successDeleteNotification,
+  errorDeleteNotification,
+  clearNotification,
 } from '@actions';
 import { getStorage, history, handleRefresh } from '@helpers';
 import { stringify } from 'qs';
@@ -137,6 +144,9 @@ export const getCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
 export const createCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_CATEGORY_SUCCESS) {
+    dispatch(successCreateNotification());
+    dispatch(clearNotification());
+
     dispatch(getCategoriesListProcess());
   }
 };
@@ -144,6 +154,9 @@ export const createCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
 export const createCategoriesError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_CATEGORY_ERROR) {
+    dispatch(errorCreateNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };
@@ -151,6 +164,9 @@ export const createCategoriesError = ({ dispatch }) => (next) => (action) => {
 export const deleteCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_CATEGORY_SUCCESS) {
+    dispatch(successDeleteNotification());
+    dispatch(clearNotification());
+
     dispatch(getCategoriesListProcess());
   }
 };
@@ -158,6 +174,9 @@ export const deleteCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
 export const deleteCategoriesError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_CATEGORY_ERROR) {
+    dispatch(errorDeleteNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };
@@ -165,6 +184,9 @@ export const deleteCategoriesError = ({ dispatch }) => (next) => (action) => {
 export const updateCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_CATEGORY_SUCCESS) {
+    dispatch(successUpdateNotification());
+    dispatch(clearNotification());
+
     dispatch(getCategoriesListProcess());
   }
 };
@@ -172,6 +194,9 @@ export const updateCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
 export const updateCategoriesError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_CATEGORY_ERROR) {
+    dispatch(errorUpdateNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };

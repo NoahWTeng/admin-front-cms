@@ -3,13 +3,6 @@ import {
   CURRENT_CATEGORY,
   CHANGE_PAGINATION_CATEGORY,
   FETCH_CATEGORIES_2_SUCCESS,
-  CREATE_CATEGORY_SUCCESS,
-  CREATE_CATEGORY_ERROR,
-  DELETE_CATEGORY_SUCCESS,
-  DELETE_CATEGORY_ERROR,
-  UPDATE_CATEGORY_SUCCESS,
-  UPDATE_CATEGORY_ERROR,
-  REMOVE_MESSAGE_STATE,
 } from '@constants';
 import moment from 'moment';
 
@@ -18,9 +11,6 @@ const initialState = {
   category2: [],
   currentCategory: {},
   pagination: {},
-  created: null,
-  deleted: null,
-  updated: null,
 };
 
 export const categories = (state = initialState, action = {}) => {
@@ -70,55 +60,6 @@ export const categories = (state = initialState, action = {}) => {
       return {
         ...state,
         currentCategory: action.payload,
-      };
-    case CREATE_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        created: 'success',
-        deleted: '',
-        updated: '',
-      };
-    case CREATE_CATEGORY_ERROR:
-      return {
-        ...state,
-        created: 'error',
-        deleted: '',
-        updated: '',
-      };
-    case DELETE_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        created: '',
-        deleted: 'success',
-        updated: '',
-      };
-    case DELETE_CATEGORY_ERROR:
-      return {
-        ...state,
-        created: '',
-        deleted: 'error',
-        updated: '',
-      };
-    case UPDATE_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        created: '',
-        deleted: '',
-        updated: 'success',
-      };
-    case UPDATE_CATEGORY_ERROR:
-      return {
-        ...state,
-        created: '',
-        deleted: '',
-        updated: 'error',
-      };
-    case REMOVE_MESSAGE_STATE:
-      return {
-        ...state,
-        created: '',
-        deleted: '',
-        updated: '',
       };
     default:
       return state;

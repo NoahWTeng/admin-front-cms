@@ -4,7 +4,7 @@ import { withI18n } from '@lingui/react';
 import { pickBy } from 'ramda';
 
 import { Header, TableList } from './components';
-import { Page, Loader, CustomModal, useNotification } from '@components';
+import { Page, Loader, CustomModal } from '@components';
 import {
   getUsersListProcess,
   createNewUser,
@@ -23,12 +23,9 @@ const Users = withI18n()(
       isFetching,
       pagination,
       selected,
-      created,
-      deleted,
-      updated,
     } = useSelector((state) => state.users);
+
     const { modalType, isModal } = useSelector((state) => state.modal);
-    const { openNotification } = useNotification();
 
     useEffect(() => {
       let isMounted = true;
@@ -40,36 +37,6 @@ const Users = withI18n()(
         isMounted = false;
       };
     }, []);
-
-    useEffect(() => {
-      if (created) {
-        const description =
-          created === 'error' ? 'ErrorCreated' : 'SuccessCreated';
-
-        openNotification[created]({
-          message: created,
-          description,
-        });
-      }
-      if (updated) {
-        const description =
-          updated === 'error' ? 'ErrorUpdated' : 'SuccessUpdated';
-
-        openNotification[updated]({
-          message: updated,
-          description,
-        });
-      }
-      if (deleted) {
-        const description =
-          deleted === 'error' ? 'ErrorDeleted' : 'SuccessDeleted';
-
-        openNotification[deleted]({
-          message: deleted,
-          description,
-        });
-      }
-    }, [created, deleted, updated]);
 
     const handleOnOk = (data) => {
       if (data.id) {

@@ -6,6 +6,7 @@ import { users } from './users.reducer';
 import { modal } from './modal.reducer';
 import { categories } from './categories.reducer';
 import { products } from './products.reducer';
+import { notification } from './notification.reducer';
 
 export const rootReducer = combineReducers({
   admin,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   modal,
   categories,
   products,
+  notification,
 });

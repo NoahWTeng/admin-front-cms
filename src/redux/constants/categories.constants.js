@@ -20,12 +20,10 @@ const UPDATE_CATEGORY_ERROR = '[categories] Error Update Category';
 const CHANGE_PAGINATION_CATEGORY = '[categories] Update Pagination Category';
 
 const CURRENT_CATEGORY = '[categories] Target Current Category';
-const CLEAR_ALL_STATE = '[categories] Process Clear State';
 
 const FETCH_CATEGORIES_2_PROCESS = '[categories] Process Get Categories 2 List';
 const FETCH_CATEGORIES_2_ERROR = '[categories] Error Get Categories 2 List';
 const FETCH_CATEGORIES_2_SUCCESS = '[categories] Success Get Categories 2 List';
-const REMOVE_MESSAGE_STATE = '[categories] Reset Message Status';
 
 export {
   FETCH_CATEGORIES_PROCESS,
@@ -42,9 +40,7 @@ export {
   UPDATE_CATEGORY_SUCCESS,
   UPDATE_CATEGORY_ERROR,
   CURRENT_CATEGORY,
-  CLEAR_ALL_STATE,
   FETCH_CATEGORIES_2_SUCCESS,
   FETCH_CATEGORIES_2_PROCESS,
   FETCH_CATEGORIES_2_ERROR,
-  REMOVE_MESSAGE_STATE,
 };

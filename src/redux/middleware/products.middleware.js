@@ -22,6 +22,13 @@ import {
   getProductsListProcess,
   setCurrentUser,
   getUserById,
+  successCreateNotification,
+  errorCreateNotification,
+  successUpdateNotification,
+  errorUpdateNotification,
+  successDeleteNotification,
+  errorDeleteNotification,
+  clearNotification,
 } from '@actions';
 import { getStorage, handleRefresh, history } from '@helpers';
 import { logoutAdmin } from '@actions';
@@ -127,6 +134,9 @@ export const getProductsError = ({ dispatch }) => (next) => (action) => {
 export const deleteProductsSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_PRODUCTS_SUCCESS) {
+    dispatch(successDeleteNotification());
+    dispatch(clearNotification());
+
     dispatch(getProductsListProcess());
   }
 };
@@ -134,6 +144,9 @@ export const deleteProductsSuccess = ({ dispatch }) => (next) => (action) => {
 export const deleteProductsError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_PRODUCTS_ERROR) {
+    dispatch(errorDeleteNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };
