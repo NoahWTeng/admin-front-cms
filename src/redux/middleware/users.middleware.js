@@ -22,6 +22,13 @@ import {
   getUsersListProcess,
   setCurrentUser,
   getUserById,
+  successCreateNotification,
+  errorCreateNotification,
+  successUpdateNotification,
+  errorUpdateNotification,
+  successDeleteNotification,
+  errorDeleteNotification,
+  clearNotification,
 } from '@actions';
 import { getStorage, handleRefresh, history } from '@helpers';
 import { logoutAdmin } from '@actions';
@@ -128,6 +135,9 @@ export const getUsersError = ({ dispatch }) => (next) => (action) => {
 export const deleteUsersSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_USERS_SUCCESS) {
+    dispatch(successDeleteNotification());
+    dispatch(clearNotification());
+
     dispatch(getUsersListProcess());
   }
 };
@@ -135,6 +145,9 @@ export const deleteUsersSuccess = ({ dispatch }) => (next) => (action) => {
 export const deleteUsersError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === DELETE_USERS_ERROR) {
+    dispatch(errorDeleteNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };
@@ -143,6 +156,10 @@ export const createdUserSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_USER_SUCCESS) {
     dispatch(getUsersListProcess());
+
+    dispatch(successCreateNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };
@@ -150,6 +167,9 @@ export const createdUserSuccess = ({ dispatch }) => (next) => (action) => {
 export const createdUserError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_USER_ERROR) {
+    dispatch(errorCreateNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };
@@ -160,6 +180,9 @@ export const updatedUserSuccess = ({ dispatch }) => (next) => (action) => {
     dispatch(getUsersListProcess());
     dispatch(getUserById(action.payload.docs._id));
 
+    dispatch(successUpdateNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };
@@ -167,6 +190,9 @@ export const updatedUserSuccess = ({ dispatch }) => (next) => (action) => {
 export const updatedUserError = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_USER_ERROR) {
+    dispatch(errorUpdateNotification());
+    dispatch(clearNotification());
+
     dispatch(closeModal());
   }
 };

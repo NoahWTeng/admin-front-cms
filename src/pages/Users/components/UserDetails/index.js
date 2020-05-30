@@ -5,7 +5,7 @@ import { HeadContent } from './HeadContent';
 import { isEmpty, pickBy } from 'ramda';
 import { useSelector, useDispatch } from 'react-redux';
 import { openModal, getUserById, updateUser, clearUpState } from '@actions';
-import { Page, CustomModal, Page404, useNotification } from '@components';
+import { Page, CustomModal, Page404 } from '@components';
 import { fieldsValue } from '../../utils/fieldsValue';
 import { setInitialValue } from '../../utils/modalInitialValue';
 
@@ -15,10 +15,10 @@ const UserDetail = withI18n()(
   memo(({ i18n, history, match }) => {
     const dispatch = useDispatch();
     const { modalType, isModal } = useSelector((state) => state.modal);
-    const { currentUser, error, isFetching, updated } = useSelector(
+
+    const { currentUser, error, isFetching } = useSelector(
       (state) => state.users
     );
-    const { openNotification } = useNotification();
 
     useEffect(() => {
       let isMounted = true;
@@ -29,18 +29,6 @@ const UserDetail = withI18n()(
         isMounted = false;
       };
     }, []);
-
-    useEffect(() => {
-      if (updated) {
-        const description =
-          updated === 'error' ? 'ErrorUpdated' : 'SuccessUpdated';
-
-        openNotification[updated]({
-          message: updated,
-          description,
-        });
-      }
-    }, [updated]);
 
     const handleOnOk = (data) => {
       const notId = (val, key) =>

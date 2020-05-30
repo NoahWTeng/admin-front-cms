@@ -4,20 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProductsListProcess, clearUpState } from '@actions';
 import { Header, TableList } from './components';
 
-import { Page, Loader, useNotification } from '@components';
+import { Page, Loader } from '@components';
 
 function Products({ i18n }) {
   const dispatch = useDispatch();
-  const { openNotification } = useNotification();
-  const {
-    isFetching,
-    products,
-    selected,
-    pagination,
-    created,
-    deleted,
-    updated,
-  } = useSelector((state) => state.products);
+  const { isFetching, products, selected, pagination } = useSelector(
+    (state) => state.products
+  );
 
   useEffect(() => {
     let isCurrent = true;
@@ -29,36 +22,6 @@ function Products({ i18n }) {
       isCurrent = false;
     };
   }, []);
-
-  useEffect(() => {
-    if (created) {
-      const description =
-        created === 'error' ? 'ErrorCreated' : 'SuccessCreated';
-
-      openNotification[created]({
-        message: created,
-        description,
-      });
-    }
-    if (updated) {
-      const description =
-        updated === 'error' ? 'ErrorUpdated' : 'SuccessUpdated';
-
-      openNotification[updated]({
-        message: updated,
-        description,
-      });
-    }
-    if (deleted) {
-      const description =
-        deleted === 'error' ? 'ErrorDeleted' : 'SuccessDeleted';
-
-      openNotification[deleted]({
-        message: deleted,
-        description,
-      });
-    }
-  }, [created, deleted, updated]);
 
   return (
     <>

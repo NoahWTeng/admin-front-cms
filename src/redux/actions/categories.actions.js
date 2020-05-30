@@ -6,7 +6,6 @@ import {
   UPDATE_CATEGORY_PROCESS,
   CURRENT_CATEGORY,
   FETCH_CATEGORIES_2_PROCESS,
-  REMOVE_MESSAGE_STATE,
 } from '@constants';
 
 const getCategoriesListProcess = () => ({
@@ -42,7 +41,6 @@ const toggleCategoryPagination = (data) => ({
   payload: data,
 });
 
-const resetMessageStatus = () => ({ type: REMOVE_MESSAGE_STATE });
 export {
   getCategoriesListProcess,
   createNewCategory,
@@ -51,5 +49,4 @@ export {
   updateCategory,
   toggleCategoryPagination,
   getCategories2ListProcess,
-  resetMessageStatus,
 };

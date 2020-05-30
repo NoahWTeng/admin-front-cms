@@ -1,31 +1,42 @@
-import React, { useCallback } from 'react';
-import { notification } from 'antd';
-import { I18nContext } from '@layouts';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNotification } from '../../hooks';
+export function Notification({ children }) {
+  const { openNotification } = useNotification();
 
-notification.config({
-  placement: 'bottomRight',
-  bottom: 64,
-  duration: 6,
-});
+  const { created, deleted, updated } = useSelector(
+    (state) => state.notification
+  );
 
-const proxyTarget = notification;
+  useEffect(() => {
+    if (created) {
+      const description =
+        created === 'error' ? 'ErrorCreated' : 'SuccessCreated';
 
-const noxy = (i18n) =>
-  new Proxy(proxyTarget, {
-    get(target, propKey) {
-      return (args) => {
-        target[propKey]({
-          message: i18n[args.message],
-          description: i18n[args.description],
-        });
-      };
-    },
-  });
+      openNotification[created]({
+        message: created,
+        description,
+      });
+    }
+    if (updated) {
+      const description =
+        updated === 'error' ? 'ErrorUpdated' : 'SuccessUpdated';
 
-export const useNotification = () => {
-  const { language, catalogs } = React.useContext(I18nContext);
+      openNotification[updated]({
+        message: updated,
+        description,
+      });
+    }
+    if (deleted) {
+      const description =
+        deleted === 'error' ? 'ErrorDeleted' : 'SuccessDeleted';
 
-  const openNotification = useCallback(noxy(catalogs[language].messages), []);
+      openNotification[deleted]({
+        message: deleted,
+        description,
+      });
+    }
+  }, [created, deleted, updated]);
 
-  return { openNotification };
-};
+  return children;
+}

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Layout, BackTop } from 'antd';
 import { fixedHeader, pathMatchRegexp } from '@helpers';
-import { Bread, Loader, Page404 } from '@components';
+import { Bread, Loader, Page404, Notification } from '@components';
 
 import { Siderbar, Navbar, Footer, Renders } from './components';
 import { useSelector } from 'react-redux';
@@ -18,27 +18,29 @@ export const PrimaryLayouts = () => {
   );
   return (
     <Fragment>
-      <Layout>
-        <Siderbar />
-        <div
-          className={'container'}
-          style={{ paddingTop: fixedHeader ? 72 : 0 }}
-          id="primaryLayout"
-        >
-          <Navbar />
-          <Layout.Content className={'content'}>
-            <Bread />
-            <Suspense fallback={<Loader />}>
-              {matchPath ? <Renders list={renderList} /> : <Page404 />}
-            </Suspense>
-          </Layout.Content>
-          <BackTop
-            className={'backTop'}
-            target={() => document.querySelector('#primaryLayout')}
-          />
-          <Footer />
-        </div>
-      </Layout>
+      <Notification>
+        <Layout>
+          <Siderbar />
+          <div
+            className={'container'}
+            style={{ paddingTop: fixedHeader ? 72 : 0 }}
+            id="primaryLayout"
+          >
+            <Navbar />
+            <Layout.Content className={'content'}>
+              <Bread />
+              <Suspense fallback={<Loader />}>
+                {matchPath ? <Renders list={renderList} /> : <Page404 />}
+              </Suspense>
+            </Layout.Content>
+            <BackTop
+              className={'backTop'}
+              target={() => document.querySelector('#primaryLayout')}
+            />
+            <Footer />
+          </div>
+        </Layout>
+      </Notification>
     </Fragment>
   );
 };

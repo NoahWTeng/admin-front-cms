@@ -6,3 +6,4 @@ export * from './users.constants';
 export * from './modal.constants';
 export * from './categories.constants';
 export * from './products.constants';
+export * from './notification.constants';
