@@ -1,6 +1,3 @@
-import 'normalize.css';
-import '@themes/index.scss';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Redux from 'react-redux';
@@ -8,6 +5,9 @@ import * as Redux from 'react-redux';
 import { store } from './redux';
 import { App } from './App';
 import * as serviceWorker from './registerServiceWorker';
+
+import '@themes/index.scss';
+import 'normalize.css';
 
 ReactDOM.render(
   <Redux.Provider store={store}>

@@ -1,5 +1,3 @@
-import './Navbar.scss';
-
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
@@ -10,6 +8,7 @@ import { toggleSidebarCollapsed } from '@actions';
 import { fixedHeader } from '@helpers';
 
 import { RightContent } from './RightContent';
+import './Navbar.scss';
 
 export const Navbar = memo(() => {
   const isCollapsed = useSelector((state) => state.ui.isCollapsed);

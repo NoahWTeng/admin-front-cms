@@ -1,4 +1,3 @@
-import '../index.scss';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Checkbox } from 'antd';
@@ -6,6 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import { loginAdmin } from '@actions';
 import { storage, getStorage } from '@helpers';
+import '../index.scss';
 
 const store = getStorage.login();
 
@@ -13,7 +13,7 @@ const LoginForm = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values) => {
     const { email, password, remember } = values;
     remember ? storage.set('login', values) : storage.remove('login'),
       form.setFieldsValue({ email: '', password: '', remember: false });
@@ -29,7 +29,7 @@ const LoginForm = () => {
       initialValues={{
         email: (store && store.email) || null,
         password: (store && store.password) || null,
-        remember: (store && store.remember) || null
+        remember: (store && store.remember) || null,
       }}
     >
       <Form.Item
@@ -38,8 +38,8 @@ const LoginForm = () => {
           {
             type: 'email',
             required: true,
-            message: 'Please input your email or username!'
-          }
+            message: 'Please input your email or username!',
+          },
         ]}
       >
         <Input

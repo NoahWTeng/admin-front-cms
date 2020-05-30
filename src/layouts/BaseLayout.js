@@ -1,7 +1,7 @@
-import './BaseLayout.scss';
 import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet';
 import { siteName } from '@helpers';
+import './BaseLayout.scss';
 
 export const BaseLayout = ({ children }) => {
   return (

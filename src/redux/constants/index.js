@@ -5,3 +5,4 @@ export * from './language.constants';
 export * from './users.constants';
 export * from './modal.constants';
 export * from './categories.constants';
+export * from './products.constants';

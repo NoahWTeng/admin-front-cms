@@ -84,5 +84,17 @@
   "ErrorDeleted": "发生问题，因此我们无法删除数据！",
   "SuccessDeleted": "数据已正确删除！",
   "ErrorUpdated": "发生问题，因此我们无法更新数据！",
-  "SuccessUpdated": "数据已正确更新！"
+  "SuccessUpdated": "数据已正确更新！",
+  "Products List": "产品清单",
+  "Products section description": "显示产品信息，您可以创建，修改，删除。",
+  "Availability": "可用",
+  "Product": "产品名称",
+  "Category": "类别",
+  "Sku": "Sku",
+  "CostPrice": "成本价格",
+  "SellPrice": "卖价",
+  "Tax": "税",
+  "TaxInclude": "含税",
+  "PriceWithTax": "含税价格",
+  "Stock": "库存"
 }

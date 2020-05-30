@@ -1,7 +1,6 @@
-import './404.scss';
-
 import React from 'react';
 import { Page } from '@components';
+import './404.scss';
 
 export const Page404 = () => (
   <Page inner className="full-layout page404">

@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useState } from 'react';
+import React, { useEffect, memo } from 'react';
 import { withI18n } from '@lingui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { type, isEmpty } from 'ramda';

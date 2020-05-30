@@ -1,4 +1,3 @@
-import './Siderbar.scss';
 import logoLight from '@assets/images/logo-light.png';
 import logoDark from '@assets/images/logo-dark.png';
 
@@ -11,11 +10,12 @@ import { Trans } from '@lingui/react';
 import { ScrollBar } from '@components';
 import { switchThemesSibebar } from '@actions';
 import { SiderMenu } from './Menu';
+import './Siderbar.scss';
 
 export const Siderbar = memo(() => {
   const dispatch = useDispatch();
-  const { isCollapsed, isDarkTheme } = useSelector(state => state.ui);
-  const onThemeChange = value => dispatch(switchThemesSibebar(value));
+  const { isCollapsed, isDarkTheme } = useSelector((state) => state.ui);
+  const onThemeChange = (value) => dispatch(switchThemesSibebar(value));
 
   return (
     <Layout.Sider
@@ -37,7 +37,7 @@ export const Siderbar = memo(() => {
         <ScrollBar
           options={{
             // Disabled horizontal scrolling, https://github.com/utatti/perfect-scrollbar#options
-            suppressScrollX: true
+            suppressScrollX: true,
           }}
         >
           <SiderMenu />

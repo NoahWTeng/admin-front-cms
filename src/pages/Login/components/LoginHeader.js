@@ -1,5 +1,5 @@
-import '../index.scss';
 import React, { memo } from 'react';
+import '../index.scss';
 
 export const LoginHeader = memo(() => {
   return (

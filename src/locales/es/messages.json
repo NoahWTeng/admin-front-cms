@@ -83,5 +83,17 @@
   "ErrorDeleted": "Algo salió mal, ¡así que no pudimos eliminar el dato!",
   "SuccessDeleted": "¡El dato se eliminó correctamente!",
   "ErrorUpdated": "Algo salió mal, así que no pudimos actualizar el dato.",
-  "SuccessUpdated": "¡El dato se actualizó correctamente!"
+  "SuccessUpdated": "¡El dato se actualizó correctamente!",
+  "Products List": "Products List",
+  "Products section description": "Aparece la información del producto, puede crear, modificar, eliminar.",
+  "Availability": "Disponibilidad",
+  "Product": "Nombre producto",
+  "Category": "Categoría",
+  "Sku": "Sku",
+  "CostPrice": "Precio de coste",
+  "SellPrice": "Precio de venta",
+  "Tax": "Impuesto",
+  "TaxInclude": "Incluye impuestos",
+  "PriceWithTax": "Precio con impuestos",
+  "Stock": "Cantidad"
 }

@@ -7,16 +7,15 @@ import { SearchOutlined } from '@ant-design/icons';
 import { SearchFilter } from './SearchFilter';
 import { columns } from './columns';
 import {
-  selectUsers,
-  deleteUsersProcess,
-  openModal,
-  setCurrentUser,
+  selectProducts,
+  deleteProductsProcess,
+  setCurrentProduct,
   toggleChangePagination,
 } from '@actions';
 
 import './list.scss';
 
-export const TableList = memo(({ i18n, allUsers, pagination }) => {
+export const TableList = memo(({ i18n, products, pagination }) => {
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState({
@@ -80,14 +79,14 @@ export const TableList = memo(({ i18n, allUsers, pagination }) => {
 
   const rowSelection = {
     onChange: (selectedRowKeys) => {
-      dispatch(selectUsers(selectedRowKeys));
+      dispatch(selectProducts(selectedRowKeys));
     },
   };
 
   const handleOperation = (record, e) => {
     if (e.key === 'Update') {
-      dispatch(openModal(e.key));
-      dispatch(setCurrentUser(record));
+      console.log('update product');
+      dispatch(setCurrentProduct(record));
     }
 
     if (e.key === 'Remove') {
@@ -95,7 +94,7 @@ export const TableList = memo(({ i18n, allUsers, pagination }) => {
         title: i18n.t`Are you sure to delete this user?`,
         onOk: () => {
           dispatch(
-            deleteUsersProcess({ ids: [record._id], allUsers, pagination })
+            deleteProductsProcess({ ids: [record._id], products, pagination })
           );
         },
       });
@@ -105,7 +104,7 @@ export const TableList = memo(({ i18n, allUsers, pagination }) => {
   return (
     <Table
       rowKey={(record) => record._id}
-      dataSource={allUsers}
+      dataSource={products}
       rowSelection={rowSelection}
       pagination={{
         ...pagination,

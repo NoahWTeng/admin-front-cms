@@ -5,23 +5,24 @@ import {
   TeamOutlined,
   UserOutlined,
   TagsOutlined,
-  TagOutlined
+  TagOutlined,
+  CodepenCircleOutlined,
 } from '@ant-design/icons';
 
-export const RoutesList = language => {
+export const RoutesList = (language) => {
   return [
     {
       id: '1',
       icon: <DashboardOutlined />,
       name: <Trans>{'Dashboard'}</Trans>,
-      route: `/`
+      route: `/`,
     },
     {
       id: '2',
       breadcrumbParentId: '1',
       icon: <TeamOutlined />,
       name: <Trans>{'Users'}</Trans>,
-      route: `/${language}/user`
+      route: `/${language}/user`,
     },
     {
       id: '3',
@@ -29,13 +30,13 @@ export const RoutesList = language => {
       icon: <UserOutlined />,
       breadcrumbParentId: '2',
       name: <Trans>{'User detail'}</Trans>,
-      route: `/${language}/user/:id`
+      route: `/${language}/user/:id`,
     },
     {
       id: '5',
       breadcrumbParentId: '1',
       name: <Trans>{'Categories'}</Trans>,
-      icon: <TagsOutlined />
+      icon: <TagsOutlined />,
     },
     {
       id: '51',
@@ -43,7 +44,7 @@ export const RoutesList = language => {
       menuParentId: '5',
       name: <Trans>{'Category 1'}</Trans>,
       icon: <TagOutlined />,
-      route: `/${language}/categories/first`
+      route: `/${language}/categories/first`,
     },
     {
       id: '52',
@@ -51,8 +52,15 @@ export const RoutesList = language => {
       menuParentId: '5',
       name: <Trans>{'Category 2'}</Trans>,
       icon: <TagOutlined />,
-      route: `/${language}/categories/second`
-    }
+      route: `/${language}/categories/second`,
+    },
+    {
+      id: '4',
+      breadcrumbParentId: '1',
+      icon: <CodepenCircleOutlined />,
+      name: <Trans>{'Products'}</Trans>,
+      route: `/${language}/products`,
+    },
 
     // {
     //   id: '51',

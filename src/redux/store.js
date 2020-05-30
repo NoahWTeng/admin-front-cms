@@ -5,7 +5,8 @@ import {
   uiMdl,
   languageMdl,
   usersMdl,
-  categoriesMdl
+  categoriesMdl,
+  productsMdl,
 } from '@middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -27,6 +28,7 @@ export const store = createStore(
       ...languageMdl,
       ...usersMdl,
       ...categoriesMdl,
+      ...productsMdl,
       apiMdl
     )
   )

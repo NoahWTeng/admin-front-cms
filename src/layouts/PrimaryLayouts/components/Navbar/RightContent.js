@@ -1,9 +1,8 @@
-import './Navbar.scss';
-
 import React, { memo } from 'react';
 import { i18n } from '@helpers';
 import { LanguageSwitch } from './Language';
 import { Logout } from './Logout';
+import './Navbar.scss';
 
 export const RightContent = memo(() => {
   return (

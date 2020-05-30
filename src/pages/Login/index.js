@@ -1,9 +1,9 @@
-import './index.scss';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { LoginForm, LoginHeader } from './components';
 import { useSelector } from 'react-redux';
 import { Loader } from '@components';
+import './index.scss';
 
 export const LoginPage = () => {
   const isAuth = useSelector((state) => state.admin.isAuthenticated);

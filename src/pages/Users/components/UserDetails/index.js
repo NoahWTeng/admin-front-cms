@@ -1,4 +1,3 @@
-import './index.scss';
 import React, { useEffect, memo } from 'react';
 import { Button, PageHeader } from 'antd';
 import { withI18n, Trans } from '@lingui/react';
@@ -9,6 +8,8 @@ import { openModal, getUserById, updateUser, clearUpState } from '@actions';
 import { Page, CustomModal, Page404, useNotification } from '@components';
 import { fieldsValue } from '../../utils/fieldsValue';
 import { setInitialValue } from '../../utils/modalInitialValue';
+
+import './index.scss';
 
 const UserDetail = withI18n()(
   memo(({ i18n, history, match }) => {

@@ -1,4 +1,3 @@
-import './list.scss';
 import React, { memo } from 'react';
 import { Table, Modal } from 'antd';
 
@@ -9,6 +8,7 @@ import {
   deleteCategory,
   toggleCategoryPagination,
 } from '@actions';
+import './list.scss';
 
 export const TableList = memo(
   ({ i18n, category1, category2, pagination, pathname, dispatch }) => {

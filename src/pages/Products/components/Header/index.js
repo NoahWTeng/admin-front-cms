@@ -3,18 +3,18 @@ import { useDispatch } from 'react-redux';
 import { Button, Row, Col, Popconfirm, Divider } from 'antd';
 import { Trans } from '@lingui/react';
 import { isEmpty } from 'ramda';
-import { deleteUsersProcess, openModal } from '@actions';
+import { deleteProductsProcess } from '@actions';
 import './heades.scss';
 
-export const Header = memo(({ i18n, selected, allUsers, pagination }) => {
+export const Header = memo(({ i18n, selected, products, pagination }) => {
   const dispatch = useDispatch();
   return (
     <>
       <h2>
-        <Trans>Users list</Trans>
+        <Trans>Products List</Trans>
       </h2>
       <p>
-        <Trans>Users section description</Trans>
+        <Trans>Products section description</Trans>
       </p>
       <Divider style={{ marginTop: '24px', marginBottom: '24px' }} />
       <Row justify="end">
@@ -26,7 +26,7 @@ export const Header = memo(({ i18n, selected, allUsers, pagination }) => {
               placement="left"
               onConfirm={() =>
                 dispatch(
-                  deleteUsersProcess({ ids: selected, allUsers, pagination })
+                  deleteProductsProcess({ ids: selected, products, pagination })
                 )
               }
             >
@@ -39,7 +39,7 @@ export const Header = memo(({ i18n, selected, allUsers, pagination }) => {
           <Button
             type="primary"
             ghost
-            onClick={() => dispatch(openModal('Create'))}
+            onClick={() => console.log('redirect to create product')}
           >
             <Trans>Create</Trans>
           </Button>

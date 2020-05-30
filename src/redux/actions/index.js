@@ -5,3 +5,4 @@ export * from './language.actions';
 export * from './users.actions';
 export * from './modal.actions';
 export * from './categories.actions';
+export * from './products.actions';

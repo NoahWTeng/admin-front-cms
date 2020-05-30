@@ -1,4 +1,3 @@
-import './index.scss';
 import React, { Fragment, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -8,6 +7,7 @@ import { Bread, Loader, Page404 } from '@components';
 
 import { Siderbar, Navbar, Footer, Renders } from './components';
 import { useSelector } from 'react-redux';
+import './index.scss';
 
 export const PrimaryLayouts = () => {
   const { routesList, renderList } = useSelector((state) => state.language);

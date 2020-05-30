@@ -83,5 +83,17 @@
   "ErrorDeleted": "Something went wrong, so we could not delete data!",
   "SuccessDeleted": "The data was deleted correctly!",
   "ErrorUpdated": "Something went wrong, so we could not update the data!",
-  "SuccessUpdated": "The data was updated correctly!"
+  "SuccessUpdated": "The data was updated correctly!",
+  "Products List": "Products List",
+  "Products section description": "The product information displays, you can create, modify, delete.",
+  "Availability": "Active",
+  "Product": "Product name",
+  "Category": "Category",
+  "Sku": "Sku",
+  "CostPrice": "Cost price",
+  "SellPrice": "Sell price",
+  "Tax": "Tax",
+  "TaxInclude": "Include tax",
+  "PriceWithTax": "Price with tax",
+  "Stock": "Stock"
 }

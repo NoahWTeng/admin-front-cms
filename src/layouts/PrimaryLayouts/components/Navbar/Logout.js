@@ -1,4 +1,3 @@
-import './Navbar.scss';
 import avatar from '@assets/svg/jockey.svg';
 
 import React, { Fragment, memo } from 'react';
@@ -7,6 +6,7 @@ import { PoweroffOutlined } from '@ant-design/icons';
 import { Menu, Avatar } from 'antd';
 import { Trans } from '@lingui/react';
 import { logoutAdmin } from '@actions';
+import './Navbar.scss';
 
 export const Logout = memo(() => {
   const dispatch = useDispatch();

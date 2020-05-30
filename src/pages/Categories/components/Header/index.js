@@ -1,9 +1,9 @@
-import './heades.scss';
 import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Row, Divider } from 'antd';
 import { Trans } from '@lingui/react';
 import { openModal } from '@actions';
+import './heades.scss';
 
 export const Header = memo(({ pathname }) => {
   const dispatch = useDispatch();
