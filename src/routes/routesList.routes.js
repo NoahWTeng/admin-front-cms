@@ -7,6 +7,7 @@ import {
   TagsOutlined,
   TagOutlined,
   CodepenCircleOutlined,
+  ExperimentOutlined,
 } from '@ant-design/icons';
 
 export const RoutesList = (language) => {
@@ -61,7 +62,14 @@ export const RoutesList = (language) => {
       name: <Trans>{'Products'}</Trans>,
       route: `/${language}/products`,
     },
-
+    {
+      id: '6',
+      menuParentId: '-1',
+      icon: <ExperimentOutlined />,
+      breadcrumbParentId: '4',
+      name: <Trans>{'New product'}</Trans>,
+      route: `/${language}/products/create`,
+    },
     // {
     //   id: '51',
     //   breadcrumbParentId: '5',

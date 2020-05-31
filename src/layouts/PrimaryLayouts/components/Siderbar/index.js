@@ -1,7 +1,5 @@
-import logoLight from '@assets/images/logo-light.png';
-import logoDark from '@assets/images/logo-dark.png';
-
 import React, { memo } from 'react';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { Layout, Switch } from 'antd';
 import { BulbOutlined, BulbFilled } from '@ant-design/icons';
@@ -11,6 +9,8 @@ import { ScrollBar } from '@components';
 import { switchThemesSibebar } from '@actions';
 import { SiderMenu } from './Menu';
 import './Siderbar.scss';
+import logoLight from '@assets/images/logo-light.png';
+import logoDark from '@assets/images/logo-dark.png';
 
 export const Siderbar = memo(() => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export const Siderbar = memo(() => {
             suppressScrollX: true,
           }}
         >
-          <SiderMenu />
+          <SiderMenu collapsed={isCollapsed} isDarkTheme={isDarkTheme} />
         </ScrollBar>
       </div>
 

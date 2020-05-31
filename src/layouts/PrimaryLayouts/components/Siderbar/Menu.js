@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useMemo, memo } from 'react';
 import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { arrayToTree, queryAncestors, currentMenu } from '@helpers';
@@ -38,10 +38,10 @@ const generateMenus = (data) => {
   });
 };
 
-export const SiderMenu = memo(() => {
-  const routesList = useSelector((state) => state.language.routesList);
-  const { isCollapsed, isDarkTheme } = useSelector((state) => state.ui);
+export const SiderMenu = memo(({ isCollapsed, isDarkTheme }) => {
+  const location = useLocation();
 
+  const routesList = useSelector((state) => state.language.routesList);
   // Check query page is exists
   const menus = useMemo(() => routerFilter(routesList), [routesList]);
   // // Generating tree-structured data for menu content.
@@ -50,9 +50,28 @@ export const SiderMenu = memo(() => {
   ]);
 
   // // Find a menu that matches the pathname.
-  const hasMenu = useMemo(() => currentMenu(menus), [menus]);
+  const hasMenu = useMemo(() => currentMenu(menus, location), [
+    menus,
+    location,
+  ]);
+
   // Find the key that should be selected according to the current menu.
   const selectedKeys = !!hasMenu && selected(menus, hasMenu);
+
+  // Find the key if selectedKeys is empty.
+  const deepFindSelectedKeys = menus
+    .map(({ route, id }) => {
+      if (route) {
+        const pathRoute = route.split('/').splice(1);
+        const pathName = location.pathname.split('/').splice(2);
+        const checker = pathName.some((name) => pathRoute.includes(name));
+        if (checker) {
+          return id;
+        }
+      }
+    })
+    .filter((data) => data !== undefined);
+
   const [openKeys, setOpenKeys] = useState(
     [hasMenu && hasMenu.menuParentId] || []
   );
@@ -78,7 +97,7 @@ export const SiderMenu = memo(() => {
       mode="inline"
       theme={isDarkTheme ? 'dark' : 'light'}
       onOpenChange={onOpenChange}
-      defaultSelectedKeys={selectedKeys || []}
+      selectedKeys={selectedKeys || deepFindSelectedKeys}
       {...menuProps}
     >
       {generateTree}

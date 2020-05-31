@@ -1,4 +1,6 @@
 import React, { memo } from 'react';
+import { Link } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux';
 import { Button, Row, Col, Popconfirm, Divider } from 'antd';
 import { Trans } from '@lingui/react';
@@ -26,7 +28,11 @@ export const Header = memo(({ i18n, selected, products, pagination }) => {
               placement="left"
               onConfirm={() =>
                 dispatch(
-                  deleteProductsProcess({ ids: selected, products, pagination })
+                  deleteProductsProcess({
+                    ids: selected,
+                    products,
+                    pagination,
+                  })
                 )
               }
             >
@@ -36,12 +42,10 @@ export const Header = memo(({ i18n, selected, products, pagination }) => {
             </Popconfirm>
           </Col>
         ) : (
-          <Button
-            type="primary"
-            ghost
-            onClick={() => console.log('redirect to create product')}
-          >
-            <Trans>Create</Trans>
+          <Button type="primary" ghost>
+            <Link to={`products/create`}>
+              <Trans>Create</Trans>
+            </Link>
           </Button>
         )}
       </Row>

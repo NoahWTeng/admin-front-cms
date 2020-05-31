@@ -93,9 +93,9 @@ function queryAncestors(array, current, parentId, id = 'id') {
   return result;
 }
 
-function currentMenu(routes) {
-  return routes.find(
-    (_) => _.route && pathMatchRegexp(_.route, window.location.pathname)
+function currentMenu(menus, location) {
+  return menus.find(
+    (_) => _.route && pathMatchRegexp(_.route, location.pathname)
   );
 }
 
