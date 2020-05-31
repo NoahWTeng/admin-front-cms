@@ -24,8 +24,6 @@ const FETCH_PRODUCT_ID_PROCCESS = '[products] Process Get Product By Id';
 const FETCH_PRODUCT_ID_ERROR = '[products] Error Get Product By Id';
 const FETCH_PRODUCT_ID_SUCCESS = '[products] Sucess Get Product By Id';
 
-const CLEAR_ALL_STATE = '[products] Process Clear State';
-
 export {
   FETCH_PRODUCTS_PROCESS,
   FETCH_PRODUCTS_ERROR,
@@ -45,5 +43,4 @@ export {
   UPDATE_PRODUCT_PROCESS,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR,
-  CLEAR_ALL_STATE,
 };

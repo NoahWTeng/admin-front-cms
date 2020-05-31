@@ -21,7 +21,6 @@ import {
   closeModal,
   getUsersListProcess,
   setCurrentUser,
-  getUserById,
   successCreateNotification,
   errorCreateNotification,
   successUpdateNotification,
@@ -29,11 +28,13 @@ import {
   successDeleteNotification,
   errorDeleteNotification,
   clearNotification,
+  isFetchingData,
+  isNotFetchingData,
 } from '@actions';
 import { getStorage, handleRefresh, history } from '@helpers';
 import { logoutAdmin } from '@actions';
 
-const URL = 'http://localhost:3000/api/v1/customer/';
+const URL = `${process.env.API}customer/`;
 
 export const usersProcess = ({ dispatch }) => (next) => (action) => {
   next(action);
@@ -41,7 +42,7 @@ export const usersProcess = ({ dispatch }) => (next) => (action) => {
   switch (action.type) {
     case FETCH_USERS_PROCESS:
       const { search } = window.location;
-
+      dispatch(isFetchingData());
       dispatch(
         apiRequest(
           'GET',
@@ -55,12 +56,13 @@ export const usersProcess = ({ dispatch }) => (next) => (action) => {
       break;
     case DELETE_USERS_PROCESS:
       const { allUsers, pagination, ids } = action.payload;
+      dispatch(isFetchingData());
 
       dispatch(
         apiRequest(
           'DELETE',
           URL,
-          ids,
+          { ids, query: window.location },
           DELETE_USERS_SUCCESS,
           DELETE_USERS_ERROR,
           getStorage.admin().token
@@ -79,6 +81,8 @@ export const usersProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case CREATE_USER_PROCESS:
+      dispatch(isFetchingData());
+
       dispatch(
         apiRequest(
           'POST',
@@ -91,6 +95,8 @@ export const usersProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case UPDATE_USER_PROCESS:
+      dispatch(isFetchingData());
+
       dispatch(
         apiRequest(
           'PUT',
@@ -103,6 +109,8 @@ export const usersProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case FETCH_USER_ID_PROCCESS:
+      dispatch(isFetchingData());
+
       dispatch(
         apiRequest(
           'GET',
@@ -122,6 +130,7 @@ export const usersProcess = ({ dispatch }) => (next) => (action) => {
 export const getUsersSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USERS_SUCCESS) {
+    dispatch(isNotFetchingData());
   }
 };
 
@@ -137,8 +146,7 @@ export const deleteUsersSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === DELETE_USERS_SUCCESS) {
     dispatch(successDeleteNotification());
     dispatch(clearNotification());
-
-    dispatch(getUsersListProcess());
+    dispatch(isNotFetchingData());
   }
 };
 
@@ -155,10 +163,10 @@ export const deleteUsersError = ({ dispatch }) => (next) => (action) => {
 export const createdUserSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === CREATE_USER_SUCCESS) {
-    dispatch(getUsersListProcess());
-
     dispatch(successCreateNotification());
     dispatch(clearNotification());
+
+    dispatch(isNotFetchingData());
 
     dispatch(closeModal());
   }
@@ -177,11 +185,10 @@ export const createdUserError = ({ dispatch }) => (next) => (action) => {
 export const updatedUserSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === UPDATE_USER_SUCCESS) {
-    dispatch(getUsersListProcess());
-    dispatch(getUserById(action.payload.docs._id));
-
     dispatch(successUpdateNotification());
     dispatch(clearNotification());
+
+    dispatch(isNotFetchingData());
 
     dispatch(closeModal());
   }
@@ -216,6 +223,7 @@ export const getUserByIdSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_USER_ID_SUCCESS) {
     dispatch(setCurrentUser(action.payload));
+    dispatch(isNotFetchingData());
   }
 };
 

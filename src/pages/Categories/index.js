@@ -28,7 +28,8 @@ const Catalog = withI18n()(
 
     useEffect(() => {
       let isMounted = true;
-      if ((isMounted && isEmpty(category1)) || isEmpty(category2)) {
+
+      if (isMounted) {
         dispatch(getCategoriesListProcess());
       }
 
@@ -74,11 +75,12 @@ const Catalog = withI18n()(
         })
       );
     };
+
     return (
       <Page inner>
         {isFetching && <Loader spinning />}
         <Header pathname={pathname} />
-        {!isFetching && (
+        {!isFetching && !isEmpty(category1) && (
           <TableList
             i18n={i18n}
             category1={category1}

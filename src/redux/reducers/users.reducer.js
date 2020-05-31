@@ -1,15 +1,18 @@
+import { mergeAll } from 'ramda';
+import moment from 'moment';
+
 import {
   FETCH_USERS_SUCCESS,
   SELECT_USERS,
   CURRENT_USER,
   CHANGE_PAGINATION_USERS,
   FETCH_USER_ID_ERROR,
-  CLEAR_ALL_STATE,
+  DELETE_USERS_SUCCESS,
+  CREATE_USER_SUCCESS,
+  UPDATE_USER_SUCCESS,
 } from '@constants';
-import moment from 'moment';
 
 const initialState = {
-  isFetching: true,
   allUsers: [],
   currentUser: {},
   selected: [],
@@ -35,7 +38,6 @@ export const users = (state = initialState, action = {}) => {
           showQuickJumper: false,
         },
         selected: [],
-        isFetching: false,
         error: null,
       };
     case SELECT_USERS:
@@ -47,7 +49,6 @@ export const users = (state = initialState, action = {}) => {
       return {
         ...state,
         currentUser: action.payload,
-        isFetching: false,
       };
     case CHANGE_PAGINATION_USERS:
       return {
@@ -63,15 +64,54 @@ export const users = (state = initialState, action = {}) => {
         ...state,
         error: action.payload,
       };
-
-    case CLEAR_ALL_STATE:
+    case DELETE_USERS_SUCCESS:
       return {
-        isFetching: true,
-        allUsers: [],
-        currentUser: {},
+        ...state,
+        allUsers: action.payload.docs.map((user) => ({
+          ...user,
+          createdAt: moment(user.createdAt).format('LL'),
+          updatedAt: moment(user.updatedAt).format('LL'),
+        })),
+        pagination: {
+          total: action.payload.total,
+          pageSize: action.payload.limit,
+          current: action.payload.page,
+          pages: action.payload.pages,
+          showSizeChanger: true,
+          showQuickJumper: false,
+        },
         selected: [],
-        pagination: {},
       };
+    case CREATE_USER_SUCCESS:
+      return {
+        ...state,
+        allUsers: action.payload.docs.map((user) => ({
+          ...user,
+          createdAt: moment(user.createdAt).format('LL'),
+          updatedAt: moment(user.updatedAt).format('LL'),
+        })),
+        pagination: {
+          total: action.payload.total,
+          pageSize: action.payload.limit,
+          current: action.payload.page,
+          pages: action.payload.pages,
+          showSizeChanger: true,
+          showQuickJumper: false,
+        },
+      };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload.docs,
+        allUsers: state.allUsers.map((user) => {
+          const check = user._id === action.payload.docs._id;
+          if (check) {
+            user = mergeAll([user, action.payload.docs]);
+          }
+          return user;
+        }),
+      };
+
     default:
       return state;
   }

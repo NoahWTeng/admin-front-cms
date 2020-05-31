@@ -4,12 +4,11 @@ import {
   CURRENT_PRODUCT,
   CHANGE_PAGINATION_PRODUCTS,
   FETCH_PRODUCT_ID_ERROR,
-  CLEAR_ALL_STATE,
+  DELETE_PRODUCTS_SUCCESS,
 } from '@constants';
 import moment from 'moment';
 
 const initialState = {
-  isFetching: true,
   products: [],
   currentProduct: {},
   selected: [],
@@ -35,14 +34,12 @@ export const products = (state = initialState, action = {}) => {
           showQuickJumper: false,
         },
         selected: [],
-        isFetching: false,
         error: null,
       };
     case CURRENT_PRODUCT:
       return {
         ...state,
         currentUser: action.payload,
-        isFetching: false,
       };
     case CHANGE_PAGINATION_PRODUCTS:
       return {
@@ -63,13 +60,24 @@ export const products = (state = initialState, action = {}) => {
         ...state,
         selected: action.payload,
       };
-    case CLEAR_ALL_STATE:
+    case DELETE_PRODUCTS_SUCCESS:
       return {
-        isFetching: true,
-        products: [],
-        currentProduct: {},
+        ...state,
+        products: action.payload.docs.map((product) => ({
+          ...product,
+          createdAt: moment(product.createdAt).format('LL'),
+          updatedAt: moment(product.updatedAt).format('LL'),
+        })),
+        pagination: {
+          total: action.payload.total,
+          pageSize: action.payload.limit,
+          current: action.payload.page,
+          pages: action.payload.pages,
+          showSizeChanger: true,
+          showQuickJumper: false,
+        },
         selected: [],
-        pagination: {},
+        error: null,
       };
     default:
       return state;

@@ -1,31 +1,22 @@
 import React, { useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withI18n } from '@lingui/react';
-import { pickBy } from 'ramda';
+import { pickBy, isEmpty } from 'ramda';
 
 import { Header, TableList } from './components';
 import { Page, Loader, CustomModal } from '@components';
-import {
-  getUsersListProcess,
-  createNewUser,
-  updateUser,
-  clearUpState,
-} from '@actions';
+import { getUsersListProcess, createNewUser, updateUser } from '@actions';
 import { fieldsValue } from './utils/fieldsValue';
 import { setInitialValue } from './utils/modalInitialValue';
 
 const Users = withI18n()(
   memo(({ i18n }) => {
     const dispatch = useDispatch();
-    const {
-      currentUser,
-      allUsers,
-      isFetching,
-      pagination,
-      selected,
-    } = useSelector((state) => state.users);
-
+    const { currentUser, allUsers, pagination, selected } = useSelector(
+      (state) => state.users
+    );
     const { modalType, isModal } = useSelector((state) => state.modal);
+    const { isFetching } = useSelector((state) => state.ui);
 
     useEffect(() => {
       let isMounted = true;
@@ -33,7 +24,6 @@ const Users = withI18n()(
       if (isMounted) dispatch(getUsersListProcess());
 
       return () => {
-        dispatch(clearUpState());
         isMounted = false;
       };
     }, []);
@@ -47,12 +37,11 @@ const Users = withI18n()(
 
       dispatch(createNewUser(data));
     };
-
     return (
       <>
         <Page inner>
           {isFetching && <Loader spinning />}
-          {!isFetching && (
+          {!isFetching && !isEmpty(allUsers) && (
             <>
               <Header
                 i18n={i18n}

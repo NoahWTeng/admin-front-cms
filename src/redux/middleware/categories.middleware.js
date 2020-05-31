@@ -2,9 +2,6 @@ import {
   FETCH_CATEGORIES_PROCESS,
   FETCH_CATEGORIES_ERROR,
   FETCH_CATEGORIES_SUCCESS,
-  FETCH_CATEGORIES_2_PROCESS,
-  FETCH_CATEGORIES_2_ERROR,
-  FETCH_CATEGORIES_2_SUCCESS,
   DELETE_CATEGORY_PROCESS,
   DELETE_CATEGORY_SUCCESS,
   DELETE_CATEGORY_ERROR,
@@ -18,7 +15,6 @@ import {
 } from '@constants';
 import {
   apiRequest,
-  getCategories2ListProcess,
   getCategoriesListProcess,
   closeModal,
   isFetchingData,
@@ -32,10 +28,9 @@ import {
   clearNotification,
 } from '@actions';
 import { getStorage, history, handleRefresh } from '@helpers';
-import { stringify } from 'qs';
 import { isEmpty } from 'ramda';
 
-const URL = 'http://localhost:3000/api/v1/category/';
+const URL = `${process.env.API}category/`;
 
 export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
   next(action);
@@ -43,41 +38,23 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
   switch (action.type) {
     case FETCH_CATEGORIES_PROCESS:
       const search = window.location.search;
-      const query = stringify({
-        querySearch: { breadcrumbParentId: { $exists: false } },
-      });
+
       dispatch(isFetchingData());
+
       dispatch(
         apiRequest(
           'GET',
-          isEmpty(search) ? `${URL}?${query}` : `${URL}${search}&${query}`,
+          isEmpty(search) ? `${URL}` : `${URL}${search}`,
           null,
           FETCH_CATEGORIES_SUCCESS,
           FETCH_CATEGORIES_ERROR,
           getStorage.admin().token
         )
       );
-      dispatch(getCategories2ListProcess());
-      break;
-    case FETCH_CATEGORIES_2_PROCESS:
-      const search2 = window.location.search;
-      const query2 = stringify({
-        querySearch: { breadcrumbParentId: { $exists: true } },
-        populate: ['breadcrumbParentId', 'menuParentId'],
-      });
-
-      dispatch(
-        apiRequest(
-          'GET',
-          isEmpty(search2) ? `${URL}?${query2}` : `${URL}${search2}&${query2}`,
-          null,
-          FETCH_CATEGORIES_2_SUCCESS,
-          FETCH_CATEGORIES_2_ERROR,
-          getStorage.admin().token
-        )
-      );
       break;
     case CREATE_CATEGORY_PROCESS:
+      dispatch(isFetchingData());
+
       dispatch(
         apiRequest(
           'POST',
@@ -90,12 +67,14 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case DELETE_CATEGORY_PROCESS:
+      dispatch(isFetchingData());
+
       const { category, pagination, ids } = action.payload;
       dispatch(
         apiRequest(
           'DELETE',
           URL,
-          ids,
+          { ids, query: window.location },
           DELETE_CATEGORY_SUCCESS,
           DELETE_CATEGORY_ERROR,
           getStorage.admin().token
@@ -114,6 +93,8 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case UPDATE_CATEGORY_PROCESS:
+      dispatch(isFetchingData());
+
       dispatch(
         apiRequest(
           'PUT',
@@ -133,10 +114,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
 export const getCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_CATEGORIES_SUCCESS) {
-  }
-
-  if (action.type === FETCH_CATEGORIES_2_SUCCESS) {
-    dispatch(closeModal());
     dispatch(isNotFetchingData());
   }
 };
@@ -146,8 +123,9 @@ export const createCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === CREATE_CATEGORY_SUCCESS) {
     dispatch(successCreateNotification());
     dispatch(clearNotification());
+    dispatch(isNotFetchingData());
 
-    dispatch(getCategoriesListProcess());
+    dispatch(closeModal());
   }
 };
 
@@ -166,8 +144,9 @@ export const deleteCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === DELETE_CATEGORY_SUCCESS) {
     dispatch(successDeleteNotification());
     dispatch(clearNotification());
+    dispatch(isNotFetchingData());
 
-    dispatch(getCategoriesListProcess());
+    dispatch(closeModal());
   }
 };
 
@@ -186,8 +165,9 @@ export const updateCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === UPDATE_CATEGORY_SUCCESS) {
     dispatch(successUpdateNotification());
     dispatch(clearNotification());
+    dispatch(isNotFetchingData());
 
-    dispatch(getCategoriesListProcess());
+    dispatch(closeModal());
   }
 };
 

@@ -7,7 +7,6 @@ import {
   CURRENT_USER,
   CHANGE_PAGINATION_USERS,
   FETCH_USER_ID_PROCCESS,
-  CLEAR_ALL_STATE,
 } from '@constants';
 
 const getUsersListProcess = () => ({
@@ -49,10 +48,6 @@ const getUserById = (data) => ({
   payload: data,
 });
 
-const clearUpState = () => ({
-  type: CLEAR_ALL_STATE,
-});
-
 export {
   getUsersListProcess,
   deleteUsersProcess,
@@ -62,5 +57,4 @@ export {
   setCurrentUser,
   toggleChangePagination,
   getUserById,
-  clearUpState,
 };

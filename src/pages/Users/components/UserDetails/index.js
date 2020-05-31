@@ -4,7 +4,7 @@ import { withI18n, Trans } from '@lingui/react';
 import { HeadContent } from './HeadContent';
 import { isEmpty, pickBy } from 'ramda';
 import { useSelector, useDispatch } from 'react-redux';
-import { openModal, getUserById, updateUser, clearUpState } from '@actions';
+import { openModal, getUserById, updateUser } from '@actions';
 import { Page, CustomModal, Page404 } from '@components';
 import { fieldsValue } from '../../utils/fieldsValue';
 import { setInitialValue } from '../../utils/modalInitialValue';
@@ -25,7 +25,6 @@ const UserDetail = withI18n()(
       if (isMounted) dispatch(getUserById(match.params.id));
 
       return () => {
-        dispatch(clearUpState());
         isMounted = false;
       };
     }, []);

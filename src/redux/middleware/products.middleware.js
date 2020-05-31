@@ -29,17 +29,20 @@ import {
   successDeleteNotification,
   errorDeleteNotification,
   clearNotification,
+  isFetchingData,
+  isNotFetchingData,
 } from '@actions';
 import { getStorage, handleRefresh, history } from '@helpers';
 import { logoutAdmin } from '@actions';
 
-const URL = 'http://localhost:3000/api/v1/product/';
+const URL = `${process.env.API}product/`;
 
 export const productsProcess = ({ dispatch }) => (next) => (action) => {
   next(action);
 
   switch (action.type) {
     case FETCH_PRODUCTS_PROCESS:
+      dispatch(isFetchingData());
       const { search } = window.location;
       dispatch(
         apiRequest(
@@ -53,13 +56,14 @@ export const productsProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case DELETE_PRODUCTS_PROCESS:
+      dispatch(isFetchingData());
       const { products, pagination, ids } = action.payload;
 
       dispatch(
         apiRequest(
           'DELETE',
           URL,
-          ids,
+          { ids, query: window.location },
           DELETE_PRODUCTS_SUCCESS,
           DELETE_PRODUCTS_ERROR,
           getStorage.admin().token
@@ -121,6 +125,7 @@ export const productsProcess = ({ dispatch }) => (next) => (action) => {
 export const getProductsSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_PRODUCTS_SUCCESS) {
+    dispatch(isNotFetchingData());
   }
 };
 
@@ -137,7 +142,7 @@ export const deleteProductsSuccess = ({ dispatch }) => (next) => (action) => {
     dispatch(successDeleteNotification());
     dispatch(clearNotification());
 
-    dispatch(getProductsListProcess());
+    dispatch(isNotFetchingData());
   }
 };
 

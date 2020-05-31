@@ -5,15 +5,10 @@ import {
   CHANGE_PAGINATION_CATEGORY,
   UPDATE_CATEGORY_PROCESS,
   CURRENT_CATEGORY,
-  FETCH_CATEGORIES_2_PROCESS,
 } from '@constants';
 
 const getCategoriesListProcess = () => ({
   type: FETCH_CATEGORIES_PROCESS,
-});
-
-const getCategories2ListProcess = () => ({
-  type: FETCH_CATEGORIES_2_PROCESS,
 });
 
 const createNewCategory = (data) => ({
@@ -48,5 +43,4 @@ export {
   setCurrentCategory,
   updateCategory,
   toggleCategoryPagination,
-  getCategories2ListProcess,
 };

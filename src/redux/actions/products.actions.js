@@ -7,7 +7,6 @@ import {
   CURRENT_PRODUCT,
   CHANGE_PAGINATION_PRODUCTS,
   FETCH_PRODUCT_ID_PROCCESS,
-  CLEAR_ALL_STATE,
 } from '@constants';
 
 const getProductsListProcess = () => ({
@@ -49,10 +48,6 @@ const getProductById = (data) => ({
   payload: data,
 });
 
-const clearUpState = () => ({
-  type: CLEAR_ALL_STATE,
-});
-
 export {
   getProductsListProcess,
   deleteProductsProcess,
@@ -62,5 +57,4 @@ export {
   setCurrentProduct,
   toggleChangePagination,
   getProductById,
-  clearUpState,
 };

@@ -16,6 +16,7 @@ export const PrimaryLayouts = () => {
   const matchPath = routesList.some(
     ({ route }) => route && pathMatchRegexp(route, location.pathname)
   );
+
   return (
     <Fragment>
       <Notification>

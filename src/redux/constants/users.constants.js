@@ -24,8 +24,6 @@ const FETCH_USER_ID_PROCCESS = '[users] Process Get User By Id';
 const FETCH_USER_ID_ERROR = '[users] Error Get User By Id';
 const FETCH_USER_ID_SUCCESS = '[users] Sucess Get User By Id';
 
-const CLEAR_ALL_STATE = '[users] Process Clear State';
-
 export {
   FETCH_USERS_PROCESS,
   FETCH_USERS_ERROR,
@@ -45,5 +43,4 @@ export {
   UPDATE_USER_PROCESS,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
-  CLEAR_ALL_STATE,
 };
