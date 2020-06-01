@@ -1,13 +1,13 @@
 import React, { useEffect, memo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, PageHeader } from 'antd';
 import { withI18n, Trans } from '@lingui/react';
-import { HeadContent } from './HeadContent';
-import { isEmpty, pickBy } from 'ramda';
-import { useSelector, useDispatch } from 'react-redux';
+import { pickBy } from 'ramda';
 import { openModal, getUserById, updateUser } from '@actions';
-import { Page, CustomModal, Page404 } from '@components';
+import { Page, CustomModal, Page404, Loader } from '@components';
 import { fieldsValue } from '../../utils/fieldsValue';
 import { setInitialValue } from '../../utils/modalInitialValue';
+import { HeadContent } from './HeadContent';
 
 import './index.scss';
 
@@ -48,24 +48,23 @@ const UserDetail = withI18n()(
     return (
       <>
         <Page inner>
-          {!isEmpty(currentUser) && !isFetching && (
-            <PageHeader
-              ghost={false}
-              onBack={() => history.goBack()}
-              title={i18n.t`ShippAddress`}
-              extra={[
-                <Button
-                  key="1"
-                  type="primary"
-                  onClick={() => dispatch(openModal('UpdateShipp'))}
-                >
-                  <Trans>{'Update'}</Trans>
-                </Button>,
-              ]}
-            >
-              <HeadContent i18n={i18n} user={currentUser} />
-            </PageHeader>
-          )}
+          {isFetching && <Loader spinning />}
+          <PageHeader
+            ghost={false}
+            onBack={() => history.goBack()}
+            title={i18n.t`ShippAddress`}
+            extra={[
+              <Button
+                key="1"
+                type="primary"
+                onClick={() => dispatch(openModal('UpdateShipp'))}
+              >
+                <Trans>{'Update'}</Trans>
+              </Button>,
+            ]}
+          >
+            {!isFetching && <HeadContent i18n={i18n} user={currentUser} />}
+          </PageHeader>
         </Page>
         {isModal && (
           <CustomModal

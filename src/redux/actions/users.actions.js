@@ -4,9 +4,9 @@ import {
   SELECT_USERS,
   CREATE_USER_PROCESS,
   UPDATE_USER_PROCESS,
-  CURRENT_USER,
   CHANGE_PAGINATION_USERS,
   FETCH_USER_ID_PROCCESS,
+  FETCH_USER_ID_SUCCESS,
 } from '@constants';
 
 const getUsersListProcess = () => ({
@@ -34,7 +34,7 @@ const updateUser = (data) => ({
 });
 
 const setCurrentUser = (data) => ({
-  type: CURRENT_USER,
+  type: FETCH_USER_ID_SUCCESS,
   payload: data,
 });
 

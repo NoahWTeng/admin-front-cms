@@ -24,11 +24,3 @@ export const switchThemesSibebar = (value) => ({
   type: SWITCH_THEME_SIDEBAR,
   payload: value,
 });
-
-export const isFetchingData = () => ({
-  type: FETCHING_TRUE,
-});
-
-export const isNotFetchingData = () => ({
-  type: FETCHING_FALSE,
-});

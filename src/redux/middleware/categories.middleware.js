@@ -17,8 +17,6 @@ import {
   apiRequest,
   getCategoriesListProcess,
   closeModal,
-  isFetchingData,
-  isNotFetchingData,
   successCreateNotification,
   errorCreateNotification,
   successUpdateNotification,
@@ -39,8 +37,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
     case FETCH_CATEGORIES_PROCESS:
       const search = window.location.search;
 
-      dispatch(isFetchingData());
-
       dispatch(
         apiRequest(
           'GET',
@@ -53,8 +49,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case CREATE_CATEGORY_PROCESS:
-      dispatch(isFetchingData());
-
       dispatch(
         apiRequest(
           'POST',
@@ -67,8 +61,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case DELETE_CATEGORY_PROCESS:
-      dispatch(isFetchingData());
-
       const { category, pagination, ids } = action.payload;
       dispatch(
         apiRequest(
@@ -93,8 +85,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case UPDATE_CATEGORY_PROCESS:
-      dispatch(isFetchingData());
-
       dispatch(
         apiRequest(
           'PUT',
@@ -114,7 +104,6 @@ export const categoriesProcess = ({ dispatch }) => (next) => (action) => {
 export const getCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_CATEGORIES_SUCCESS) {
-    dispatch(isNotFetchingData());
   }
 };
 
@@ -123,7 +112,6 @@ export const createCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === CREATE_CATEGORY_SUCCESS) {
     dispatch(successCreateNotification());
     dispatch(clearNotification());
-    dispatch(isNotFetchingData());
 
     dispatch(closeModal());
   }
@@ -144,7 +132,6 @@ export const deleteCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === DELETE_CATEGORY_SUCCESS) {
     dispatch(successDeleteNotification());
     dispatch(clearNotification());
-    dispatch(isNotFetchingData());
 
     dispatch(closeModal());
   }
@@ -165,7 +152,6 @@ export const updateCategoriesSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === UPDATE_CATEGORY_SUCCESS) {
     dispatch(successUpdateNotification());
     dispatch(clearNotification());
-    dispatch(isNotFetchingData());
 
     dispatch(closeModal());
   }
