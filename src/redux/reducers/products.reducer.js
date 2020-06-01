@@ -1,5 +1,7 @@
 import {
   FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_PROCESS,
+  DELETE_PRODUCTS_PROCESS,
   SELECT_PRODUCTS,
   CURRENT_PRODUCT,
   CHANGE_PAGINATION_PRODUCTS,
@@ -13,10 +15,16 @@ const initialState = {
   currentProduct: {},
   selected: [],
   pagination: {},
+  isFetching: true,
 };
 
 export const products = (state = initialState, action = {}) => {
   switch (action.type) {
+    case FETCH_PRODUCTS_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
@@ -35,12 +43,9 @@ export const products = (state = initialState, action = {}) => {
         },
         selected: [],
         error: null,
+        isFetching: false,
       };
-    case CURRENT_PRODUCT:
-      return {
-        ...state,
-        currentUser: action.payload,
-      };
+
     case CHANGE_PAGINATION_PRODUCTS:
       return {
         ...state,
@@ -50,15 +55,16 @@ export const products = (state = initialState, action = {}) => {
           current: action.payload.current,
         },
       };
-    case FETCH_PRODUCT_ID_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
+
     case SELECT_PRODUCTS:
       return {
         ...state,
         selected: action.payload,
+      };
+    case DELETE_PRODUCTS_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
       };
     case DELETE_PRODUCTS_SUCCESS:
       return {
@@ -78,6 +84,7 @@ export const products = (state = initialState, action = {}) => {
         },
         selected: [],
         error: null,
+        isFetching: false,
       };
     default:
       return state;

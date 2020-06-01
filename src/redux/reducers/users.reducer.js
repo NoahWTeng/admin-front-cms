@@ -3,13 +3,17 @@ import moment from 'moment';
 
 import {
   FETCH_USERS_SUCCESS,
-  SELECT_USERS,
-  CURRENT_USER,
-  CHANGE_PAGINATION_USERS,
-  FETCH_USER_ID_ERROR,
+  FETCH_USERS_PROCESS,
+  DELETE_USERS_PROCESS,
   DELETE_USERS_SUCCESS,
   CREATE_USER_SUCCESS,
+  CREATE_USER_PROCESS,
+  UPDATE_USER_PROCESS,
   UPDATE_USER_SUCCESS,
+  CHANGE_PAGINATION_USERS,
+  FETCH_USER_ID_PROCCESS,
+  FETCH_USER_ID_SUCCESS,
+  SELECT_USERS,
 } from '@constants';
 
 const initialState = {
@@ -17,10 +21,16 @@ const initialState = {
   currentUser: {},
   selected: [],
   pagination: {},
+  isFetching: true,
 };
 
 export const users = (state = initialState, action = {}) => {
   switch (action.type) {
+    case FETCH_USERS_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case FETCH_USERS_SUCCESS:
       return {
         ...state,
@@ -39,16 +49,12 @@ export const users = (state = initialState, action = {}) => {
         },
         selected: [],
         error: null,
+        isFetching: false,
       };
     case SELECT_USERS:
       return {
         ...state,
         selected: action.payload,
-      };
-    case CURRENT_USER:
-      return {
-        ...state,
-        currentUser: action.payload,
       };
     case CHANGE_PAGINATION_USERS:
       return {
@@ -59,10 +65,21 @@ export const users = (state = initialState, action = {}) => {
           current: action.payload.current,
         },
       };
-    case FETCH_USER_ID_ERROR:
+    case FETCH_USER_ID_SUCCESS:
       return {
         ...state,
-        error: action.payload,
+        currentUser: action.payload,
+        isFetching: false,
+      };
+    case FETCH_USER_ID_PROCCESS:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case DELETE_USERS_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
       };
     case DELETE_USERS_SUCCESS:
       return {
@@ -81,6 +98,12 @@ export const users = (state = initialState, action = {}) => {
           showQuickJumper: false,
         },
         selected: [],
+        isFetching: false,
+      };
+    case CREATE_USER_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
       };
     case CREATE_USER_SUCCESS:
       return {
@@ -98,6 +121,12 @@ export const users = (state = initialState, action = {}) => {
           showSizeChanger: true,
           showQuickJumper: false,
         },
+        isFetching: false,
+      };
+    case UPDATE_USER_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
       };
     case UPDATE_USER_SUCCESS:
       return {
@@ -110,6 +139,7 @@ export const users = (state = initialState, action = {}) => {
           }
           return user;
         }),
+        isFetching: false,
       };
 
     default:

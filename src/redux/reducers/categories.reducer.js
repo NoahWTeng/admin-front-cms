@@ -1,10 +1,14 @@
 import {
+  FETCH_CATEGORIES_PROCESS,
   FETCH_CATEGORIES_SUCCESS,
-  CURRENT_CATEGORY,
-  CHANGE_PAGINATION_CATEGORY,
-  CREATE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_PROCESS,
   DELETE_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_PROCESS,
+  CREATE_CATEGORY_SUCCESS,
+  CHANGE_PAGINATION_CATEGORY,
+  UPDATE_CATEGORY_PROCESS,
   UPDATE_CATEGORY_SUCCESS,
+  CURRENT_CATEGORY,
 } from '@constants';
 import moment from 'moment';
 
@@ -13,14 +17,19 @@ const initialState = {
   category2: [],
   currentCategory: {},
   pagination: {},
+  isFetching: true,
 };
 
 export const categories = (state = initialState, action = {}) => {
   switch (action.type) {
+    case FETCH_CATEGORIES_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case FETCH_CATEGORIES_SUCCESS:
       const cateOne = action.payload.docs.filter((cat1) => !cat1.menuParentId);
       const cateSec = action.payload.docs.filter((cat2) => cat2.menuParentId);
-
       return {
         ...state,
         category1: cateOne.map((cat) => ({
@@ -39,6 +48,7 @@ export const categories = (state = initialState, action = {}) => {
           showSizeChanger: true,
           showQuickJumper: false,
         },
+        isFetching: false,
       };
     case CHANGE_PAGINATION_CATEGORY:
       return {
@@ -54,10 +64,14 @@ export const categories = (state = initialState, action = {}) => {
         ...state,
         currentCategory: action.payload,
       };
+    case CREATE_CATEGORY_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case CREATE_CATEGORY_SUCCESS:
       const catOne = action.payload.docs.filter((cat1) => !cat1.menuParentId);
       const catSec = action.payload.docs.filter((cat2) => cat2.menuParentId);
-
       return {
         ...state,
         category1: catOne.map((cat) => ({
@@ -76,6 +90,12 @@ export const categories = (state = initialState, action = {}) => {
           showSizeChanger: true,
           showQuickJumper: false,
         },
+        isFetching: false,
+      };
+    case DELETE_CATEGORY_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
       };
     case DELETE_CATEGORY_SUCCESS:
       const categoryOne = action.payload.docs.filter(
@@ -102,6 +122,12 @@ export const categories = (state = initialState, action = {}) => {
           showSizeChanger: true,
           showQuickJumper: false,
         },
+        isFetching: false,
+      };
+    case UPDATE_CATEGORY_PROCESS:
+      return {
+        ...state,
+        isFetching: true,
       };
     case UPDATE_CATEGORY_SUCCESS:
       const allCategory = action.payload.docs.map((cate) => {
@@ -124,6 +150,7 @@ export const categories = (state = initialState, action = {}) => {
           ...cat,
           createdAt: moment(cat.createdAt).format('LL'),
         })),
+        isFetching: false,
       };
 
     default:

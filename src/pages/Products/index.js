@@ -8,10 +8,9 @@ import { Page, Loader } from '@components';
 
 function Products({ i18n }) {
   const dispatch = useDispatch();
-  const { products, selected, pagination } = useSelector(
+  const { products, selected, pagination, isFetching } = useSelector(
     (state) => state.products
   );
-  const { isFetching } = useSelector((state) => state.ui);
 
   useEffect(() => {
     let isCurrent = true;

@@ -16,8 +16,6 @@ const UPDATE_USER_PROCESS = '[users] Process Update User';
 const UPDATE_USER_SUCCESS = '[users] Success Update User';
 const UPDATE_USER_ERROR = '[users] Error Update User';
 
-const CURRENT_USER = '[users] Target Current User';
-
 const CHANGE_PAGINATION_USERS = '[users] Update Pagination Users';
 
 const FETCH_USER_ID_PROCCESS = '[users] Process Get User By Id';
@@ -35,7 +33,6 @@ export {
   CREATE_USER_PROCESS,
   CREATE_USER_SUCCESS,
   CREATE_USER_ERROR,
-  CURRENT_USER,
   CHANGE_PAGINATION_USERS,
   FETCH_USER_ID_PROCCESS,
   FETCH_USER_ID_ERROR,

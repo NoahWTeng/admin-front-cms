@@ -18,11 +18,15 @@ import { services } from '@helpers';
 const Catalog = withI18n()(
   memo(({ i18n, location }) => {
     const dispatch = useDispatch();
-    const { category1, category2, currentCategory, pagination } = useSelector(
-      (state) => state.categories
-    );
+    const {
+      category1,
+      category2,
+      currentCategory,
+      pagination,
+      isFetching,
+    } = useSelector((state) => state.categories);
     const { modalType, isModal } = useSelector((state) => state.modal);
-    const { isFetching } = useSelector((state) => state.ui);
+
     const pathname =
       location.pathname.split('/').slice(-1).toString() === 'first';
 
@@ -80,16 +84,14 @@ const Catalog = withI18n()(
       <Page inner>
         {isFetching && <Loader spinning />}
         <Header pathname={pathname} />
-        {!isFetching && !isEmpty(category1) && (
-          <TableList
-            i18n={i18n}
-            category1={category1}
-            category2={category2}
-            pagination={pagination}
-            dispatch={dispatch}
-            pathname={pathname}
-          />
-        )}
+        <TableList
+          i18n={i18n}
+          category1={category1}
+          category2={category2}
+          pagination={pagination}
+          dispatch={dispatch}
+          pathname={pathname}
+        />
         {isModal && (
           <CustomModal
             i18n={i18n}

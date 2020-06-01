@@ -20,8 +20,6 @@ import {
   apiRequest,
   closeModal,
   getProductsListProcess,
-  setCurrentUser,
-  getUserById,
   successCreateNotification,
   errorCreateNotification,
   successUpdateNotification,
@@ -29,8 +27,6 @@ import {
   successDeleteNotification,
   errorDeleteNotification,
   clearNotification,
-  isFetchingData,
-  isNotFetchingData,
 } from '@actions';
 import { getStorage, handleRefresh, history } from '@helpers';
 import { logoutAdmin } from '@actions';
@@ -42,7 +38,6 @@ export const productsProcess = ({ dispatch }) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_PRODUCTS_PROCESS:
-      dispatch(isFetchingData());
       const { search } = window.location;
       dispatch(
         apiRequest(
@@ -56,7 +51,6 @@ export const productsProcess = ({ dispatch }) => (next) => (action) => {
       );
       break;
     case DELETE_PRODUCTS_PROCESS:
-      dispatch(isFetchingData());
       const { products, pagination, ids } = action.payload;
 
       dispatch(
@@ -125,7 +119,6 @@ export const productsProcess = ({ dispatch }) => (next) => (action) => {
 export const getProductsSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === FETCH_PRODUCTS_SUCCESS) {
-    dispatch(isNotFetchingData());
   }
 };
 
@@ -141,8 +134,6 @@ export const deleteProductsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === DELETE_PRODUCTS_SUCCESS) {
     dispatch(successDeleteNotification());
     dispatch(clearNotification());
-
-    dispatch(isNotFetchingData());
   }
 };
 
@@ -206,7 +197,6 @@ export const deleteProductsError = ({ dispatch }) => (next) => (action) => {
 // export const getUserByIdSuccess = ({ dispatch }) => (next) => (action) => {
 //   next(action);
 //   if (action.type === FETCH_PRODUCT_ID_SUCCESS) {
-//     dispatch(setCurrentUser(action.payload));
 //   }
 // };
 
