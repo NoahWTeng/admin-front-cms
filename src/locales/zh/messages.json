@@ -96,5 +96,7 @@
   "Tax": "税",
   "TaxInclude": "含税",
   "PriceWithTax": "含税价格",
-  "Stock": "库存"
+  "Stock": "库存",
+  "Create product": "新产品",
+  "Product section description": "为您的部分创建一个新产品。"
 }

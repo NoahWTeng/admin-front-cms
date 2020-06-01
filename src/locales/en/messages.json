@@ -95,5 +95,7 @@
   "Tax": "Tax",
   "TaxInclude": "Include tax",
   "PriceWithTax": "Price with tax",
-  "Stock": "Stock"
+  "Stock": "Stock",
+  "Create product": "Create new product",
+  "Product section description": "Create a new product for your section."
 }

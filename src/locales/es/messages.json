@@ -95,5 +95,7 @@
   "Tax": "Impuesto",
   "TaxInclude": "Incluye impuestos",
   "PriceWithTax": "Precio con impuestos",
-  "Stock": "Cantidad"
+  "Stock": "Cantidad",
+  "Create product": "Producto nuevo",
+  "Product section description": "Crea un nuevo producto para tu sección."
 }
