@@ -5,6 +5,9 @@ import {
   DELETE_PRODUCTS_PROCESS,
   DELETE_PRODUCTS_SUCCESS,
   DELETE_PRODUCTS_ERROR,
+  FETCH_UPLOAD_IMAGE_PROCESS,
+  FETCH_UPLOAD_IMAGE_SUCCESS,
+  FETCH_UPLOAD_IMAGE_ERROR,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
   CREATE_PRODUCT_PROCESS,
@@ -18,6 +21,7 @@ import {
 } from '@constants';
 import {
   apiRequest,
+  xhrRequest,
   closeModal,
   getProductsListProcess,
   successCreateNotification,
@@ -52,7 +56,6 @@ export const productsProcess = ({ dispatch }) => (next) => (action) => {
       break;
     case DELETE_PRODUCTS_PROCESS:
       const { products, pagination, ids } = action.payload;
-
       dispatch(
         apiRequest(
           'DELETE',
@@ -75,6 +78,17 @@ export const productsProcess = ({ dispatch }) => (next) => (action) => {
         history
       );
       break;
+    case FETCH_UPLOAD_IMAGE_PROCESS:
+      dispatch(
+        xhrRequest(
+          'POST',
+          `${process.env.API}upload/`,
+          action.payload,
+          FETCH_UPLOAD_IMAGE_SUCCESS,
+          FETCH_UPLOAD_IMAGE_ERROR,
+          getStorage.admin().token
+        )
+      );
     //   case CREATE_PRODUCT_PROCESS:
     //     dispatch(
     //       apiRequest(
@@ -147,6 +161,23 @@ export const deleteProductsError = ({ dispatch }) => (next) => (action) => {
   }
 };
 
+export const uploadImageProductsSuccess = ({ dispatch }) => (next) => (
+  action
+) => {
+  next(action);
+  if (action.type === FETCH_UPLOAD_IMAGE_SUCCESS) {
+    console.log('success product upload image', action.payload);
+  }
+};
+
+export const uploadImageProductsError = ({ dispatch }) => (next) => (
+  action
+) => {
+  next(action);
+  if (action.type === FETCH_UPLOAD_IMAGE_ERROR) {
+    console.log('error product upload image', action.payload);
+  }
+};
 // export const createdUserSuccess = ({ dispatch }) => (next) => (action) => {
 //   next(action);
 //   if (action.type === CREATE_PRODUCT_SUCCESS) {
@@ -213,4 +244,6 @@ export const productsMdl = [
   getProductsError,
   deleteProductsSuccess,
   deleteProductsError,
+  uploadImageProductsSuccess,
+  uploadImageProductsError,
 ];

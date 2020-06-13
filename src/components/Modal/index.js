@@ -13,7 +13,6 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { closeModal } from '@actions';
-import { services } from '@helpers';
 
 const { Option } = Select;
 
@@ -87,7 +86,7 @@ export const CustomModal = ({
                 <Upload
                   fileList={false}
                   multiple={false}
-                  action={services.api_upload}
+                  action={`${process.env.API}upload/`}
                 >
                   <Button>
                     <UploadOutlined /> Upload

@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Row, Col, Upload, Modal } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { uploadProductImage } from '@actions';
 import { Page } from '@components';
 import { Header } from './components/Header';
 
 import './index.scss';
 
 function Product() {
+  const dispatch = useDispatch();
+  const { imageList } = useSelector((state) => state.products);
+
+  console.log('imageList', imageList);
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div className="ant-upload-text">Upload</div>
+    </div>
+  );
+
   return (
     <>
       <Page inner>
@@ -14,16 +30,17 @@ function Product() {
           <Col span={24}>
             <h3>Upload images</h3>
             <div className="clearfix">
-              {/* <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              <Upload
                 listType="picture-card"
-                fileList={fileList}
-                onPreview={this.handlePreview}
-                onChange={this.handleChange}
+                fileList={false}
+                fileList={imageList}
+                // onPreview={this.handlePreview}
+                // onChange={this.handleChange}
+                customRequest={(file) => dispatch(uploadProductImage(file))}
               >
-                {fileList.length >= 8 ? null : uploadButton}
+                {uploadButton}
               </Upload>
-              <Modal
+              {/* <Modal
                 visible={previewVisible}
                 title={previewTitle}
                 footer={null}

@@ -7,6 +7,7 @@ import {
   CHANGE_PAGINATION_PRODUCTS,
   FETCH_PRODUCT_ID_ERROR,
   DELETE_PRODUCTS_SUCCESS,
+  FETCH_UPLOAD_IMAGE_SUCCESS,
 } from '@constants';
 import moment from 'moment';
 
@@ -86,6 +87,11 @@ export const products = (state = initialState, action = {}) => {
         error: null,
         isFetching: false,
       };
+    case FETCH_UPLOAD_IMAGE_SUCCESS:
+      return {
+        imageList: [...state.imageList, action.payload],
+      };
+
     default:
       return state;
   }

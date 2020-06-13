@@ -7,6 +7,7 @@ import {
   CURRENT_PRODUCT,
   CHANGE_PAGINATION_PRODUCTS,
   FETCH_PRODUCT_ID_PROCCESS,
+  FETCH_UPLOAD_IMAGE_PROCESS,
 } from '@constants';
 
 const getProductsListProcess = () => ({
@@ -48,6 +49,11 @@ const getProductById = (data) => ({
   payload: data,
 });
 
+const uploadProductImage = (data) => ({
+  type: FETCH_UPLOAD_IMAGE_PROCESS,
+  payload: data,
+});
+
 export {
   getProductsListProcess,
   deleteProductsProcess,
@@ -57,4 +63,5 @@ export {
   setCurrentProduct,
   toggleChangePagination,
   getProductById,
+  uploadProductImage,
 };

@@ -24,6 +24,10 @@ const FETCH_PRODUCT_ID_PROCCESS = '[products] Process Get Product By Id';
 const FETCH_PRODUCT_ID_ERROR = '[products] Error Get Product By Id';
 const FETCH_PRODUCT_ID_SUCCESS = '[products] Sucess Get Product By Id';
 
+const FETCH_UPLOAD_IMAGE_PROCESS = '[products] Process Upload Product Image ';
+const FETCH_UPLOAD_IMAGE_SUCCESS = '[products] Success Upload Product Image';
+const FETCH_UPLOAD_IMAGE_ERROR = '[products] Error Upload Product Image';
+
 export {
   FETCH_PRODUCTS_PROCESS,
   FETCH_PRODUCTS_ERROR,
@@ -43,4 +47,7 @@ export {
   UPDATE_PRODUCT_PROCESS,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR,
+  FETCH_UPLOAD_IMAGE_PROCESS,
+  FETCH_UPLOAD_IMAGE_SUCCESS,
+  FETCH_UPLOAD_IMAGE_ERROR,
 };
