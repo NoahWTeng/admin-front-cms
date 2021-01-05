@@ -17,7 +17,7 @@
     "@lingui/react": "^2.9.1",
     "acorn-dynamic-import": "^4.0.0",
     "antd": "^4.0.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "3.0.0",
     "connected-react-router": "^6.7.0",
     "dotenv": "8.2.0",
